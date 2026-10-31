@@ -94,3 +94,4 @@ export const HeroCloudParallax: React.FC<HeroCloudParallaxProps> = ({ mousePos }
     </div>
   );
 };
+

@@ -1,6 +1,12 @@
 """
-SQLModel database setup for NEERARAN audit logging and approval queue.
-Stored locally in SQLite.
+SQLModel database schema for NEERARAN Phase 3.
+Tables:
+- readings (rolling window of raw sensor telemetry)
+- ground_truth (true faults, leak locations, true loss rates - hidden from agents)
+- events (system event log)
+- approvals (action items waiting for admin approval)
+- audit_log (immutable actor actions and verifications)
+- tickets (CMMS work order tickets)
 """
 from typing import Optional
 from datetime import datetime, timezone
@@ -12,67 +18,78 @@ engine = create_engine(DATABASE_URL, echo=False)
 def get_utc_now():
     return datetime.now(timezone.utc)
 
-class AuditLog(SQLModel, table=True):
+class Reading(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    timestamp: datetime = Field(default_factory=get_utc_now)
-    actor: str # e.g. "Estate Admin", "System Autonomous Agent"
-    role: str # "admin", "viewer", "agent"
-    action_type: str # "APPROVE_PLAN", "REJECT_PLAN", "OVERRIDE_VALVE", "INJECT_SCENARIO"
-    target_resource: str # e.g. "VALVE-04", "PLAN-STEP-02", "OHT-HOSTEL"
-    evidence_ids: str # comma separated: "EVID-PRS-4029, EVID-MET-104"
+    tick: int = Field(index=True)
+    sim_time: datetime
+    metric_type: str = Field(index=True) # "block_flow", "pipe_pressure", "tank_level", "weather", "borewell_yield"
+    entity_id: str = Field(index=True) # e.g. "BLK-01", "PIPE-H-03", "OHT-HOSTEL"
+    value: float
+    unit: str # "L/min", "bar", "m", "mm/h"
+    quality: str = "good" # "good", "faulty", "dropout"
+
+class GroundTruth(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    fault_id: str = Field(index=True) # "FAULT-01"
+    fault_type: str # "small_slow_leak", "burst_main", "running_toilet_overflow", "tank_float_valve_failure", "meter_fault", "sensor_dropout"
+    entity_id: str = Field(index=True) # location
+    start_tick: int = Field(index=True)
+    end_tick: Optional[int] = None
+    true_loss_rate_lpm: float = 0.0 # 0 for meter fault / dropout
     details: str
-    status: str = "success"
+    is_active: bool = True
+
+class SystemEvent(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    tick: int = Field(index=True)
+    event_type: str # "FAULT_INJECTED", "LEAK_DETECTED", "COMPLAINT_FILED", "PUMP_TOGGLED"
+    entity_id: str
+    severity: str = "info" # "info", "watch", "critical"
+    details: str
+    evidence_ids: Optional[str] = None
+    timestamp: datetime = Field(default_factory=get_utc_now)
 
 class ApprovalItem(SQLModel, table=True):
-    id: str = Field(primary_key=True) # e.g. "REQ-2026-001"
+    id: str = Field(primary_key=True) # e.g. "REQ-8021"
     title: str
     description: str
-    category: str # "pressure_modulation", "zone_rationing", "pump_dispatch", "emergency_shutoff"
+    category: str # "pressure_modulation", "zone_rationing", "pump_dispatch"
     is_vulnerable: bool = False
-    equity_impact_check: str # Plain-text audit description of impact on vulnerable blocks
-    proposed_actions: str # JSON string of steps
-    rollback_step: str # JSON string of rollback action
-    evidence_ids: str # comma separated: "EVID-PRS-4029, EVID-HST-22"
+    equity_impact_check: str
+    proposed_actions: str # JSON
+    rollback_step: str # JSON
+    evidence_ids: str
     created_at: datetime = Field(default_factory=get_utc_now)
     status: str = "pending" # "pending", "approved", "rejected"
     reviewed_by: Optional[str] = None
     reviewed_at: Optional[datetime] = None
 
+class AuditLog(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    timestamp: datetime = Field(default_factory=get_utc_now)
+    actor: str
+    role: str
+    action_type: str
+    target_resource: str
+    evidence_ids: str
+    details: str
+    status: str = "success"
+
+class CMMSTicket(SQLModel, table=True):
+    id: str = Field(primary_key=True) # e.g. "TICK-2026-001"
+    tick: int
+    block_id: str
+    category: str # "plumbing", "pressure", "water_quality", "meter"
+    priority: str = "medium" # "low", "medium", "urgent"
+    status: str = "open" # "open", "dispatched", "closed"
+    description: str
+    assigned_crew: Optional[str] = None
+    created_at: datetime = Field(default_factory=get_utc_now)
+    resolved_at: Optional[datetime] = None
+    cost_inr: float = 0.0
+
 def init_db():
     SQLModel.metadata.create_all(engine)
-    # Seed initial approval items and audit logs if empty
-    with Session(engine) as session:
-        existing = session.exec(select(ApprovalItem)).first()
-        if not existing:
-            demo_approval = ApprovalItem(
-                id="REQ-8021",
-                title="Modulate Pressure on Supply Branch L-2 (Vaigai Hostel Feed)",
-                description="Reduce line pressure from 2.45 bar to 1.80 bar between 01:00 - 05:00 to curtail nocturnal joint weepage pending morning gasket overhaul.",
-                category="pressure_modulation",
-                is_vulnerable=True,
-                equity_impact_check="PASS: Minimum dynamic head at top floor sinks remains at 1.45 bar. Vaigai Hostel buffer tank maintains 82 kL (over 18 hrs reserve). Crèche and Clinic are fed via independent Trunk A-1 and remain unaffected.",
-                proposed_actions='[{"step": 1, "tool": "SCADA_VALVE_COMMAND", "target": "VALVE-03-VGH", "param": "throttle_65pct", "evidence": "EVID-PRS-4029"}]',
-                rollback_step='{"tool": "SCADA_VALVE_COMMAND", "target": "VALVE-03-VGH", "param": "open_100pct", "trigger": "pressure_below_1.2_bar"}',
-                evidence_ids="EVID-PRS-4029, EVID-REP-1104",
-                created_at=get_utc_now(),
-                status="pending"
-            )
-            session.add(demo_approval)
-            session.commit()
-
-        existing_audit = session.exec(select(AuditLog)).first()
-        if not existing_audit:
-            audit = AuditLog(
-                actor="System Bootstrapper",
-                role="agent",
-                action_type="INITIALIZE_SIMULATION",
-                target_resource="CAMPUS_DIGITAL_TWIN",
-                evidence_ids="EVID-SYS-BOOT",
-                details="Digital twin initialized with seed 42, 20 blocks, 4 OHTs, 2 borewells, 1 sump.",
-                status="success"
-            )
-            session.add(audit)
-            session.commit()
 
 def get_session():
     with Session(engine) as session:

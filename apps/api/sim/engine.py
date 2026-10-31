@@ -1,421 +1,578 @@
 """
-NEERARAN Deterministic Physical Digital Twin Engine.
-All calculations are continuous, physically grounded, and seeded.
-No numbers are hardcoded.
+NEERARAN Deterministic Physical Digital Twin Engine — Phase 3
+Full campus water physics with ground-truth fault injection.
+
+Characteristics:
+- 1 tick = 5 simulated minutes
+- Seeded RNG (Random + NumPy) for 100% deterministic repeatability
+- Realistic diurnal curves, weekend vs weekday, academic calendar occupancy
+- Piezoresistive pressure drop on leaks and demand surges
+- Tank levels in metres and kL from mass balance
+- 72-hour weather forecast with error, ambient temperature
+- Borewell yield with seasonal decline
+- Lagged complaints generation from true faults
+- Ground-truth table hidden from operational agents
 """
 import math
 import random
-from datetime import datetime, timedelta
+import json
+from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Any, Optional
 import numpy as np
+from sqlmodel import Session, select
 
-from .campus_model import (
-    BLOCKS_DATA, TANKS_DATA, BOREWELLS_DATA, SUMP_DATA, STP_DATA,
-    PIPE_SEGMENTS_DATA, CAMPUS_CENTER
-)
-from .state import (
-    SimulationState, WeatherState, SumpState, TankState,
-    BorewellState, STPState, BlockState, PipeSegmentState
+from ..db.database import (
+    engine, Reading, GroundTruth, SystemEvent, ApprovalItem, AuditLog, CMMSTicket, get_utc_now
 )
 
-class CampusSimulator:
+# Academic calendar constants
+CALENDAR_SEMESTER = "semester"
+CALENDAR_EXAM = "exam"
+CALENDAR_VACATION = "vacation"
+
+class CampusSimulatorPhase3:
     def __init__(self, seed: int = 42):
         self.seed = seed
         self.rng = random.Random(seed)
         self.np_rng = np.random.default_rng(seed)
-        
-        # Virtual simulation clock starts at Monday 07:15 AM
-        self.start_sim_time = datetime(2026, 10, 31, 7, 15, 0)
-        self.current_sim_time = self.start_sim_time
-        self.tick_count = 0
+
+        # Simulation clock starts on Monday, Aug 3, 2026 at 06:00 AM (Tick 0)
+        self.base_time = datetime(2026, 8, 3, 6, 0, 0, tzinfo=timezone.utc)
+        self.current_tick = 0
         self.speed = 1 # 1x, 5x, 20x
         self.is_paused = False
-        
-        # Active scenario overrides
-        self.injected_scenarios: Dict[str, Any] = {}
-        
-        # Initialize asset dynamic states
+
+        # Load GeoJSON topology from /apps/api/data/campus.geojson
+        with open("apps/api/data/campus.geojson", "r") as f:
+            self.geojson = json.load(f)
+
+        self._parse_topology()
+        self._init_faults_and_ground_truth()
         self._init_state()
 
+    def _parse_topology(self):
+        self.blocks = {}
+        self.tanks = {}
+        self.borewells = {}
+        self.pipes = {}
+        self.sump = None
+        self.muni_inlet = None
+        self.stp = None
+
+        for feat in self.geojson["features"]:
+            props = feat["properties"]
+            geom = feat["geometry"]
+            f_type = props.get("type")
+
+            if geom["type"] == "Polygon": # Campus Block
+                self.blocks[props["id"]] = {
+                    "id": props["id"],
+                    "name": props["name"],
+                    "code": props["code"],
+                    "type": f_type,
+                    "population": props["population"],
+                    "vulnerable": props["vulnerable"],
+                    "design_daily_demand_l": props["design_daily_demand_l"],
+                    "fed_by": props["fed_by"],
+                    "center": props["center"],
+                    # Baseline demand in L/min = daily demand / 1440
+                    "base_lpm": round(props["design_daily_demand_l"] / 1440.0, 2),
+                    "current_lpm": round(props["design_daily_demand_l"] / 1440.0, 2),
+                    "meter_reading_lpm": round(props["design_daily_demand_l"] / 1440.0, 2),
+                    "meter_quality": "good",
+                    "pressure_bar": 2.45
+                }
+            elif geom["type"] == "Point":
+                if f_type == "tank":
+                    self.tanks[props["id"]] = {
+                        "id": props["id"],
+                        "name": props["name"],
+                        "capacity_kl": props["capacity_kl"],
+                        "max_head_m": 5.0, # 5 meters tall
+                        "current_kl": props["capacity_kl"] * 0.82,
+                        "current_level_m": 5.0 * 0.82,
+                        "inflow_lpm": 0.0,
+                        "outflow_lpm": 0.0,
+                        "pump_active": False,
+                        "coordinates": geom["coordinates"]
+                    }
+                elif f_type == "sump":
+                    self.sump = {
+                        "id": props["id"],
+                        "name": props["name"],
+                        "capacity_kl": props["capacity_kl"],
+                        "max_head_m": 6.0,
+                        "current_kl": props["capacity_kl"] * 0.78,
+                        "current_level_m": 6.0 * 0.78,
+                        "raw_inflow_lpm": 450.0,
+                        "pump_outflow_lpm": 380.0,
+                        "coordinates": geom["coordinates"]
+                    }
+                elif f_type == "borewell":
+                    self.borewells[props["id"]] = {
+                        "id": props["id"],
+                        "name": props["name"],
+                        "max_yield_lpm": props["max_yield_lpm"],
+                        "current_yield_lpm": props["max_yield_lpm"] * 0.95,
+                        "status": "running",
+                        "depth_m": 180.0 if "BW-01" in props["id"] else 210.0,
+                        "coordinates": geom["coordinates"]
+                    }
+                elif f_type == "municipal_inlet":
+                    self.muni_inlet = {
+                        "id": props["id"],
+                        "name": props["name"],
+                        "flow_lpm": 104.0, # ~150 kL / day
+                        "coordinates": geom["coordinates"]
+                    }
+                elif f_type == "STP":
+                    self.stp = {
+                        "id": props["id"],
+                        "name": props["name"],
+                        "capacity_kld": props.get("capacity_kld", props.get("capacity_kl") or 150.0),
+                        "current_treated_kld": 112.0,
+                        "recycled_lpm": 78.0,
+                        "coordinates": geom["coordinates"]
+                    }
+            elif geom["type"] == "LineString":
+                self.pipes[props["id"]] = {
+                    "id": props["id"],
+                    "from_node": props["from_node"],
+                    "to_node": props["to_node"],
+                    "diameter_mm": props["diameter_mm"],
+                    "length_m": props["length_m"],
+                    "flow_lpm": 0.0,
+                    "pressure_bar": 2.5,
+                    "true_leak_lpm": 0.0,
+                    "has_fault": False,
+                    "coordinates": geom["coordinates"]
+                }
+
+    def _init_faults_and_ground_truth(self):
+        """Active ground truth faults registered in the physical engine."""
+        self.active_faults: Dict[str, Dict[str, Any]] = {}
+        self.complaints_queue: List[Dict[str, Any]] = []
+
     def _init_state(self):
-        # Weather
-        self.weather = WeatherState(
-            temp_c=28.4,
-            condition="Clear Sky",
-            rainfall_mm=0.0,
-            humidity_pct=65.0,
-            forecast_rain_prob_pct=10.0
-        )
-        
-        # Sump
-        self.sump = SumpState(
-            id=SUMP_DATA["id"],
-            name=SUMP_DATA["name"],
-            capacity_kl=SUMP_DATA["capacity_kl"],
-            current_level_kl=SUMP_DATA["initial_level_kl"],
-            pct_full=round((SUMP_DATA["initial_level_kl"] / SUMP_DATA["capacity_kl"]) * 100.0, 1),
-            raw_inflow_lpm=450.0,
-            pump_outflow_lpm=380.0,
-            status="normal"
-        )
-        
-        # Tanks
-        self.tanks: Dict[str, TankState] = {}
-        for t in TANKS_DATA:
-            self.tanks[t["id"]] = TankState(
-                id=t["id"],
-                name=t["name"],
-                capacity_kl=t["capacity_kl"],
-                current_level_kl=t["initial_level_kl"],
-                pct_full=round((t["initial_level_kl"] / t["capacity_kl"]) * 100.0, 1),
-                inflow_lpm=0.0,
-                outflow_lpm=0.0,
-                status="normal",
-                fed_by_pump=t["fed_by_pump"],
-                serves_blocks=t["serves_blocks"]
-            )
-            
-        # Borewells
-        self.borewells: Dict[str, BorewellState] = {}
-        for b in BOREWELLS_DATA:
-            self.borewells[b["id"]] = BorewellState(
-                id=b["id"],
-                name=b["name"],
-                depth_m=b["depth_m"],
-                max_yield_lpm=b["max_yield_lpm"],
-                current_flow_lpm=b["max_yield_lpm"] * 0.95,
-                pump_status="running",
-                power_kw=b["power_kw"],
-                water_table_depth_m=b["depth_m"] * 0.42
-            )
-            
-        # STP
-        self.stp = STPState(
-            id=STP_DATA["id"],
-            name=STP_DATA["name"],
-            capacity_kld=STP_DATA["capacity_kld"],
-            current_inflow_kld=114.0,
-            treated_outflow_kld=108.0,
-            reuse_rate_pct=94.7,
-            recycled_to_turf_kld=62.0,
-            recycled_to_cooling_kld=46.0
-        )
-        
-        # Blocks
-        self.blocks: Dict[str, BlockState] = {}
-        for blk in BLOCKS_DATA:
-            self.blocks[blk["id"]] = BlockState(
-                id=blk["id"],
-                name=blk["name"],
-                code=blk["code"],
-                category=blk["category"],
-                population=blk["population"],
-                is_vulnerable=blk["is_vulnerable"],
-                fed_by_tank_id=blk["fed_by_tank_id"],
-                coordinates=blk["coordinates"],
-                baseline_demand_lpm=blk["baseline_demand_lpm"],
-                current_demand_lpm=blk["baseline_demand_lpm"],
-                current_pressure_bar=2.45,
-                status="normal"
-            )
-            
-        # Pipes
-        self.pipes: Dict[str, PipeSegmentState] = {}
-        for p in PIPE_SEGMENTS_DATA:
-            self.pipes[p["id"]] = PipeSegmentState(
-                id=p["id"],
-                from_node=p["from_node"],
-                to_node=p["to_node"],
-                diameter_mm=p["diameter_mm"],
-                length_m=p["length_m"],
-                flow_lpm=0.0,
-                pressure_bar=2.5,
-                leak_rate_lpm=0.0,
-                is_leaking=False,
-                coordinates=p["coordinates"]
-            )
+        self.academic_calendar = CALENDAR_SEMESTER
+        self.weather_temp_c = 28.5
+        self.weather_rainfall_mm = 0.0
+        self.weather_forecast_72h = self._generate_72h_forecast()
 
-    def _get_diurnal_multiplier(self, hour: float, category: str) -> float:
-        """
-        Diurnal consumption patterns based on facility typology.
-        Academic, residential hostels, dining mess, healthcare each have distinct profiles.
-        """
-        if category == "residential":
-            # Morning peak 06:30 - 09:30, evening peak 18:00 - 21:30, quiet night
-            if 6.5 <= hour <= 9.5:
-                curve = math.sin((hour - 6.5) / 3.0 * math.pi)
-                return 1.2 + 0.9 * curve # Peaks ~2.1x
-            elif 18.0 <= hour <= 21.5:
-                curve = math.sin((hour - 18.0) / 3.5 * math.pi)
-                return 1.1 + 0.8 * curve # Peaks ~1.9x
-            elif 1.0 <= hour <= 5.0:
-                return 0.12 # Minimum night flow
-            elif 10.0 <= hour <= 17.0:
-                return 0.35 # Low daytime occupancy
-            else:
-                return 0.65
+    def _generate_72h_forecast(self) -> List[Dict[str, Any]]:
+        forecast = []
+        now = self.get_sim_time()
+        for h in range(72):
+            future_time = now + timedelta(hours=h)
+            hour_of_day = future_time.hour
+            temp = round(24.0 + 8.5 * math.sin((hour_of_day - 8.0) / 12.0 * math.pi) + self.rng.uniform(-1.0, 1.0), 1)
+            # Occasional rain probability
+            prob = 10 if h < 36 else 35
+            forecast.append({
+                "hour_offset": h,
+                "timestamp": future_time.isoformat(),
+                "temp_c": temp,
+                "rain_prob_pct": prob,
+                "rainfall_predicted_mm": 2.5 if prob > 30 else 0.0
+            })
+        return forecast
 
-        elif category == "utility": # Mess & kitchens
-            # Breakfast prep (05:30-08:30), lunch prep (11:00-14:00), dinner prep (17:30-21:00)
-            if 5.5 <= hour <= 8.5:
-                return 1.8
-            elif 11.0 <= hour <= 14.0:
-                return 2.3
-            elif 17.5 <= hour <= 21.0:
-                return 2.1
+    def get_sim_time(self) -> datetime:
+        return self.base_time + timedelta(minutes=self.current_tick * 5)
+
+    def _get_diurnal_factor(self, hour: float, b_type: str, is_weekend: bool) -> float:
+        """Computes diurnal multiplier for block flow."""
+        if b_type == "residential": # Hostels
+            if not is_weekend:
+                # Morning peak 5:00 to 8:30
+                if 5.0 <= hour <= 8.5:
+                    curve = math.sin((hour - 5.0) / 3.5 * math.pi)
+                    return 1.4 + 1.2 * curve # 2.6x peak
+                elif 18.0 <= hour <= 21.5:
+                    curve = math.sin((hour - 18.0) / 3.5 * math.pi)
+                    return 1.2 + 0.9 * curve
+                elif 0.5 <= hour <= 4.5:
+                    return 0.12 # Minimum night flow
+                elif 9.5 <= hour <= 17.0:
+                    return 0.28 # Day classes
+                else:
+                    return 0.60
+            else: # Weekend: wake up later
+                if 7.0 <= hour <= 10.5:
+                    curve = math.sin((hour - 7.0) / 3.5 * math.pi)
+                    return 1.3 + 1.1 * curve
+                elif 18.5 <= hour <= 22.5:
+                    return 1.6
+                elif 1.0 <= hour <= 5.5:
+                    return 0.14
+                else:
+                    return 0.70
+
+        elif b_type == "mess": # Central dining
+            if 5.5 <= hour <= 8.5: # Breakfast
+                return 2.2
+            elif 11.5 <= hour <= 14.5: # Lunch
+                return 2.8
+            elif 17.5 <= hour <= 21.0: # Dinner
+                return 2.4
             elif 0.0 <= hour <= 4.5:
                 return 0.05
             else:
-                return 0.4
+                return 0.35
 
-        elif category == "academic":
-            # 08:30 - 17:30 core classes
-            if 8.5 <= hour <= 17.5:
-                curve = math.sin((hour - 8.5) / 9.0 * math.pi)
-                return 0.9 + 0.6 * curve # Peaks ~1.5x
-            elif 1.0 <= hour <= 6.0:
+        elif b_type in ["academic", "library", "labs"]:
+            if not is_weekend:
+                if 8.5 <= hour <= 17.5:
+                    curve = math.sin((hour - 8.5) / 9.0 * math.pi)
+                    return 0.9 + 0.7 * curve # 1.6x peak
+                elif 0.0 <= hour <= 6.0:
+                    return 0.03
+                else:
+                    return 0.25
+            else:
+                return 0.15 # Weekend mostly empty
+
+        elif b_type == "health":
+            return 1.2 if 8.0 <= hour <= 20.0 else 0.8
+
+        elif b_type == "sports ground":
+            if 5.5 <= hour <= 8.5 or 16.5 <= hour <= 20.0:
+                return 2.2
+            elif 0.0 <= hour <= 5.0:
                 return 0.04
             else:
-                return 0.25
+                return 0.30
 
-        elif category == "health":
-            # Steady baseline 24/7 with slight daytime increase
-            if 8.0 <= hour <= 20.0:
-                return 1.25
-            else:
-                return 0.85
+        return 0.75
 
-        elif category == "sports":
-            # Early morning (06:00-08:30) and late afternoon/evening (16:30-20:00)
-            if 6.0 <= hour <= 8.5 or 16.5 <= hour <= 20.0:
-                return 2.0
-            elif 0.0 <= hour <= 5.0:
-                return 0.05
-            else:
-                return 0.3
-
-        # Default fallback
-        return 0.8
-
-    def tick(self, elapsed_minutes: float = 1.0):
+    def inject_fault(self, fault_type: str, entity_id: str, true_loss_rate_lpm: float = 40.0, details: str = ""):
         """
-        Advance the simulation state by elapsed_minutes.
+        Inject a true physical or sensor fault into the digital twin (Ground Truth).
+        Stores in SQLite ground_truth table.
         """
+        fault_id = f"FAULT-{self.current_tick}-{self.rng.randint(100, 999)}"
+        f_record = {
+            "fault_id": fault_id,
+            "fault_type": fault_type,
+            "entity_id": entity_id,
+            "start_tick": self.current_tick,
+            "true_loss_rate_lpm": true_loss_rate_lpm,
+            "details": details or f"Injected {fault_type} on {entity_id}",
+            "is_active": True
+        }
+        self.active_faults[fault_id] = f_record
+
+        # Apply immediately to physical model
+        if fault_type in ["small_slow_leak", "burst_main"] and entity_id in self.pipes:
+            self.pipes[entity_id]["true_leak_lpm"] = true_loss_rate_lpm
+            self.pipes[entity_id]["has_fault"] = True
+        elif fault_type == "running_toilet_overflow" and entity_id in self.blocks:
+            pass # dynamic demand adder handles this in tick
+        elif fault_type in ["meter_fault", "sensor_dropout"] and entity_id in self.blocks:
+            pass
+
+        # Persist to SQLite
+        with Session(engine) as session:
+            gt = GroundTruth(
+                fault_id=fault_id,
+                fault_type=fault_type,
+                entity_id=entity_id,
+                start_tick=self.current_tick,
+                true_loss_rate_lpm=true_loss_rate_lpm,
+                details=f_record["details"],
+                is_active=True
+            )
+            session.add(gt)
+            ev = SystemEvent(
+                tick=self.current_tick,
+                event_type="FAULT_INJECTED",
+                entity_id=entity_id,
+                severity="critical" if "burst" in fault_type else "watch",
+                details=f"Ground truth fault {fault_type} registered at tick {self.current_tick}"
+            )
+            session.add(ev)
+            session.commit()
+
+        # Schedule delayed complaint (e.g. 12 to 24 ticks later = 1-2 hours)
+        lag_ticks = self.rng.randint(12, 28)
+        complaint_text = self._get_complaint_text_for_fault(fault_type, entity_id)
+        self.complaints_queue.append({
+            "trigger_tick": self.current_tick + lag_ticks,
+            "entity_id": entity_id,
+            "category": "plumbing" if "leak" in fault_type or "burst" in fault_type else "pressure",
+            "text": complaint_text
+        })
+
+        return {"status": "ok", "fault_id": fault_id, "record": f_record}
+
+    def _get_complaint_text_for_fault(self, fault_type: str, entity_id: str) -> str:
+        if fault_type == "burst_main":
+            return f"Water gushing from ground near {entity_id}; low pressure across entire wing."
+        elif fault_type == "running_toilet_overflow":
+            return f"Second floor washroom cistern continuously running and overflowing onto corridor."
+        elif fault_type == "small_slow_leak":
+            return f"Damp soil and faint hissing noise observed near pipe junction {entity_id}."
+        elif fault_type == "tank_float_valve_failure":
+            return f"Overhead tank {entity_id} overflowing from top vent down external staircase."
+        elif fault_type == "meter_fault":
+            return f"Digital telemetry display blinking zero at block {entity_id} panel."
+        return f"Issue observed at {entity_id}."
+
+    def tick(self, steps: int = 1):
+        """Advance the simulation state by steps ticks (each tick = 5 minutes)."""
         if self.is_paused:
             return self.get_state()
 
-        step_mins = elapsed_minutes * self.speed
-        self.current_sim_time += timedelta(minutes=step_mins)
-        self.tick_count += 1
-        
-        hour = self.current_sim_time.hour + (self.current_sim_time.minute / 60.0)
-        
-        # 1. Weather Update
-        # Ambient temp follows sinusoidal diurnal pattern
-        self.weather.temp_c = round(24.0 + 8.5 * math.sin((hour - 8.0) / 12.0 * math.pi) + self.rng.uniform(-0.3, 0.3), 1)
-        self.weather.humidity_pct = round(max(30.0, min(95.0, 75.0 - (self.weather.temp_c - 24.0) * 3.0 + self.rng.uniform(-2.0, 2.0))), 1)
+        step_multiplier = steps * self.speed
+        readings_batch = []
 
-        # 2. Borewell Operations & Sump Inflow
-        total_borewell_flow = 0.0
-        for b_id, b_state in self.borewells.items():
-            if b_state.pump_status == "running":
-                # Small Gaussian variance in yield
-                fluct = self.rng.uniform(-3.0, 3.0)
-                b_state.current_flow_lpm = max(0.0, min(b_state.max_yield_lpm, b_state.max_yield_lpm * 0.96 + fluct))
-                total_borewell_flow += b_state.current_flow_lpm
+        for _ in range(step_multiplier):
+            self.current_tick += 1
+            sim_time = self.get_sim_time()
+            hour = sim_time.hour + (sim_time.minute / 60.0)
+            is_weekend = sim_time.weekday() >= 5
+
+            # 1. Weather Update
+            self.weather_temp_c = round(24.0 + 8.5 * math.sin((hour - 8.0) / 12.0 * math.pi) + self.rng.uniform(-0.4, 0.4), 1)
+            # Occasional rainfall
+            if self.rng.random() < 0.015:
+                self.weather_rainfall_mm = round(self.rng.uniform(2.0, 18.0), 1)
             else:
-                b_state.current_flow_lpm = 0.0
+                self.weather_rainfall_mm = 0.0
 
-        # Sump inflow from borewells + rainwater harvesting (if any)
-        rain_harvest_lpm = self.weather.rainfall_mm * 15.0 # Sump catchment
-        self.sump.raw_inflow_lpm = round(total_borewell_flow + rain_harvest_lpm, 1)
+            # 2. Borewell yield with slow seasonal decline
+            total_borewell_lpm = 0.0
+            day_num = self.current_tick / 288.0
+            seasonal_factor = max(0.70, 1.0 - (day_num / 365.0) * 0.15)
+            for bw in self.borewells.values():
+                if bw["status"] == "running":
+                    bw["current_yield_lpm"] = round(bw["max_yield_lpm"] * seasonal_factor + self.rng.uniform(-2.0, 2.0), 1)
+                    total_borewell_lpm += bw["current_yield_lpm"]
 
-        # 3. Block Demands & Pipe Flow computation
-        total_campus_consumption_lpm = 0.0
-        tank_outflows = {t_id: 0.0 for t_id in self.tanks.keys()}
+            # 3. Sump Inflow & Level
+            muni_lpm = self.muni_inlet["flow_lpm"] if self.muni_inlet else 0.0
+            rain_harvest_lpm = self.weather_rainfall_mm * 18.0
+            total_raw_inflow = total_borewell_lpm + muni_lpm + rain_harvest_lpm
+            self.sump["raw_inflow_lpm"] = round(total_raw_inflow, 1)
 
-        for blk_id, blk in self.blocks.items():
-            mult = self._get_diurnal_multiplier(hour, blk.category)
-            # Add small random noise
-            noise = self.rng.uniform(0.96, 1.04)
-            current_demand = blk.baseline_demand_lpm * mult * noise
+            # 4. Block Demands & Fault Application
+            tank_demands = {t_id: 0.0 for t_id in self.tanks}
 
-            # Apply any active scenario leak or surge on this block
-            if blk_id in self.injected_scenarios:
-                scen = self.injected_scenarios[blk_id]
-                current_demand += scen.get("extra_lpm", 0.0)
+            for blk_id, blk in self.blocks.items():
+                mult = self._get_diurnal_factor(hour, blk["type"], is_weekend)
+                noise = self.rng.uniform(0.95, 1.05)
+                cal_mult = 1.05 if self.academic_calendar == CALENDAR_EXAM else (0.25 if self.academic_calendar == CALENDAR_VACATION else 1.0)
 
-            blk.current_demand_lpm = round(current_demand, 1)
-            total_campus_consumption_lpm += current_demand
-            
-            # Accumulate on serving tank
-            if blk.fed_by_tank_id in tank_outflows:
-                tank_outflows[blk.fed_by_tank_id] += current_demand
+                true_demand = blk["base_lpm"] * mult * cal_mult * noise
 
-            # Pipe head loss to block
-            tank = self.tanks.get(blk.fed_by_tank_id)
-            if tank:
-                # Tank head + friction drop
-                base_head_bar = 2.0 + (tank.current_level_kl / tank.capacity_kl) * 0.8
-                friction_loss = (current_demand / 100.0) ** 1.85 * 0.12
-                blk.current_pressure_bar = round(max(0.5, base_head_bar - friction_loss + self.rng.uniform(-0.02, 0.02)), 2)
+                # Apply active toilet overflow fault
+                for f in self.active_faults.values():
+                    if f["is_active"] and f["entity_id"] == blk_id and f["fault_type"] == "running_toilet_overflow":
+                        true_demand += f["true_loss_rate_lpm"]
 
-        # 4. Tank Water Balances & Sump Outflow
-        total_pumping_from_sump_lpm = 0.0
-        for t_id, tank in self.tanks.items():
-            demand_lpm = tank_outflows.get(t_id, 0.0)
-            tank.outflow_lpm = round(demand_lpm, 1)
+                blk["current_lpm"] = round(true_demand, 1)
+                tank_demands[blk["fed_by"]] += true_demand
 
-            # Auto pump control: If tank below 45%, turn on pump; if above 92%, turn off
-            if tank.pct_full < 45.0:
-                pump_capacity = 250.0 if t_id == "OHT-HOSTEL" else 180.0
-                tank.inflow_lpm = pump_capacity
-            elif tank.pct_full > 92.0:
-                tank.inflow_lpm = 0.0
+                # Determine Meter Reading (Check for meter fault or dropout)
+                has_meter_fault = False
+                has_dropout = False
+                for f in self.active_faults.values():
+                    if f["is_active"] and f["entity_id"] == blk_id:
+                        if f["fault_type"] == "meter_fault":
+                            has_meter_fault = True
+                        elif f["fault_type"] == "sensor_dropout":
+                            has_dropout = True
 
-            total_pumping_from_sump_lpm += tank.inflow_lpm
+                if has_dropout:
+                    blk["meter_reading_lpm"] = 0.0
+                    blk["meter_quality"] = "dropout"
+                elif has_meter_fault:
+                    blk["meter_reading_lpm"] = 0.0 # flatline zero
+                    blk["meter_quality"] = "faulty"
+                else:
+                    # Sensor reading with small Gaussian noise
+                    blk["meter_reading_lpm"] = round(max(0.0, true_demand + self.rng.gauss(0, 0.4)), 1)
+                    blk["meter_quality"] = "good"
 
-            # Net volume change in kL
-            net_delta_lpm = tank.inflow_lpm - tank.outflow_lpm
-            delta_kl = (net_delta_lpm * step_mins) / 1000.0
-            tank.current_level_kl = round(max(5.0, min(tank.capacity_kl, tank.current_level_kl + delta_kl)), 2)
-            tank.pct_full = round((tank.current_level_kl / tank.capacity_kl) * 100.0, 1)
+                # Hydraulic Pressure at Block: Static tank head minus pipe friction drop
+                tank = self.tanks.get(blk["fed_by"])
+                base_head = 2.0 + (tank["current_level_m"] / tank["max_head_m"]) * 0.8
+                friction_drop = (true_demand / 100.0) ** 1.85 * 0.14
+                pressure = base_head - friction_drop
 
-            # Status determination
-            if tank.pct_full < 20.0:
-                tank.status = "critical"
-            elif tank.pct_full < 35.0:
-                tank.status = "watch"
-            else:
-                tank.status = "normal"
+                # If pipe supplying this block has leak, pressure drops sharply!
+                for p in self.pipes.values():
+                    if p["to_node"] == blk_id and p["has_fault"]:
+                        pressure -= (p["true_leak_lpm"] / 50.0) * 0.70
 
-        # 5. Sump Water Balance
-        self.sump.pump_outflow_lpm = round(total_pumping_from_sump_lpm, 1)
-        net_sump_delta_lpm = self.sump.raw_inflow_lpm - self.sump.pump_outflow_lpm
-        sump_delta_kl = (net_sump_delta_lpm * step_mins) / 1000.0
-        self.sump.current_level_kl = round(max(30.0, min(self.sump.capacity_kl, self.sump.current_level_kl + sump_delta_kl)), 2)
-        self.sump.pct_full = round((self.sump.current_level_kl / self.sump.capacity_kl) * 100.0, 1)
-        if self.sump.pct_full < 25.0:
-            self.sump.status = "critical"
-        elif self.sump.pct_full < 40.0:
-            self.sump.status = "watch"
-        else:
-            self.sump.status = "normal"
+                blk["pressure_bar"] = round(max(0.40, pressure + self.rng.uniform(-0.02, 0.02)), 2)
 
-        # 6. Pipe Network Hydraulics
-        active_leaks = 0
-        for p_id, pipe in self.pipes.items():
-            # If pipe serves a block, its flow matches the block demand + any leak
-            if pipe.to_node in self.blocks:
-                blk = self.blocks[pipe.to_node]
-                pipe.flow_lpm = round(blk.current_demand_lpm + pipe.leak_rate_lpm, 1)
-                pipe.pressure_bar = blk.current_pressure_bar
-            elif pipe.to_node in self.tanks:
-                tank = self.tanks[pipe.to_node]
-                pipe.flow_lpm = round(tank.inflow_lpm, 1)
-                pipe.pressure_bar = 3.8 if tank.inflow_lpm > 0 else 0.5
+            # 5. Tank Hydraulics (Mass Balance)
+            total_sump_pump_outflow = 0.0
+            for t_id, tank in self.tanks.items():
+                outflow_lpm = tank_demands[t_id]
 
-            if pipe.is_leaking:
-                active_leaks += 1
-                # Leaking pipe drops pressure noticeably
-                pipe.pressure_bar = round(max(0.4, pipe.pressure_bar - 0.75), 2)
+                # Check if pipe from tank has leak
+                for p in self.pipes.values():
+                    if p["from_node"] == t_id and p["has_fault"]:
+                        outflow_lpm += p["true_leak_lpm"]
 
-        # 7. Overall Reserves & Key Metrics
-        total_storage_kl = self.sump.current_level_kl + sum(t.current_level_kl for t in self.tanks.values())
-        avg_hourly_burn_kl = (total_campus_consumption_lpm * 60.0) / 1000.0
-        reserve_hours = round(total_storage_kl / max(1.0, avg_hourly_burn_kl), 1)
+                tank["outflow_lpm"] = round(outflow_lpm, 1)
+
+                # Float valve failure fault
+                has_float_failure = any(
+                    f["is_active"] and f["entity_id"] == t_id and f["fault_type"] == "tank_float_valve_failure"
+                    for f in self.active_faults.values()
+                )
+
+                # Automated pump logic
+                pct_full = (tank["current_kl"] / tank["capacity_kl"]) * 100.0
+                if pct_full < 40.0:
+                    tank["pump_active"] = True
+                    tank["inflow_lpm"] = 240.0 if t_id == "OHT-HOSTEL" else 180.0
+                elif pct_full > 92.0 and not has_float_failure:
+                    tank["pump_active"] = False
+                    tank["inflow_lpm"] = 0.0
+
+                if has_float_failure:
+                    tank["inflow_lpm"] = 220.0 # continues pumping and overflows!
+
+                total_sump_pump_outflow += tank["inflow_lpm"]
+
+                # Delta V (kL) in 5 minutes = (Inflow - Outflow) * 5 / 1000
+                delta_kl = ((tank["inflow_lpm"] - tank["outflow_lpm"]) * 5.0) / 1000.0
+                tank["current_kl"] = max(2.0, min(tank["capacity_kl"], tank["current_kl"] + delta_kl))
+                tank["current_level_m"] = round((tank["current_kl"] / tank["capacity_kl"]) * tank["max_head_m"], 2)
+
+            # 6. Sump Hydraulics
+            self.sump["pump_outflow_lpm"] = round(total_sump_pump_outflow, 1)
+            sump_delta_kl = ((self.sump["raw_inflow_lpm"] - self.sump["pump_outflow_lpm"]) * 5.0) / 1000.0
+            self.sump["current_kl"] = max(20.0, min(self.sump["capacity_kl"], self.sump["current_kl"] + sump_delta_kl))
+            self.sump["current_level_m"] = round((self.sump["current_kl"] / self.sump["capacity_kl"]) * self.sump["max_head_m"], 2)
+
+            # 7. Check Complaints Queue
+            for c in list(self.complaints_queue):
+                if self.current_tick >= c["trigger_tick"]:
+                    with Session(engine) as session:
+                        ev = SystemEvent(
+                            tick=self.current_tick,
+                            event_type="COMPLAINT_FILED",
+                            entity_id=c["entity_id"],
+                            severity="watch",
+                            details=f"Student/Staff complaint received for {c['entity_id']}: {c['text']}"
+                        )
+                        session.add(ev)
+                        session.commit()
+                    self.complaints_queue.remove(c)
 
         return self.get_state()
 
-    def inject_leak(self, pipe_id: str, leak_rate_lpm: float = 45.0):
-        """Inject a simulated pipe leak."""
-        if pipe_id in self.pipes:
-            p = self.pipes[pipe_id]
-            p.is_leaking = True
-            p.leak_rate_lpm = leak_rate_lpm
-            return {"status": "ok", "message": f"Injected leak of {leak_rate_lpm} L/min on {pipe_id}"}
-        return {"status": "error", "message": f"Pipe {pipe_id} not found"}
+    def get_state(self) -> Dict[str, Any]:
+        """Returns the full latest tick state snapshot."""
+        sim_time = self.get_sim_time()
+        hour = sim_time.hour + (sim_time.minute / 60.0)
 
-    def clear_leak(self, pipe_id: str):
-        """Repair or isolate a simulated pipe leak."""
-        if pipe_id in self.pipes:
-            p = self.pipes[pipe_id]
-            p.is_leaking = False
-            p.leak_rate_lpm = 0.0
-            return {"status": "ok", "message": f"Cleared leak on {pipe_id}"}
-        return {"status": "error", "message": f"Pipe {pipe_id} not found"}
+        total_demand = sum(b["current_lpm"] for b in self.blocks.values())
+        total_storage_kl = self.sump["current_kl"] + sum(t["current_kl"] for t in self.tanks.values())
+        avg_burn_kl_hr = (total_demand * 60.0) / 1000.0
+        reserve_hours = round(total_storage_kl / max(1.0, avg_burn_kl_hr), 1)
 
-    def set_speed(self, speed: int):
-        if speed in [1, 5, 20]:
-            self.speed = speed
-            return {"speed": self.speed}
-        return {"error": "Invalid speed. Allowed: 1, 5, 20"}
-
-    def set_paused(self, paused: bool):
-        self.is_paused = paused
-        return {"is_paused": self.is_paused}
+        return {
+            "tick": self.current_tick,
+            "sim_time": sim_time.isoformat(),
+            "day_name": sim_time.strftime("%A"),
+            "hour_of_day": round(hour, 2),
+            "academic_calendar": self.academic_calendar,
+            "speed": self.speed,
+            "is_paused": self.is_paused,
+            "seed": self.seed,
+            "weather": {
+                "temp_c": self.weather_temp_c,
+                "rainfall_mm": self.weather_rainfall_mm,
+                "forecast_72h_sample": self.weather_forecast_72h[:12]
+            },
+            "sump": {
+                "id": self.sump["id"],
+                "name": self.sump["name"],
+                "capacity_kl": self.sump["capacity_kl"],
+                "current_kl": round(self.sump["current_kl"], 1),
+                "level_m": self.sump["current_level_m"],
+                "pct_full": round((self.sump["current_kl"] / self.sump["capacity_kl"]) * 100.0, 1),
+                "raw_inflow_lpm": self.sump["raw_inflow_lpm"],
+                "pump_outflow_lpm": self.sump["pump_outflow_lpm"]
+            },
+            "tanks": [
+                {
+                    "id": t["id"],
+                    "name": t["name"],
+                    "capacity_kl": t["capacity_kl"],
+                    "current_kl": round(t["current_kl"], 1),
+                    "level_m": t["current_level_m"],
+                    "pct_full": round((t["current_kl"] / t["capacity_kl"]) * 100.0, 1),
+                    "inflow_lpm": t["inflow_lpm"],
+                    "outflow_lpm": t["outflow_lpm"],
+                    "pump_active": t["pump_active"]
+                }
+                for t in self.tanks.values()
+            ],
+            "borewells": [
+                {
+                    "id": b["id"],
+                    "name": b["name"],
+                    "max_yield_lpm": b["max_yield_lpm"],
+                    "current_yield_lpm": b["current_yield_lpm"],
+                    "status": b["status"]
+                }
+                for b in self.borewells.values()
+            ],
+            "blocks": [
+                {
+                    "id": b["id"],
+                    "name": b["name"],
+                    "code": b["code"],
+                    "type": b["type"],
+                    "population": b["population"],
+                    "vulnerable": b["vulnerable"],
+                    "current_lpm": b["current_lpm"],
+                    "meter_reading_lpm": b["meter_reading_lpm"],
+                    "meter_quality": b["meter_quality"],
+                    "pressure_bar": b["pressure_bar"],
+                    "fed_by": b["fed_by"]
+                }
+                for b in self.blocks.values()
+            ],
+            "pipes": [
+                {
+                    "id": p["id"],
+                    "from_node": p["from_node"],
+                    "to_node": p["to_node"],
+                    "diameter_mm": p["diameter_mm"],
+                    "flow_lpm": p["flow_lpm"],
+                    "pressure_bar": p["pressure_bar"],
+                    "true_leak_lpm": p["true_leak_lpm"],
+                    "has_fault": p["has_fault"]
+                }
+                for p in self.pipes.values()
+            ],
+            "kpis": {
+                "total_demand_lpm": round(total_demand, 1),
+                "total_storage_kl": round(total_storage_kl, 1),
+                "reserve_hours": reserve_hours,
+                "active_faults_count": len([f for f in self.active_faults.values() if f["is_active"]])
+            }
+        }
 
     def reset(self, seed: Optional[int] = None):
+        """Resets the digital twin to tick 0 with seed."""
         if seed is not None:
             self.seed = seed
         self.rng = random.Random(self.seed)
         self.np_rng = np.random.default_rng(self.seed)
-        self.current_sim_time = self.start_sim_time
-        self.tick_count = 0
-        self.injected_scenarios.clear()
+        self.current_tick = 0
+        self._parse_topology()
+        self._init_faults_and_ground_truth()
         self._init_state()
         return self.get_state()
 
-    def get_state(self) -> SimulationState:
-        total_inflow = self.sump.raw_inflow_lpm
-        total_outflow = sum(b.current_demand_lpm for b in self.blocks.values())
-        total_storage = self.sump.current_level_kl + sum(t.current_level_kl for t in self.tanks.values())
-        avg_burn_kl_hr = (total_outflow * 60.0) / 1000.0
-        reserve_hours = round(total_storage / max(1.0, avg_burn_kl_hr), 1)
-
-        active_leaks = [p.id for p in self.pipes.values() if p.is_leaking]
-
-        alerts = []
-        if len(active_leaks) > 0:
-            alerts.append({
-                "id": "ALERT-LEAK-01",
-                "severity": "coral",
-                "title": f"Acoustic & Pressure Anomaly on {active_leaks[0]}",
-                "description": f"Abnormal pressure gradient detected on pipe {active_leaks[0]}. Estimated loss: {self.pipes[active_leaks[0]].leak_rate_lpm} L/min.",
-                "evidence_id": "EVID-PRS-4029"
-            })
-        if self.sump.pct_full < 35.0:
-            alerts.append({
-                "id": "ALERT-SUMP-LOW",
-                "severity": "amber",
-                "title": "Low Sump Buffer Headroom",
-                "description": f"Central sump storage at {self.sump.pct_full}% capacity.",
-                "evidence_id": "EVID-RES-1002"
-            })
-
-        return SimulationState(
-            sim_time_iso=self.current_sim_time.isoformat(),
-            sim_day_name=self.current_sim_time.strftime("%A"),
-            hour_of_day=round(self.current_sim_time.hour + (self.current_sim_time.minute / 60.0), 2),
-            tick=self.tick_count,
-            speed=self.speed,
-            is_paused=self.is_paused,
-            seed=self.seed,
-            weather=self.weather,
-            sump=self.sump,
-            tanks=list(self.tanks.values()),
-            borewells=list(self.borewells.values()),
-            stp=self.stp,
-            blocks=list(self.blocks.values()),
-            pipes=list(self.pipes.values()),
-            total_consumption_lpm=round(total_outflow, 1),
-            total_inflow_lpm=round(total_inflow, 1),
-            net_storage_kl=round(total_storage, 1),
-            storage_reserve_hours=reserve_hours,
-            active_leaks_count=len(active_leaks),
-            active_alerts=alerts
-        )
-
-# Global singleton instance
-simulator_instance = CampusSimulator(seed=42)
-
+# Global Phase 3 simulator singleton
+sim_engine = CampusSimulatorPhase3(seed=42)

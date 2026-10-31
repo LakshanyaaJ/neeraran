@@ -1,0 +1,2200 @@
+{
+  "metadata": {
+    "title": "Ground Truth Event: Main Pipe Rupture on Cauvery Hostel Supply Line",
+    "entity_id": "PIPE-H-03",
+    "fault_type": "burst_main",
+    "true_loss_rate_lpm": 85.0,
+    "start_tick": 121,
+    "isolated_tick": 193,
+    "total_water_lost_litres": 30600.0,
+    "evidence_chain": [
+      {
+        "tick": 121,
+        "type": "FAULT_ONSET",
+        "desc": "Pipe shear on 150mm DI line"
+      },
+      {
+        "tick": 125,
+        "type": "TELEMETRY_DROP",
+        "desc": "BLK-01 pressure dropped from 2.45 to 1.38 bar"
+      },
+      {
+        "tick": 136,
+        "type": "STORAGE_ACCEL",
+        "desc": "OHT-01 drawdown velocity increased +140%"
+      },
+      {
+        "tick": 142,
+        "type": "COMPLAINT_FILED",
+        "desc": "Warden reports low shower pressure on 3rd floor"
+      },
+      {
+        "tick": 193,
+        "type": "VALVE_ISOLATION",
+        "desc": "Emergency bypass valve V-03 engaged"
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "tick": 1,
+      "sim_time": "2026-08-03T06:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 198.2,
+      "cauvery_pressure_bar": 2.15,
+      "oht_hostel_level_m": 3.88,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 2,
+      "sim_time": "2026-08-03T06:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 193.6,
+      "cauvery_pressure_bar": 2.16,
+      "oht_hostel_level_m": 3.67,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 3,
+      "sim_time": "2026-08-03T06:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 197.5,
+      "cauvery_pressure_bar": 2.08,
+      "oht_hostel_level_m": 3.45,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 4,
+      "sim_time": "2026-08-03T06:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 204.4,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 3.23,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 5,
+      "sim_time": "2026-08-03T06:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 209.4,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 3.01,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 6,
+      "sim_time": "2026-08-03T06:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 202.8,
+      "cauvery_pressure_bar": 1.96,
+      "oht_hostel_level_m": 2.78,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 7,
+      "sim_time": "2026-08-03T06:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 197.3,
+      "cauvery_pressure_bar": 1.94,
+      "oht_hostel_level_m": 2.56,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 8,
+      "sim_time": "2026-08-03T06:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 210.1,
+      "cauvery_pressure_bar": 1.84,
+      "oht_hostel_level_m": 2.34,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 9,
+      "sim_time": "2026-08-03T06:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 205.5,
+      "cauvery_pressure_bar": 1.83,
+      "oht_hostel_level_m": 2.12,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 10,
+      "sim_time": "2026-08-03T06:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 215.3,
+      "cauvery_pressure_bar": 1.75,
+      "oht_hostel_level_m": 1.89,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 11,
+      "sim_time": "2026-08-03T06:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 196.3,
+      "cauvery_pressure_bar": 1.8,
+      "oht_hostel_level_m": 1.73,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 12,
+      "sim_time": "2026-08-03T07:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 211.0,
+      "cauvery_pressure_bar": 1.72,
+      "oht_hostel_level_m": 1.56,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 13,
+      "sim_time": "2026-08-03T07:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 210.3,
+      "cauvery_pressure_bar": 1.69,
+      "oht_hostel_level_m": 1.39,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 14,
+      "sim_time": "2026-08-03T07:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 191.2,
+      "cauvery_pressure_bar": 1.77,
+      "oht_hostel_level_m": 1.24,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 15,
+      "sim_time": "2026-08-03T07:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 204.4,
+      "cauvery_pressure_bar": 1.67,
+      "oht_hostel_level_m": 1.08,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 16,
+      "sim_time": "2026-08-03T07:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 189.2,
+      "cauvery_pressure_bar": 1.7,
+      "oht_hostel_level_m": 0.92,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 17,
+      "sim_time": "2026-08-03T07:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 187.6,
+      "cauvery_pressure_bar": 1.71,
+      "oht_hostel_level_m": 0.77,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 18,
+      "sim_time": "2026-08-03T07:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 189.8,
+      "cauvery_pressure_bar": 1.67,
+      "oht_hostel_level_m": 0.62,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 19,
+      "sim_time": "2026-08-03T07:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 181.2,
+      "cauvery_pressure_bar": 1.69,
+      "oht_hostel_level_m": 0.47,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 20,
+      "sim_time": "2026-08-03T07:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 184.7,
+      "cauvery_pressure_bar": 1.64,
+      "oht_hostel_level_m": 0.33,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 21,
+      "sim_time": "2026-08-03T07:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 166.4,
+      "cauvery_pressure_bar": 1.69,
+      "oht_hostel_level_m": 0.19,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 22,
+      "sim_time": "2026-08-03T07:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 164.7,
+      "cauvery_pressure_bar": 1.68,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 23,
+      "sim_time": "2026-08-03T07:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 156.0,
+      "cauvery_pressure_bar": 1.7,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 24,
+      "sim_time": "2026-08-03T08:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 159.1,
+      "cauvery_pressure_bar": 1.68,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 25,
+      "sim_time": "2026-08-03T08:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 148.8,
+      "cauvery_pressure_bar": 1.73,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 26,
+      "sim_time": "2026-08-03T08:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 140.9,
+      "cauvery_pressure_bar": 1.74,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 27,
+      "sim_time": "2026-08-03T08:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 128.1,
+      "cauvery_pressure_bar": 1.81,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 28,
+      "sim_time": "2026-08-03T08:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 129.1,
+      "cauvery_pressure_bar": 1.77,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 29,
+      "sim_time": "2026-08-03T08:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 115.9,
+      "cauvery_pressure_bar": 1.85,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 30,
+      "sim_time": "2026-08-03T08:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 106.4,
+      "cauvery_pressure_bar": 1.88,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 31,
+      "sim_time": "2026-08-03T08:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 48.1,
+      "cauvery_pressure_bar": 1.97,
+      "oht_hostel_level_m": 0.11,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 32,
+      "sim_time": "2026-08-03T08:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 48.1,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 0.13,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 33,
+      "sim_time": "2026-08-03T08:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 46.8,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.14,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 34,
+      "sim_time": "2026-08-03T08:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 46.7,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.15,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 35,
+      "sim_time": "2026-08-03T08:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 45.8,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.17,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 36,
+      "sim_time": "2026-08-03T09:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 47.9,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.18,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 37,
+      "sim_time": "2026-08-03T09:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 49.0,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.19,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 38,
+      "sim_time": "2026-08-03T09:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 49.0,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 0.21,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 39,
+      "sim_time": "2026-08-03T09:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 50.0,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.22,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 40,
+      "sim_time": "2026-08-03T09:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 47.5,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.23,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 41,
+      "sim_time": "2026-08-03T09:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 49.3,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.24,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 42,
+      "sim_time": "2026-08-03T09:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 20.9,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.28,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 43,
+      "sim_time": "2026-08-03T09:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.4,
+      "cauvery_pressure_bar": 2.05,
+      "oht_hostel_level_m": 0.31,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 44,
+      "sim_time": "2026-08-03T09:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.6,
+      "cauvery_pressure_bar": 2.05,
+      "oht_hostel_level_m": 0.34,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 45,
+      "sim_time": "2026-08-03T09:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.2,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.37,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 46,
+      "sim_time": "2026-08-03T09:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.4,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.4,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 47,
+      "sim_time": "2026-08-03T09:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.7,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.43,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 48,
+      "sim_time": "2026-08-03T10:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.6,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.47,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 49,
+      "sim_time": "2026-08-03T10:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.9,
+      "cauvery_pressure_bar": 2.08,
+      "oht_hostel_level_m": 0.5,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 50,
+      "sim_time": "2026-08-03T10:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.6,
+      "cauvery_pressure_bar": 2.08,
+      "oht_hostel_level_m": 0.53,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 51,
+      "sim_time": "2026-08-03T10:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.6,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.56,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 52,
+      "sim_time": "2026-08-03T10:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.7,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.59,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 53,
+      "sim_time": "2026-08-03T10:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.5,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.63,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 54,
+      "sim_time": "2026-08-03T10:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.3,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.66,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 55,
+      "sim_time": "2026-08-03T10:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.6,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.69,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 56,
+      "sim_time": "2026-08-03T10:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.9,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.72,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 57,
+      "sim_time": "2026-08-03T10:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.1,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.76,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 58,
+      "sim_time": "2026-08-03T10:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.5,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.79,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 59,
+      "sim_time": "2026-08-03T10:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.6,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.82,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 60,
+      "sim_time": "2026-08-03T11:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.0,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.85,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 61,
+      "sim_time": "2026-08-03T11:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.2,
+      "cauvery_pressure_bar": 2.13,
+      "oht_hostel_level_m": 0.88,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 62,
+      "sim_time": "2026-08-03T11:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.7,
+      "cauvery_pressure_bar": 2.13,
+      "oht_hostel_level_m": 0.92,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 63,
+      "sim_time": "2026-08-03T11:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.7,
+      "cauvery_pressure_bar": 2.15,
+      "oht_hostel_level_m": 0.95,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 64,
+      "sim_time": "2026-08-03T11:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.0,
+      "cauvery_pressure_bar": 2.13,
+      "oht_hostel_level_m": 0.98,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 65,
+      "sim_time": "2026-08-03T11:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.6,
+      "cauvery_pressure_bar": 2.13,
+      "oht_hostel_level_m": 1.01,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 66,
+      "sim_time": "2026-08-03T11:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.2,
+      "cauvery_pressure_bar": 2.17,
+      "oht_hostel_level_m": 0.96,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 67,
+      "sim_time": "2026-08-03T11:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.3,
+      "cauvery_pressure_bar": 2.13,
+      "oht_hostel_level_m": 0.91,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 68,
+      "sim_time": "2026-08-03T11:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.7,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.86,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 69,
+      "sim_time": "2026-08-03T11:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.8,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.81,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 70,
+      "sim_time": "2026-08-03T11:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.5,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.76,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 71,
+      "sim_time": "2026-08-03T11:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.6,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.71,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 72,
+      "sim_time": "2026-08-03T12:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.3,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.66,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 73,
+      "sim_time": "2026-08-03T12:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.8,
+      "cauvery_pressure_bar": 2.09,
+      "oht_hostel_level_m": 0.62,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 74,
+      "sim_time": "2026-08-03T12:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.6,
+      "cauvery_pressure_bar": 2.09,
+      "oht_hostel_level_m": 0.56,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 75,
+      "sim_time": "2026-08-03T12:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.2,
+      "cauvery_pressure_bar": 2.06,
+      "oht_hostel_level_m": 0.51,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 76,
+      "sim_time": "2026-08-03T12:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.1,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.47,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 77,
+      "sim_time": "2026-08-03T12:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.1,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.42,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 78,
+      "sim_time": "2026-08-03T12:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.1,
+      "cauvery_pressure_bar": 2.08,
+      "oht_hostel_level_m": 0.37,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 79,
+      "sim_time": "2026-08-03T12:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.7,
+      "cauvery_pressure_bar": 2.05,
+      "oht_hostel_level_m": 0.32,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 80,
+      "sim_time": "2026-08-03T12:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.1,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.28,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 81,
+      "sim_time": "2026-08-03T12:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.2,
+      "cauvery_pressure_bar": 2.05,
+      "oht_hostel_level_m": 0.23,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 82,
+      "sim_time": "2026-08-03T12:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.6,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.18,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 83,
+      "sim_time": "2026-08-03T12:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.0,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.13,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 84,
+      "sim_time": "2026-08-03T13:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.9,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 85,
+      "sim_time": "2026-08-03T13:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.0,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 86,
+      "sim_time": "2026-08-03T13:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.7,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 87,
+      "sim_time": "2026-08-03T13:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.0,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 88,
+      "sim_time": "2026-08-03T13:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.5,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 89,
+      "sim_time": "2026-08-03T13:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.2,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 90,
+      "sim_time": "2026-08-03T13:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.3,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 91,
+      "sim_time": "2026-08-03T13:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.8,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 92,
+      "sim_time": "2026-08-03T13:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.3,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 93,
+      "sim_time": "2026-08-03T13:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.3,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 94,
+      "sim_time": "2026-08-03T13:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.0,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 95,
+      "sim_time": "2026-08-03T13:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.8,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 96,
+      "sim_time": "2026-08-03T14:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.0,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 97,
+      "sim_time": "2026-08-03T14:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.7,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 98,
+      "sim_time": "2026-08-03T14:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.4,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 99,
+      "sim_time": "2026-08-03T14:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.0,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 100,
+      "sim_time": "2026-08-03T14:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.3,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 101,
+      "sim_time": "2026-08-03T14:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.1,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 102,
+      "sim_time": "2026-08-03T14:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.9,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 103,
+      "sim_time": "2026-08-03T14:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.8,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.13,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 104,
+      "sim_time": "2026-08-03T14:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.9,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.16,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 105,
+      "sim_time": "2026-08-03T14:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.4,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.2,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 106,
+      "sim_time": "2026-08-03T14:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.1,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.23,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 107,
+      "sim_time": "2026-08-03T14:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.0,
+      "cauvery_pressure_bar": 2.05,
+      "oht_hostel_level_m": 0.26,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 108,
+      "sim_time": "2026-08-03T15:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.7,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.29,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 109,
+      "sim_time": "2026-08-03T15:05:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.1,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.32,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 110,
+      "sim_time": "2026-08-03T15:10:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.3,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.35,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 111,
+      "sim_time": "2026-08-03T15:15:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.3,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.39,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 112,
+      "sim_time": "2026-08-03T15:20:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.6,
+      "cauvery_pressure_bar": 2.05,
+      "oht_hostel_level_m": 0.42,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 113,
+      "sim_time": "2026-08-03T15:25:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.1,
+      "cauvery_pressure_bar": 2.06,
+      "oht_hostel_level_m": 0.45,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 114,
+      "sim_time": "2026-08-03T15:30:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.4,
+      "cauvery_pressure_bar": 2.05,
+      "oht_hostel_level_m": 0.48,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 115,
+      "sim_time": "2026-08-03T15:35:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.2,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.52,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 116,
+      "sim_time": "2026-08-03T15:40:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 23.0,
+      "cauvery_pressure_bar": 2.06,
+      "oht_hostel_level_m": 0.55,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 117,
+      "sim_time": "2026-08-03T15:45:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.5,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.58,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 118,
+      "sim_time": "2026-08-03T15:50:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.6,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.61,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 119,
+      "sim_time": "2026-08-03T15:55:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 21.6,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.64,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 120,
+      "sim_time": "2026-08-03T16:00:00+00:00",
+      "status": "normal",
+      "cauvery_meter_lpm": 22.8,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.68,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 121,
+      "sim_time": "2026-08-03T16:05:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 23.0,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.69,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 122,
+      "sim_time": "2026-08-03T16:10:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 22.2,
+      "cauvery_pressure_bar": 2.09,
+      "oht_hostel_level_m": 0.7,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 123,
+      "sim_time": "2026-08-03T16:15:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 22.3,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.71,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 124,
+      "sim_time": "2026-08-03T16:20:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 21.7,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.72,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 125,
+      "sim_time": "2026-08-03T16:25:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 21.1,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.73,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 126,
+      "sim_time": "2026-08-03T16:30:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 23.3,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.74,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 127,
+      "sim_time": "2026-08-03T16:35:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 21.3,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.75,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 128,
+      "sim_time": "2026-08-03T16:40:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 24.0,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.76,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 129,
+      "sim_time": "2026-08-03T16:45:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 21.2,
+      "cauvery_pressure_bar": 2.13,
+      "oht_hostel_level_m": 0.77,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 130,
+      "sim_time": "2026-08-03T16:50:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 22.4,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.78,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 131,
+      "sim_time": "2026-08-03T16:55:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 22.6,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.8,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 132,
+      "sim_time": "2026-08-03T17:00:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 23.4,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.81,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 133,
+      "sim_time": "2026-08-03T17:05:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 47.6,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.8,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 134,
+      "sim_time": "2026-08-03T17:10:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 47.9,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.79,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 135,
+      "sim_time": "2026-08-03T17:15:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 46.8,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.78,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 136,
+      "sim_time": "2026-08-03T17:20:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 47.2,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.77,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 137,
+      "sim_time": "2026-08-03T17:25:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 46.1,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.77,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 138,
+      "sim_time": "2026-08-03T17:30:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 45.4,
+      "cauvery_pressure_bar": 2.08,
+      "oht_hostel_level_m": 0.69,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 139,
+      "sim_time": "2026-08-03T17:35:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 45.7,
+      "cauvery_pressure_bar": 2.09,
+      "oht_hostel_level_m": 0.62,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 140,
+      "sim_time": "2026-08-03T17:40:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 45.7,
+      "cauvery_pressure_bar": 2.09,
+      "oht_hostel_level_m": 0.54,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 141,
+      "sim_time": "2026-08-03T17:45:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 47.6,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.46,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 142,
+      "sim_time": "2026-08-03T17:50:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 48.2,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.39,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 143,
+      "sim_time": "2026-08-03T17:55:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 49.1,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.31,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 144,
+      "sim_time": "2026-08-03T18:00:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 97.6,
+      "cauvery_pressure_bar": 1.92,
+      "oht_hostel_level_m": 0.2,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 145,
+      "sim_time": "2026-08-03T18:05:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 104.0,
+      "cauvery_pressure_bar": 1.87,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 146,
+      "sim_time": "2026-08-03T18:10:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 103.6,
+      "cauvery_pressure_bar": 1.87,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 147,
+      "sim_time": "2026-08-03T18:15:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 114.8,
+      "cauvery_pressure_bar": 1.84,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 148,
+      "sim_time": "2026-08-03T18:20:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 111.8,
+      "cauvery_pressure_bar": 1.84,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 149,
+      "sim_time": "2026-08-03T18:25:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 121.5,
+      "cauvery_pressure_bar": 1.8,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 150,
+      "sim_time": "2026-08-03T18:30:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 126.9,
+      "cauvery_pressure_bar": 1.82,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 151,
+      "sim_time": "2026-08-03T18:35:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 133.0,
+      "cauvery_pressure_bar": 1.77,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 152,
+      "sim_time": "2026-08-03T18:40:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 131.8,
+      "cauvery_pressure_bar": 1.8,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 153,
+      "sim_time": "2026-08-03T18:45:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 136.4,
+      "cauvery_pressure_bar": 1.78,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 154,
+      "sim_time": "2026-08-03T18:50:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 144.6,
+      "cauvery_pressure_bar": 1.72,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 155,
+      "sim_time": "2026-08-03T18:55:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 155.1,
+      "cauvery_pressure_bar": 1.69,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 156,
+      "sim_time": "2026-08-03T19:00:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 155.8,
+      "cauvery_pressure_bar": 1.71,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 157,
+      "sim_time": "2026-08-03T19:05:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 157.2,
+      "cauvery_pressure_bar": 1.71,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 158,
+      "sim_time": "2026-08-03T19:10:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 150.2,
+      "cauvery_pressure_bar": 1.73,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 159,
+      "sim_time": "2026-08-03T19:15:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 162.9,
+      "cauvery_pressure_bar": 1.67,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 160,
+      "sim_time": "2026-08-03T19:20:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 166.8,
+      "cauvery_pressure_bar": 1.65,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 161,
+      "sim_time": "2026-08-03T19:25:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 161.6,
+      "cauvery_pressure_bar": 1.68,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 162,
+      "sim_time": "2026-08-03T19:30:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 160.0,
+      "cauvery_pressure_bar": 1.7,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 163,
+      "sim_time": "2026-08-03T19:35:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 165.9,
+      "cauvery_pressure_bar": 1.64,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 164,
+      "sim_time": "2026-08-03T19:40:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 160.0,
+      "cauvery_pressure_bar": 1.66,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 165,
+      "sim_time": "2026-08-03T19:45:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 166.2,
+      "cauvery_pressure_bar": 1.65,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 166,
+      "sim_time": "2026-08-03T19:50:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 161.0,
+      "cauvery_pressure_bar": 1.68,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 167,
+      "sim_time": "2026-08-03T19:55:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 161.0,
+      "cauvery_pressure_bar": 1.68,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 168,
+      "sim_time": "2026-08-03T20:00:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 160.3,
+      "cauvery_pressure_bar": 1.68,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 169,
+      "sim_time": "2026-08-03T20:05:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 165.8,
+      "cauvery_pressure_bar": 1.66,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 170,
+      "sim_time": "2026-08-03T20:10:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 166.3,
+      "cauvery_pressure_bar": 1.65,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 171,
+      "sim_time": "2026-08-03T20:15:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 157.4,
+      "cauvery_pressure_bar": 1.7,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 172,
+      "sim_time": "2026-08-03T20:20:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 151.7,
+      "cauvery_pressure_bar": 1.72,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 173,
+      "sim_time": "2026-08-03T20:25:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 148.5,
+      "cauvery_pressure_bar": 1.72,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 174,
+      "sim_time": "2026-08-03T20:30:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 153.0,
+      "cauvery_pressure_bar": 1.71,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 175,
+      "sim_time": "2026-08-03T20:35:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 148.7,
+      "cauvery_pressure_bar": 1.73,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 176,
+      "sim_time": "2026-08-03T20:40:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 146.6,
+      "cauvery_pressure_bar": 1.73,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 177,
+      "sim_time": "2026-08-03T20:45:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 134.5,
+      "cauvery_pressure_bar": 1.76,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 178,
+      "sim_time": "2026-08-03T20:50:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 139.5,
+      "cauvery_pressure_bar": 1.75,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 179,
+      "sim_time": "2026-08-03T20:55:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 134.1,
+      "cauvery_pressure_bar": 1.76,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 180,
+      "sim_time": "2026-08-03T21:00:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 133.1,
+      "cauvery_pressure_bar": 1.78,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 181,
+      "sim_time": "2026-08-03T21:05:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 122.2,
+      "cauvery_pressure_bar": 1.8,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 182,
+      "sim_time": "2026-08-03T21:10:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 114.3,
+      "cauvery_pressure_bar": 1.82,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 183,
+      "sim_time": "2026-08-03T21:15:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 114.1,
+      "cauvery_pressure_bar": 1.85,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 184,
+      "sim_time": "2026-08-03T21:20:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 103.6,
+      "cauvery_pressure_bar": 1.87,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 185,
+      "sim_time": "2026-08-03T21:25:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 105.9,
+      "cauvery_pressure_bar": 1.87,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 186,
+      "sim_time": "2026-08-03T21:30:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 91.7,
+      "cauvery_pressure_bar": 1.9,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 187,
+      "sim_time": "2026-08-03T21:35:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 48.8,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 188,
+      "sim_time": "2026-08-03T21:40:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 46.6,
+      "cauvery_pressure_bar": 1.97,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 189,
+      "sim_time": "2026-08-03T21:45:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 45.9,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 190,
+      "sim_time": "2026-08-03T21:50:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 46.7,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 191,
+      "sim_time": "2026-08-03T21:55:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 46.7,
+      "cauvery_pressure_bar": 1.96,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 192,
+      "sim_time": "2026-08-03T22:00:00+00:00",
+      "status": "leak_active",
+      "cauvery_meter_lpm": 47.0,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 0.1,
+      "pipe_h03_loss_lpm": 85.0
+    },
+    {
+      "tick": 193,
+      "sim_time": "2026-08-03T22:05:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 49.4,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 0.11,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 194,
+      "sim_time": "2026-08-03T22:10:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 45.4,
+      "cauvery_pressure_bar": 1.97,
+      "oht_hostel_level_m": 0.13,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 195,
+      "sim_time": "2026-08-03T22:15:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 47.3,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.14,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 196,
+      "sim_time": "2026-08-03T22:20:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 47.9,
+      "cauvery_pressure_bar": 1.97,
+      "oht_hostel_level_m": 0.15,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 197,
+      "sim_time": "2026-08-03T22:25:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 50.2,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 0.17,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 198,
+      "sim_time": "2026-08-03T22:30:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 45.5,
+      "cauvery_pressure_bar": 1.98,
+      "oht_hostel_level_m": 0.18,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 199,
+      "sim_time": "2026-08-03T22:35:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 48.6,
+      "cauvery_pressure_bar": 1.97,
+      "oht_hostel_level_m": 0.19,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 200,
+      "sim_time": "2026-08-03T22:40:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 49.5,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.21,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 201,
+      "sim_time": "2026-08-03T22:45:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 48.4,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.22,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 202,
+      "sim_time": "2026-08-03T22:50:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 45.2,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.23,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 203,
+      "sim_time": "2026-08-03T22:55:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 48.9,
+      "cauvery_pressure_bar": 1.99,
+      "oht_hostel_level_m": 0.25,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 204,
+      "sim_time": "2026-08-03T23:00:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 50.3,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.26,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 205,
+      "sim_time": "2026-08-03T23:05:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 49.7,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.27,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 206,
+      "sim_time": "2026-08-03T23:10:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 47.6,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.29,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 207,
+      "sim_time": "2026-08-03T23:15:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 45.8,
+      "cauvery_pressure_bar": 2.0,
+      "oht_hostel_level_m": 0.3,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 208,
+      "sim_time": "2026-08-03T23:20:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 47.3,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.31,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 209,
+      "sim_time": "2026-08-03T23:25:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 46.7,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.33,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 210,
+      "sim_time": "2026-08-03T23:30:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 47.0,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.34,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 211,
+      "sim_time": "2026-08-03T23:35:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 46.1,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.36,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 212,
+      "sim_time": "2026-08-03T23:40:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 47.5,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.37,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 213,
+      "sim_time": "2026-08-03T23:45:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 50.0,
+      "cauvery_pressure_bar": 2.01,
+      "oht_hostel_level_m": 0.38,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 214,
+      "sim_time": "2026-08-03T23:50:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 46.8,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.4,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 215,
+      "sim_time": "2026-08-03T23:55:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 48.5,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.41,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 216,
+      "sim_time": "2026-08-04T00:00:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 47.0,
+      "cauvery_pressure_bar": 2.02,
+      "oht_hostel_level_m": 0.43,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 217,
+      "sim_time": "2026-08-04T00:05:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 45.4,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.45,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 218,
+      "sim_time": "2026-08-04T00:10:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 49.6,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.48,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 219,
+      "sim_time": "2026-08-04T00:15:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 46.1,
+      "cauvery_pressure_bar": 2.04,
+      "oht_hostel_level_m": 0.5,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 220,
+      "sim_time": "2026-08-04T00:20:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 46.2,
+      "cauvery_pressure_bar": 2.03,
+      "oht_hostel_level_m": 0.52,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 221,
+      "sim_time": "2026-08-04T00:25:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 50.1,
+      "cauvery_pressure_bar": 2.05,
+      "oht_hostel_level_m": 0.55,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 222,
+      "sim_time": "2026-08-04T00:30:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.5,
+      "cauvery_pressure_bar": 2.07,
+      "oht_hostel_level_m": 0.6,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 223,
+      "sim_time": "2026-08-04T00:35:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.2,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.65,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 224,
+      "sim_time": "2026-08-04T00:40:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 10.2,
+      "cauvery_pressure_bar": 2.1,
+      "oht_hostel_level_m": 0.7,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 225,
+      "sim_time": "2026-08-04T00:45:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.6,
+      "cauvery_pressure_bar": 2.09,
+      "oht_hostel_level_m": 0.75,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 226,
+      "sim_time": "2026-08-04T00:50:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 10.0,
+      "cauvery_pressure_bar": 2.11,
+      "oht_hostel_level_m": 0.8,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 227,
+      "sim_time": "2026-08-04T00:55:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 10.1,
+      "cauvery_pressure_bar": 2.13,
+      "oht_hostel_level_m": 0.86,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 228,
+      "sim_time": "2026-08-04T01:00:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 8.4,
+      "cauvery_pressure_bar": 2.12,
+      "oht_hostel_level_m": 0.91,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 229,
+      "sim_time": "2026-08-04T01:05:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.7,
+      "cauvery_pressure_bar": 2.16,
+      "oht_hostel_level_m": 0.96,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 230,
+      "sim_time": "2026-08-04T01:10:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.4,
+      "cauvery_pressure_bar": 2.16,
+      "oht_hostel_level_m": 1.01,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 231,
+      "sim_time": "2026-08-04T01:15:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.9,
+      "cauvery_pressure_bar": 2.17,
+      "oht_hostel_level_m": 1.06,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 232,
+      "sim_time": "2026-08-04T01:20:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 10.4,
+      "cauvery_pressure_bar": 2.15,
+      "oht_hostel_level_m": 1.11,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 233,
+      "sim_time": "2026-08-04T01:25:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 10.3,
+      "cauvery_pressure_bar": 2.17,
+      "oht_hostel_level_m": 1.16,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 234,
+      "sim_time": "2026-08-04T01:30:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 10.0,
+      "cauvery_pressure_bar": 2.2,
+      "oht_hostel_level_m": 1.21,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 235,
+      "sim_time": "2026-08-04T01:35:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.8,
+      "cauvery_pressure_bar": 2.21,
+      "oht_hostel_level_m": 1.27,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 236,
+      "sim_time": "2026-08-04T01:40:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.2,
+      "cauvery_pressure_bar": 2.19,
+      "oht_hostel_level_m": 1.32,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 237,
+      "sim_time": "2026-08-04T01:45:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.3,
+      "cauvery_pressure_bar": 2.2,
+      "oht_hostel_level_m": 1.37,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 238,
+      "sim_time": "2026-08-04T01:50:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.1,
+      "cauvery_pressure_bar": 2.23,
+      "oht_hostel_level_m": 1.42,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 239,
+      "sim_time": "2026-08-04T01:55:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.5,
+      "cauvery_pressure_bar": 2.23,
+      "oht_hostel_level_m": 1.47,
+      "pipe_h03_loss_lpm": 0.0
+    },
+    {
+      "tick": 240,
+      "sim_time": "2026-08-04T02:00:00+00:00",
+      "status": "resolved",
+      "cauvery_meter_lpm": 9.0,
+      "cauvery_pressure_bar": 2.23,
+      "oht_hostel_level_m": 1.52,
+      "pipe_h03_loss_lpm": 0.0
+    }
+  ]
+}

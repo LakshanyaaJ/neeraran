@@ -17,10 +17,14 @@
   --color-black: #000000;
 
   /* Semantic status tokens */
-  --color-aqua: #2FB8AA;   /* Normal baseline */
-  --color-leaf: #4CBF86;   /* Good resilience */
-  --color-amber: #F2A33A;  /* Watch / Advisory */
-  --color-coral: #E5594F;  /* Leak / Critical anomaly */
+  --color-aqua: #2FB8AA;
+  /* Normal baseline */
+  --color-leaf: #4CBF86;
+  /* Good resilience */
+  --color-amber: #F2A33A;
+  /* Watch / Advisory */
+  --color-coral: #E5594F;
+  /* Leak / Critical anomaly */
 
   /* Structural UI tokens: Light Theme */
   --bg-canvas: #F2F6FA;
@@ -52,7 +56,7 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
-/* Night Ops Dark Theme — tokens swapped strictly without adding random palettes */
+/* Night Ops Dark Theme - tokens swapped strictly without adding random palettes */
 .dark {
   --color-ink-900: #F2F6FA;
   --color-ink-600: #8FC0EE;
@@ -69,4 +73,3 @@
   --nav-active-pill: rgba(58, 143, 218, 0.35);
   --nav-active-text: #FFFFFF;
 }
-

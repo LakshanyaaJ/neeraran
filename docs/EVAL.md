@@ -1,4 +1,4 @@
-# NEERARAN (நீர்Aran) — Model Evaluation & Simulator Ground Truth Benchmark
+# NEERARAN (நீர்Aran) - Model Evaluation & Simulator Ground Truth Benchmark
 
 This document details the quantitative evaluation framework scored by the jury for TCS Tech Day Challenge 12.
 

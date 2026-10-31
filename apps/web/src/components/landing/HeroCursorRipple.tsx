@@ -77,3 +77,4 @@ export const HeroCursorRipple: React.FC<HeroCursorRippleProps> = ({ containerRef
     </div>
   );
 };
+

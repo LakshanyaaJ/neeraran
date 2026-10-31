@@ -1,4 +1,4 @@
-# NEERARAN (நீர்Aran) — System Architecture & Data Engineering
+# NEERARAN (நீர்Aran) - System Architecture & Data Engineering
 
 This document outlines the software engineering architecture, agent pipelines, simulation loops, and data resilience protocols powering NEERARAN.
 

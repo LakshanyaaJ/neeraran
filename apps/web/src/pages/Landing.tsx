@@ -279,7 +279,7 @@ export const Landing: React.FC = () => {
           <div className="flex items-center gap-2">
             <span className="font-tamil font-bold text-sky-700">நீர்</span>
             <span className="font-sans font-bold text-ink-900">Aran</span>
-            <span>—</span>
+            <span>-</span>
             <span>Every drop accounted for.</span>
           </div>
 

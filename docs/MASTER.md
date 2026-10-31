@@ -1,6 +1,6 @@
-# NEERARAN (நீர்Aran) — Master Specification & Product Requirements
+# NEERARAN (நீர்Aran) - Master Specification & Product Requirements
 
-> **Challenge**: TCS Tech Day — Challenge 12: AI for Water Resilience & Smart Resource Management  
+> **Challenge**: TCS Tech Day - Challenge 12: AI for Water Resilience & Smart Resource Management  
 > **Tagline**: *"Every drop accounted for."*  
 > **Branding**: நீர் (Tamil: *Neer* = Water) + Aran (Tamil/English: *Aran* = Fortress / Shield). Together: *The Water Fortress*.
 
@@ -26,35 +26,35 @@ All metrics, sensor flows, reservoir levels, and pressure graphs are computed de
 The platform models an educational campus (e.g. 10,000 residents, staff, and day scholars) with high fidelity:
 
 ### Residential & Sensitive Facilities (Vulnerable Zones)
-1. **Cauvery Boys Hostel** (Block 1) — 850 residents. *Vulnerable Zone*.
-2. **Krishna Boys Hostel** (Block 2) — 750 residents. *Vulnerable Zone*.
-3. **Vaigai Girls Hostel** (Block 3) — 900 residents. *Vulnerable Zone*.
-4. **Campus Health Centre** (Block 4) — 24/7 clinic, 12 inpatient beds. *Strict Vulnerable Zone*.
-5. **Campus Daycare & Crèche** (Block 5) — 45 children of faculty/staff. *Strict Vulnerable Zone*.
+1. **Cauvery Boys Hostel** (Block 1) - 850 residents. *Vulnerable Zone*.
+2. **Krishna Boys Hostel** (Block 2) - 750 residents. *Vulnerable Zone*.
+3. **Vaigai Girls Hostel** (Block 3) - 900 residents. *Vulnerable Zone*.
+4. **Campus Health Centre** (Block 4) - 24/7 clinic, 12 inpatient beds. *Strict Vulnerable Zone*.
+5. **Campus Daycare & Crèche** (Block 5) - 45 children of faculty/staff. *Strict Vulnerable Zone*.
 
 ### Academic & Research
-6. **Ramanujan Hall (Academic Block A)** — Mathematics & Computer Science.
-7. **Sir C.V. Raman Science Block (Academic Block B)** — Physics, Chemistry & Wet Laboratories.
-8. **Alan Turing Computing Complex (Academic Block C)** — Data Centers, High Performance Computing.
-9. **Central Library & Knowledge Resource Centre** — 4-storey reading hall & archive.
-10. **Advanced Materials & Nanotech Research Facility** — Cleanrooms and de-ionised water loops.
+6. **Ramanujan Hall (Academic Block A)** - Mathematics & Computer Science.
+7. **Sir C.V. Raman Science Block (Academic Block B)** - Physics, Chemistry & Wet Laboratories.
+8. **Alan Turing Computing Complex (Academic Block C)** - Data Centers, High Performance Computing.
+9. **Central Library & Knowledge Resource Centre** - 4-storey reading hall & archive.
+10. **Advanced Materials & Nanotech Research Facility** - Cleanrooms and de-ionised water loops.
 
 ### Campus Utilities & Dining
-11. **Central Mess & Dining Complex** — Prepares ~9,000 meals daily; high kitchen water load.
-12. **Student Activity Centre (SAC) & Indoor Arena** — Gym, indoor courts, changing facilities.
-13. **Olympic Aquatic Centre & Outdoor Sports Pavilion** — 50m swimming pool and field irrigation.
-14. **Administrative Bhavan** — Chancellor/Registrar offices, finance, estate operations.
-15. **Campus Guest House & Executive MDP Residence** — 40 suites.
+11. **Central Mess & Dining Complex** - Prepares ~9,000 meals daily; high kitchen water load.
+12. **Student Activity Centre (SAC) & Indoor Arena** - Gym, indoor courts, changing facilities.
+13. **Olympic Aquatic Centre & Outdoor Sports Pavilion** - 50m swimming pool and field irrigation.
+14. **Administrative Bhavan** - Chancellor/Registrar offices, finance, estate operations.
+15. **Campus Guest House & Executive MDP Residence** - 40 suites.
 
 ### Water Infrastructure Network
-16. **Main Campus Underground Sump (UG Sump)** — 500 kL raw water buffer reservoir with dual intake.
-17. **Overhead Tank North (OHT-North)** — 80 kL elevated storage tank serving academic blocks.
-18. **Overhead Tank South (OHT-South)** — 80 kL elevated storage tank serving labs and sports complex.
-19. **Overhead Tank Hostels (OHT-Hostel)** — 100 kL dedicated storage tank for residential hostels.
-20. **Overhead Tank Admin (OHT-Admin)** — 60 kL tank serving library, admin, health centre, and guest house.
-21. **Deep Borewell 1 (North Aquifer)** — 180m depth, submersible variable-frequency pump (250 L/min).
-22. **Deep Borewell 2 (South Aquifer)** — 210m depth, submersible variable-frequency pump (200 L/min).
-23. **Sewage Treatment & Greywater Reclamation Plant (STP)** — 150 kL/day capacity, tertiary filter with dual distribution to campus landscaping and sports grounds.
+16. **Main Campus Underground Sump (UG Sump)** - 500 kL raw water buffer reservoir with dual intake.
+17. **Overhead Tank North (OHT-North)** - 80 kL elevated storage tank serving academic blocks.
+18. **Overhead Tank South (OHT-South)** - 80 kL elevated storage tank serving labs and sports complex.
+19. **Overhead Tank Hostels (OHT-Hostel)** - 100 kL dedicated storage tank for residential hostels.
+20. **Overhead Tank Admin (OHT-Admin)** - 60 kL tank serving library, admin, health centre, and guest house.
+21. **Deep Borewell 1 (North Aquifer)** - 180m depth, submersible variable-frequency pump (250 L/min).
+22. **Deep Borewell 2 (South Aquifer)** - 210m depth, submersible variable-frequency pump (200 L/min).
+23. **Sewage Treatment & Greywater Reclamation Plant (STP)** - 150 kL/day capacity, tertiary filter with dual distribution to campus landscaping and sports grounds.
 
 ---
 
