@@ -1,4 +1,4 @@
-# AquaMind AI – Water Demand Forecasting Module (NEERARAN)
+# NEERARAN – Water Demand Forecasting Module
 
 High-performance, physically grounded, leak-free hourly water consumption forecasting module for university and industrial campuses. Predicts multi-horizon demand across 24h, 48h, and 72h windows to enable autonomous pumping schedules, prevent tank overflows, and power campus-wide water resilience.
 
