@@ -3,6 +3,14 @@ AquaGuard AI - Unit & Integration Test Suite for Sensor Health Monitoring
 Tests all 15 operational scenarios specified in Master Implementation Prompt Section 11.
 """
 
+import os
+import sys
+
+# Ensure repository root is in sys.path regardless of working directory
+_REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 import pytest
 import datetime
 import pandas as pd
@@ -290,3 +298,7 @@ def test_15_simultaneous_multi_sensor_outage(service):
     m2_alerts = [a for a in service.alert_history if a['meter_id'] == 'M02']
     assert len(m1_alerts) > 0
     assert len(m2_alerts) > 0
+
+
+if __name__ == '__main__':
+    sys.exit(pytest.main([__file__, '-v']))
