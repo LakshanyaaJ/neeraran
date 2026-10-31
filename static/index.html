@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaGuard AI — Sensor Health Monitoring & Missing Data Alert Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="brand-logo">
+                    <span class="water-drop-icon">💧</span>
+                    <span class="brand-title">AquaGuard <span class="ai-badge">AI</span></span>
+                </div>
+                <div class="system-status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text">SCADA Telemetry Engine Live</span>
+                </div>
+            </div>
+
+            <div class="simulation-banner">
+                <span class="sim-badge">SIMULATION MODE</span>
+                <span class="sim-desc">Realistic Hardware Emulation (5-Minute Sampling Interval)</span>
+            </div>
+
+            <div class="header-right">
+                <div class="time-display" id="clock-display">2026-10-31 11:30:00</div>
+                <button class="btn-refresh" id="btn-refresh" title="Refresh Live State">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                    Refresh
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Section Header -->
+            <div class="section-hero">
+                <div class="hero-titles">
+                    <h1>Sensor Health Monitoring & Fault Alert System</h1>
+                    <p>Layer 1 Hardware Resilience Engine — Tracking device power, connectivity, missing telemetry, and transducer health across 12 smart campus meters.</p>
+                </div>
+                <div class="hero-actions">
+                    <button class="btn-primary" id="btn-open-sim-modal">
+                        <span class="btn-icon">⚡</span> Inject Sensor Scenario
+                    </button>
+                </div>
+            </div>
+
+            <!-- KPI Cards Row -->
+            <div class="kpi-grid">
+                <div class="kpi-card total-card">
+                    <div class="kpi-icon-box">📡</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Total Sensors</span>
+                        <span class="kpi-value" id="kpi-total">12</span>
+                    </div>
+                    <div class="kpi-sub">Across 6 Campus Zones</div>
+                </div>
+
+                <div class="kpi-card healthy-card">
+                    <div class="kpi-icon-box">✅</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Healthy Sensors</span>
+                        <span class="kpi-value" id="kpi-healthy">--</span>
+                    </div>
+                    <div class="kpi-sub">Normal Transmissions</div>
+                </div>
+
+                <div class="kpi-card offline-card">
+                    <div class="kpi-icon-box">🔌</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Offline / Power OFF</span>
+                        <span class="kpi-value" id="kpi-offline">--</span>
+                    </div>
+                    <div class="kpi-sub">Missing &ge; 3 Intervals (15m)</div>
+                </div>
+
+                <div class="kpi-card faulty-card">
+                    <div class="kpi-icon-box">⚠️</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Faulty Transducers</span>
+                        <span class="kpi-value" id="kpi-faulty">--</span>
+                    </div>
+                    <div class="kpi-sub">Drift, Stuck or Spikes</div>
+                </div>
+
+                <div class="kpi-card maint-card">
+                    <div class="kpi-icon-box">🛠️</div>
+                    <div class="kpi-info">
+                        <span class="kpi-label">Under Maintenance</span>
+                        <span class="kpi-value" id="kpi-maintenance">--</span>
+                    </div>
+                    <div class="kpi-sub">Suppressed Outage Alerts</div>
+                </div>
+            </div>
+
+            <!-- Dual Columns: Sensor Registry & Alert Center -->
+            <div class="dashboard-split-grid">
+                <!-- Left: Sensor Table -->
+                <div class="panel-box sensor-table-panel">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <h2>Campus Sensor Fleet (12 Smart Flow/Pressure Meters)</h2>
+                            <span class="panel-subtitle">Updated in real-time via Layer 1 Heartbeat Monitor</span>
+                        </div>
+                        <div class="filter-controls">
+                            <select id="filter-zone" class="select-filter">
+                                <option value="">All Zones (6)</option>
+                                <option value="HOSTEL">Hostel</option>
+                                <option value="CANTEEN">Canteen</option>
+                                <option value="ACADEMIC">Academic</option>
+                                <option value="LAB">Lab</option>
+                                <option value="LIBRARY">Library</option>
+                                <option value="ADMIN">Admin</option>
+                            </select>
+                            <select id="filter-health" class="select-filter">
+                                <option value="">All Health Statuses</option>
+                                <option value="HEALTHY">Healthy</option>
+                                <option value="WARNING">Warning</option>
+                                <option value="FAULTY">Faulty</option>
+                                <option value="OFFLINE">Offline</option>
+                                <option value="MAINTENANCE">Maintenance</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="sensor-table" id="sensor-table">
+                            <thead>
+                                <tr>
+                                    <th>Sensor ID</th>
+                                    <th>Zone</th>
+                                    <th>Power</th>
+                                    <th>Connectivity</th>
+                                    <th>Health Status</th>
+                                    <th>Battery</th>
+                                    <th>Missing Count</th>
+                                    <th>Last Valid Reading</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sensor-table-body">
+                                <tr><td colspan="9" class="loading-cell">Loading sensor fleet telemetry...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Right: Active Alert Incident Center -->
+                <div class="panel-box alert-panel">
+                    <div class="panel-header">
+                        <div class="panel-title-group">
+                            <h2>Outage & Malfunction Alerts</h2>
+                            <span class="panel-subtitle">Deduplicated per continuous incident with auto-recovery</span>
+                        </div>
+                        <div class="alert-counts-badge">
+                            <span class="badge-crit" id="badge-crit-count">0 Critical</span>
+                            <span class="badge-warn" id="badge-warn-count">0 Warning</span>
+                        </div>
+                    </div>
+
+                    <div class="alert-list-container" id="alert-list-container">
+                        <div class="empty-alerts">No active unresolved sensor incidents detected. Fleet is operating within normal bounds.</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sensor Detail Modal -->
+        <div class="modal-backdrop" id="sensor-modal-backdrop">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <div class="modal-title-box">
+                        <h3 id="modal-sensor-title">Sensor Detail — SENSOR_M01</h3>
+                        <span class="badge-healthy" id="modal-sensor-badge">HEALTHY</span>
+                    </div>
+                    <button class="modal-close" id="modal-close-btn">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-sensor-content">
+                    Loading telemetry history...
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenario Simulation Modal -->
+        <div class="modal-backdrop" id="sim-modal-backdrop">
+            <div class="modal-dialog sim-modal-dialog">
+                <div class="modal-header">
+                    <h3>Simulate Hardware Operational Scenario</h3>
+                    <button class="modal-close" id="sim-modal-close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="sim-intro">Select a campus meter and inject a realistic operational anomaly to observe Layer 1 fault detection and Layer 2 evidence-based decoupling.</p>
+                    <form id="sim-form">
+                        <div class="form-group">
+                            <label>Target Meter / Sensor:</label>
+                            <select id="sim-meter-id" class="form-input">
+                                <option value="M01">M01 (Hostel Zone — Block A)</option>
+                                <option value="M02">M02 (Hostel Zone — Block B)</option>
+                                <option value="M03">M03 (Academic Building)</option>
+                                <option value="M04">M04 (Academic Complex)</option>
+                                <option value="M05">M05 (Central Canteen — Kitchen)</option>
+                                <option value="M06">M06 (Central Canteen — Dining)</option>
+                                <option value="M07">M07 (Research Lab — Wet Labs)</option>
+                                <option value="M08">M08 (Engineering Lab)</option>
+                                <option value="M09">M09 (Main Library)</option>
+                                <option value="M10">M10 (Library Annex)</option>
+                                <option value="M11">M11 (Administrative Block)</option>
+                                <option value="M12">M12 (Campus Facilities Office)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Operational Scenario:</label>
+                            <select id="sim-scenario-type" class="form-input">
+                                <option value="POWER_OFF">Scenario B: Sensor Powered OFF (Consecutive missing readings)</option>
+                                <option value="DISCONNECTED">Scenario C: Gateway Disconnected (Communication failure)</option>
+                                <option value="MALFUNCTION_STUCK">Scenario D1: Sensor Stuck (Transducer frozen at same value)</option>
+                                <option value="MALFUNCTION_DRIFT">Scenario D2: Sensor Drift (Unphysical sensor reading creep)</option>
+                                <option value="MALFUNCTION_SPIKE">Scenario D3: Sensor Spike (Instant single-step unphysical spike)</option>
+                                <option value="MAINTENANCE">Scenario E: Planned Maintenance (Suppressed emergency alerts)</option>
+                                <option value="RECOVER_HEALTHY">Scenario A: Restore Sensor to Healthy Operation</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Consecutive 5-Min Intervals to Simulate:</label>
+                            <input type="number" id="sim-intervals" class="form-input" min="1" max="10" value="3">
+                            <small class="form-help">1 interval = 5 min (Glitch) | 2 intervals = 10 min (Warning Alert) | 3+ intervals = 15+ min (Critical Outage Alert)</small>
+                        </div>
+
+                        <div class="sim-actions">
+                            <button type="submit" class="btn-primary" id="btn-run-sim">Execute Scenario</button>
+                        </div>
+                    </form>
+                    <div id="sim-result-box" class="sim-result-box" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
