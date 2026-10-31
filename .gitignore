@@ -1,0 +1,32 @@
+# Data and large dataset files
+data/
+dataset/
+*.csv.gz
+
+# Model binaries and checkpoints
+models/
+*.joblib
+*.pkl
+*.h5
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+env/
+.env
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
