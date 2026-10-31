@@ -257,9 +257,7 @@ export const EvaluationPage: React.FC = () => {
       {/* Threshold Sensitivity Control Card */}
       <div className="p-4 rounded-xl bg-white/70 backdrop-blur-md border border-ink-600/10 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-azure-500/10 border border-azure-500/20 flex items-center justify-center text-azure-600">
-            <Sliders className="w-4 h-4" />
-          </div>
+          <Sliders className="w-5 h-5 text-azure-600 stroke-[1.5] shrink-0" />
           <div>
             <div className="flex items-center gap-1.5 text-xs font-bold text-ink-900">
               <span>Detector Anomaly Sensitivity (z-Score Threshold)</span>
@@ -506,12 +504,12 @@ export const EvaluationPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-3 bg-indigo-50/50 rounded-lg border border-indigo-100">
-                <div className="text-[11px] text-indigo-800 font-semibold">Autonomy Reserve Buffer</div>
-                <div className="text-xl font-bold font-mono text-indigo-900 mt-0.5">
+              <div className="p-3 bg-teal-50/50 rounded-lg border border-teal-100">
+                <div className="text-[11px] text-teal-800 font-semibold">Autonomy Reserve Buffer</div>
+                <div className="text-xl font-bold font-mono text-teal-900 mt-0.5">
                   +{evalData?.conservation.reserve_hours_gained ?? 8.5} Hours
                 </div>
-                <div className="text-[10px] text-indigo-600 mt-1">
+                <div className="text-[10px] text-teal-600 mt-1">
                   Extended campus drought runway during municipal supply cut
                 </div>
               </div>

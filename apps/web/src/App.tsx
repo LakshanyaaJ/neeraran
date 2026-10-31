@@ -1,3 +1,4 @@
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
@@ -6,16 +7,23 @@ import { WaterRiseTransition } from './components/transitions/WaterRiseTransitio
 import { AuthGuard } from './components/auth/AuthGuard';
 import { AppLayout } from './components/layout/AppLayout';
 
-// Pages
-import { Landing } from './pages/Landing';
-import { Login } from './pages/Login';
-import { Overview } from './pages/app/Overview';
-import { MapPage } from './pages/app/Map';
-import { AgentsPage } from './pages/app/Agents';
-import { ApprovalsPage } from './pages/app/Approvals';
-import { SimulationPage } from './pages/app/Simulation';
-import { EvaluationPage } from './pages/app/Evaluation';
-import { ResponsibleAIPage } from './pages/app/ResponsibleAI';
+// Code-splitting / Lazy loading heavy pages for sub-1.5s initial load & MapLibre isolation
+const Landing = lazy(() => import('./pages/Landing').then((m) => ({ default: m.Landing })));
+const Login = lazy(() => import('./pages/Login').then((m) => ({ default: m.Login })));
+const Overview = lazy(() => import('./pages/app/Overview').then((m) => ({ default: m.Overview })));
+const MapPage = lazy(() => import('./pages/app/Map').then((m) => ({ default: m.MapPage })));
+const AgentsPage = lazy(() => import('./pages/app/Agents').then((m) => ({ default: m.AgentsPage })));
+const ApprovalsPage = lazy(() => import('./pages/app/Approvals').then((m) => ({ default: m.ApprovalsPage })));
+const SimulationPage = lazy(() => import('./pages/app/Simulation').then((m) => ({ default: m.SimulationPage })));
+const EvaluationPage = lazy(() => import('./pages/app/Evaluation').then((m) => ({ default: m.EvaluationPage })));
+const ResponsibleAIPage = lazy(() => import('./pages/app/ResponsibleAI').then((m) => ({ default: m.ResponsibleAIPage })));
+
+const PageLoadingFallback: React.FC = () => (
+  <div className="w-full min-h-[400px] flex flex-col items-center justify-center p-8 space-y-3">
+    <div className="w-6 h-6 border-2 border-azure-600 border-t-transparent rounded-full animate-spin" />
+    <span className="text-xs font-mono text-ink-500">Loading digital twin view...</span>
+  </div>
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,33 +73,35 @@ export default function App() {
 
           {/* Router Level Water-Rise Transition with prefers-reduced-motion fallback */}
           <WaterRiseTransition>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Landing />} />
-              <Route path="/login" element={<Login />} />
+            <Suspense fallback={<PageLoadingFallback />}>
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Landing />} />
+                <Route path="/login" element={<Login />} />
 
-              {/* Protected App Routes (Requires Role in AuthGuard) */}
-              <Route
-                path="/app"
-                element={
-                  <AuthGuard>
-                    <AppLayout />
-                  </AuthGuard>
-                }
-              >
-                <Route index element={<Navigate to="/app/overview" replace />} />
-                <Route path="overview" element={<Overview />} />
-                <Route path="map" element={<MapPage />} />
-                <Route path="agents" element={<AgentsPage />} />
-                <Route path="approvals" element={<ApprovalsPage />} />
-                <Route path="simulation" element={<SimulationPage />} />
-                <Route path="evaluation" element={<EvaluationPage />} />
-                <Route path="responsible-ai" element={<ResponsibleAIPage />} />
-              </Route>
+                {/* Protected App Routes (Requires Role in AuthGuard) */}
+                <Route
+                  path="/app"
+                  element={
+                    <AuthGuard>
+                      <AppLayout />
+                    </AuthGuard>
+                  }
+                >
+                  <Route index element={<Navigate to="/app/overview" replace />} />
+                  <Route path="overview" element={<Overview />} />
+                  <Route path="map" element={<MapPage />} />
+                  <Route path="agents" element={<AgentsPage />} />
+                  <Route path="approvals" element={<ApprovalsPage />} />
+                  <Route path="simulation" element={<SimulationPage />} />
+                  <Route path="evaluation" element={<EvaluationPage />} />
+                  <Route path="responsible-ai" element={<ResponsibleAIPage />} />
+                </Route>
 
-              {/* Catch-all redirect */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+                {/* Catch-all redirect */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Suspense>
           </WaterRiseTransition>
         </BrowserRouter>
       </ErrorBoundary>

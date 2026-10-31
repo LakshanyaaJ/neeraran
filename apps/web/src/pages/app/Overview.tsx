@@ -108,17 +108,22 @@ export const Overview: React.FC = () => {
     });
   };
 
+  // Defensive Safe Arrays for Network Resilience
+  const safeCases = Array.isArray(cases) ? cases : [];
+  const safeQueue = Array.isArray(queue) ? queue : [];
+  const safeAuditLogs = Array.isArray(auditLogs) ? auditLogs : [];
+
   // KPI Calculations
   const reserveDays = forecast?.days_of_reserve || 1.8;
   const reserveLower = forecast?.reserve_80pct_lower || 1.4;
   const reserveUpper = forecast?.reserve_80pct_upper || 2.2;
-  const leakCasesCount = cases.filter((c: any) => c.type === 'leak').length;
-  const totalLossKld = cases
+  const leakCasesCount = safeCases.filter((c: any) => c.type === 'leak').length;
+  const totalLossKld = safeCases
     .filter((c: any) => c.type === 'leak')
     .reduce((acc: number, c: any) => acc + (c.priority_breakdown?.details?.estimated_loss_kld || 65.0), 0);
   const waterSavedThisWeekKl = 480.0;
   const rupeesSavedThisWeek = 57600;
-  const pendingApprovalsCount = cases.filter((c: any) => c.plan?.needs_approval && c.status === 'actionable').length;
+  const pendingApprovalsCount = safeCases.filter((c: any) => c.plan?.needs_approval && c.status === 'actionable').length;
 
   // Chart 1 Data: 72-Hour Reservoir Trajectory
   const reservoirTrajectory = forecast?.tank_levels_72h?.total_campus_storage?.slice(0, 36).map((item: any) => ({
@@ -139,8 +144,8 @@ export const Overview: React.FC = () => {
 
   // Chart 2 Data: Minimum Night Flow (MNF) by Block
   const mnfData = state?.blocks?.map((b: any) => {
-    const isLeakFlagged = cases.some((c: any) => c.location === b.id && c.type === 'leak');
-    const isWatch = cases.some((c: any) => c.location === b.id && c.type === 'watch');
+    const isLeakFlagged = safeCases.some((c: any) => c.location === b.id && c.type === 'leak');
+    const isWatch = safeCases.some((c: any) => c.location === b.id && c.type === 'watch');
     return {
       block: b.code || b.id.replace('BLK-', 'B'),
       flow: b.meter_reading_lpm,
@@ -162,14 +167,14 @@ export const Overview: React.FC = () => {
 
   // Filtered Top Actions by kpiFilter if selected
   const topActions = (kpiFilter === 'leaks'
-    ? queue.filter((c: any) => c.type === 'leak')
+    ? safeQueue.filter((c: any) => c.type === 'leak')
     : kpiFilter === 'approvals'
-    ? queue.filter((c: any) => c.plan?.needs_approval)
-    : queue
+    ? safeQueue.filter((c: any) => c.plan?.needs_approval)
+    : safeQueue
   ).slice(0, 3);
 
   // Filtered Activity Feed
-  const filteredActivities = auditLogs.filter((log: any) => {
+  const filteredActivities = safeAuditLogs.filter((log: any) => {
     if (severityFilter === 'all') return true;
     if (severityFilter === 'critical') return log.action_type?.includes('FAULT') || log.action_type?.includes('LEAK');
     if (severityFilter === 'watch') return log.action_type?.includes('VALVE') || log.action_type?.includes('APPROVAL');

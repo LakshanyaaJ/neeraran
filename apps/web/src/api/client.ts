@@ -1,33 +1,85 @@
 /**
- * NEERARAN Resilient API Client — Phase 5
+ * NEERARAN Resilient API Client — Phase 9
  * Connects frontend to the digital twin simulator and agent core.
  * Features:
  * - 4s hard timeout with AbortController & 1 automatic retry
  * - Deterministic fallback to bundled snapshots in /fallback/
+ * - Demo Safe Mode (Shift+D toggle) for zero-latency, dead-API presentation
  * - Attached X-User-Role header for RBAC
- * - Guaranteed: NEVER blanks the screen
+ * - Guaranteed: NEVER blanks the screen or throws unhandled TypeError
  */
 import { create } from 'zustand';
 import { useAuthStore } from '../store/auth';
 
-export type SystemConnectionStatus = 'live' | 'degraded' | 'offline';
+export type SystemConnectionStatus = 'live' | 'degraded' | 'offline' | 'demo_safe';
 
 interface SystemStatusState {
   status: SystemConnectionStatus;
   isUsingFallback: boolean;
+  isDemoSafeMode: boolean;
   lastUpdated: string;
   errorMessage: string | null;
   setStatus: (status: SystemConnectionStatus, isFallback: boolean, msg?: string | null) => void;
+  toggleDemoSafeMode: () => boolean;
+  setDemoSafeMode: (enabled: boolean) => void;
 }
 
-export const useSystemStatusStore = create<SystemStatusState>((set) => ({
-  status: 'live',
-  isUsingFallback: false,
+const initialDemoSafe = typeof window !== 'undefined' && sessionStorage.getItem('neeraran_demo_safe') === 'true';
+
+export const useSystemStatusStore = create<SystemStatusState>((set, get) => ({
+  status: initialDemoSafe ? 'demo_safe' : 'live',
+  isUsingFallback: initialDemoSafe,
+  isDemoSafeMode: initialDemoSafe,
   lastUpdated: new Date().toLocaleTimeString(),
   errorMessage: null,
-  setStatus: (status, isUsingFallback, errorMessage = null) =>
-    set({ status, isUsingFallback, errorMessage, lastUpdated: new Date().toLocaleTimeString() }),
+  setStatus: (status, isUsingFallback, errorMessage = null) => {
+    // If in demo safe mode, preserve demo_safe status
+    if (get().isDemoSafeMode) {
+      set({ status: 'demo_safe', isUsingFallback: true, lastUpdated: new Date().toLocaleTimeString() });
+      return;
+    }
+    set({ status, isUsingFallback, errorMessage, lastUpdated: new Date().toLocaleTimeString() });
+  },
+  toggleDemoSafeMode: () => {
+    const nextState = !get().isDemoSafeMode;
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('neeraran_demo_safe', String(nextState));
+    }
+    set({
+      isDemoSafeMode: nextState,
+      isUsingFallback: nextState,
+      status: nextState ? 'demo_safe' : 'live',
+      lastUpdated: new Date().toLocaleTimeString(),
+    });
+    return nextState;
+  },
+  setDemoSafeMode: (enabled: boolean) => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('neeraran_demo_safe', String(enabled));
+    }
+    set({
+      isDemoSafeMode: enabled,
+      isUsingFallback: enabled,
+      status: enabled ? 'demo_safe' : 'live',
+      lastUpdated: new Date().toLocaleTimeString(),
+    });
+  },
 }));
+
+// Wire global Shift+D listener for Demo Safe Mode
+if (typeof window !== 'undefined') {
+  window.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'D' && e.shiftKey) {
+      const activeElement = document.activeElement;
+      const isInput = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+      if (!isInput) {
+        e.preventDefault();
+        const next = useSystemStatusStore.getState().toggleDemoSafeMode();
+        console.info(`[NEERARAN] Demo Safe Mode toggled: ${next ? 'ACTIVE' : 'INACTIVE'}`);
+      }
+    }
+  });
+}
 
 const API_BASE = 'http://localhost:8000';
 
@@ -50,13 +102,40 @@ export async function apiFetch<T>(
   options: RequestInit = {},
   fallbackSnapshotUrl?: string
 ): Promise<T> {
-  const setStatus = useSystemStatusStore.getState().setStatus;
+  const stateStore = useSystemStatusStore.getState();
+  const isDemoSafe = stateStore.isDemoSafeMode;
+  const setStatus = stateStore.setStatus;
   const role = useAuthStore.getState().role;
   const fullUrl = `${API_BASE}${endpoint}`;
 
+  // Helper: check if endpoint expects array
+  const isArrayEndpoint =
+    endpoint.includes('/cases') ||
+    endpoint.includes('/queue') ||
+    endpoint.includes('/complaints') ||
+    endpoint.includes('/audit') ||
+    endpoint.includes('/traces');
+
+  // Fast path: In Demo Safe Mode, immediately load fallback snapshot without attempting network
+  if (isDemoSafe && fallbackSnapshotUrl) {
+    try {
+      setStatus('demo_safe', true, 'Operating in Demo Safe Mode.');
+      const fallbackRes = await fetch(fallbackSnapshotUrl);
+      if (fallbackRes.ok) {
+        const data = await fallbackRes.json();
+        if (isArrayEndpoint && !Array.isArray(data)) {
+          return [] as unknown as T;
+        }
+        return data as T;
+      }
+    } catch (_err) {
+      return (isArrayEndpoint ? [] : {}) as T;
+    }
+  }
+
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...(options.headers as Record<string, string> || {}),
+    ...((options.headers as Record<string, string>) || {}),
   };
   if (role) {
     headers['x-user-role'] = role;
@@ -73,20 +152,26 @@ export async function apiFetch<T>(
     if (res.ok) {
       const data = await res.json();
       setStatus('live', false);
+      if (isArrayEndpoint && !Array.isArray(data)) {
+        return [] as unknown as T;
+      }
       return data as T;
     }
-  } catch (err) {
-    // Attempt 2: 1 automatic retry after 250ms
+  } catch (_err) {
+    // Attempt 2: 1 automatic retry after 200ms
     try {
-      await new Promise((resolve) => setTimeout(resolve, 250));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       const retryRes = await fetchWithTimeout(fullUrl, enhancedOptions, 4000);
       if (retryRes.ok) {
         const data = await retryRes.json();
         setStatus('live', false);
+        if (isArrayEndpoint && !Array.isArray(data)) {
+          return [] as unknown as T;
+        }
         return data as T;
       }
-    } catch (retryErr) {
-      console.warn(`[API] Endpoint ${endpoint} unreachable. Engaging fallback.`);
+    } catch (_retryErr) {
+      // API unreachable, fall back
     }
   }
 
@@ -97,26 +182,25 @@ export async function apiFetch<T>(
       const fallbackRes = await fetch(fallbackSnapshotUrl);
       if (fallbackRes.ok) {
         const fallbackData = await fallbackRes.json();
-        // If snapshot has final_state property, unwrap if expecting state
-        if (endpoint.includes('/state') && fallbackData.final_state) {
-          return fallbackData.final_state as T;
+        if (isArrayEndpoint && !Array.isArray(fallbackData)) {
+          return [] as unknown as T;
         }
         return fallbackData as T;
       }
     } catch (fallbackErr) {
-      console.error('[API] Fallback load failed:', fallbackErr);
+      console.warn('[API] Fallback load failed:', fallbackErr);
     }
   }
 
   setStatus('degraded', true, 'Backend disconnected.');
-  return {} as T;
+  return (isArrayEndpoint ? [] : {}) as T;
 }
 
 // Typed API operations
 export const api = {
   // Simulator endpoints
   getState: () =>
-    apiFetch<any>('/api/state', { method: 'GET' }, '/fallback/day_snapshot.json'),
+    apiFetch<any>('/api/state', { method: 'GET' }, '/fallback/snapshot_initial.json'),
 
   getCampus: () =>
     apiFetch<any>('/api/campus', { method: 'GET' }, '/fallback/campus.json'),
@@ -139,24 +223,27 @@ export const api = {
       body: JSON.stringify({ seed }),
     }),
 
+  resetDemo: () =>
+    apiFetch<any>('/api/demo/reset', { method: 'POST' }, '/fallback/snapshot_initial.json'),
+
   getComplaints: () =>
-    apiFetch<any[]>('/api/complaints', { method: 'GET' }, '/fallback/day_snapshot.json'),
+    apiFetch<any[]>('/api/complaints', { method: 'GET' }, '/fallback/complaints.json'),
 
   // Agent Core endpoints
   getCases: () =>
-    apiFetch<any[]>('/api/cases', { method: 'GET' }, '/fallback/day_snapshot.json'),
+    apiFetch<any[]>('/api/cases', { method: 'GET' }, '/fallback/cases.json'),
 
   getCaseDetail: (id: string) =>
     apiFetch<any>(`/api/cases/${id}`, { method: 'GET' }, '/fallback/leak_story.json'),
 
   getQueue: () =>
-    apiFetch<any[]>('/api/queue', { method: 'GET' }, '/fallback/day_snapshot.json'),
+    apiFetch<any[]>('/api/queue', { method: 'GET' }, '/fallback/queue.json'),
 
   getForecast: () =>
-    apiFetch<any>('/api/forecast', { method: 'GET' }, '/fallback/day_snapshot.json'),
+    apiFetch<any>('/api/forecast', { method: 'GET' }, '/fallback/forecast.json'),
 
   getPlan: () =>
-    apiFetch<any>('/api/plan', { method: 'GET' }, '/fallback/leak_story.json'),
+    apiFetch<any>('/api/plan', { method: 'GET' }, '/fallback/plan.json'),
 
   decideApproval: (id: string, decision: 'approved' | 'rejected', note: string = '') =>
     apiFetch<any>(`/api/approvals/${id}`, {
@@ -165,10 +252,10 @@ export const api = {
     }),
 
   getAudit: () =>
-    apiFetch<any[]>('/api/audit', { method: 'GET' }, '/fallback/day_snapshot.json'),
+    apiFetch<any[]>('/api/audit', { method: 'GET' }, '/fallback/audit.json'),
 
   getTraces: () =>
-    apiFetch<any[]>('/api/traces', { method: 'GET' }, '/fallback/day_snapshot.json'),
+    apiFetch<any[]>('/api/traces', { method: 'GET' }, '/fallback/traces.json'),
 
   runOrchestrator: () =>
     apiFetch<any>('/api/orchestrator/run', { method: 'POST' }),
@@ -178,7 +265,7 @@ export const api = {
     apiFetch<any>('/api/campus', { method: 'GET' }, '/fallback/campus.json'),
 
   getSimulationState: () =>
-    apiFetch<any>('/api/state', { method: 'GET' }, '/fallback/day_snapshot.json'),
+    apiFetch<any>('/api/state', { method: 'GET' }, '/fallback/snapshot_initial.json'),
 
   setSpeed: (speed: 1 | 5 | 20) =>
     apiFetch<any>('/api/sim/control', {
@@ -223,7 +310,7 @@ export const api = {
     }),
 
   getEvalMetrics: () =>
-    apiFetch<any>('/api/eval/metrics', { method: 'GET' }),
+    apiFetch<any>('/api/eval/metrics', { method: 'GET' }, '/fallback/eval_metrics.json'),
 
   runBenchmark: () =>
     apiFetch<any>('/api/eval/benchmark', { method: 'POST' }),

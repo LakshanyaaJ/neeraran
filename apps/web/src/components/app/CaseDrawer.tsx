@@ -165,7 +165,7 @@ export const CaseDrawer: React.FC<CaseDrawerProps> = ({ caseData, onClose, onRef
 
                   {caseData.top_candidate_segments && caseData.top_candidate_segments.length > 0 && (
                     <div className="space-y-2">
-                      <h4 className="text-xs font-semibold text-[#0F2236] uppercase tracking-wider">Top Candidate Segments (Localizer)</h4>
+                      <h4 className="text-xs font-semibold text-[#0F2236]">Top Candidate Segments (Localizer)</h4>
                       <div className="space-y-2">
                         {caseData.top_candidate_segments.map((seg: any, idx: number) => (
                           <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-white border border-gray-100 shadow-sm">
@@ -181,7 +181,7 @@ export const CaseDrawer: React.FC<CaseDrawerProps> = ({ caseData, onClose, onRef
 
                   {caseData.priority_breakdown && (
                     <div className="space-y-2">
-                      <h4 className="text-xs font-semibold text-[#0F2236] uppercase tracking-wider">Prioritizer Multi-Criteria Terms</h4>
+                      <h4 className="text-xs font-semibold text-[#0F2236]">Prioritizer Multi-Criteria Terms</h4>
                       <div className="p-4 rounded-xl bg-white border border-gray-100 shadow-sm space-y-2 text-xs">
                         <div className="flex justify-between">
                           <span className="text-[#4A5F75]">Loss Rate Score (30%)</span>
@@ -213,7 +213,7 @@ export const CaseDrawer: React.FC<CaseDrawerProps> = ({ caseData, onClose, onRef
               {activeTab === 'why' && (
                 <div className="space-y-5">
                   <div className="bg-[#EAF3FD]/60 rounded-2xl p-4 border border-[#8FC0EE]/30">
-                    <h4 className="text-xs font-semibold text-[#1E5FA8] uppercase tracking-wider mb-2">
+                    <h4 className="text-xs font-semibold text-[#1E5FA8] mb-2">
                       Autonomous Verifier Reasoning
                     </h4>
                     <p className="text-sm text-[#0F2236] leading-relaxed">
@@ -222,7 +222,7 @@ export const CaseDrawer: React.FC<CaseDrawerProps> = ({ caseData, onClose, onRef
                   </div>
 
                   <div className="space-y-3">
-                    <h4 className="text-xs font-semibold text-[#0F2236] uppercase tracking-wider">
+                    <h4 className="text-xs font-semibold text-[#0F2236]">
                       Underlying Evidence Artifacts ({caseData.evidence?.length || 0})
                     </h4>
                     <div className="space-y-2.5">
@@ -277,7 +277,7 @@ export const CaseDrawer: React.FC<CaseDrawerProps> = ({ caseData, onClose, onRef
                   )}
 
                   <div className="space-y-2">
-                    <h4 className="text-xs font-semibold text-[#0F2236] uppercase tracking-wider">Ordered Plan Steps</h4>
+                    <h4 className="text-xs font-semibold text-[#0F2236]">Ordered Plan Steps</h4>
                     <div className="space-y-2">
                       {caseData.plan?.steps?.map((step: any) => (
                         <div key={step.order} className="flex gap-3 p-3.5 rounded-xl bg-white border border-gray-100 shadow-sm">
@@ -310,7 +310,7 @@ export const CaseDrawer: React.FC<CaseDrawerProps> = ({ caseData, onClose, onRef
               {/* Tab 4: HISTORY */}
               {activeTab === 'history' && (
                 <div className="space-y-3">
-                  <h4 className="text-xs font-semibold text-[#0F2236] uppercase tracking-wider">Past Maintenance & Verified Ground Truth</h4>
+                  <h4 className="text-xs font-semibold text-[#0F2236]">Past Maintenance & Verified Ground Truth</h4>
                   <div className="space-y-2 text-xs">
                     <div className="p-3 rounded-xl bg-white border border-gray-100 shadow-sm">
                       <div className="flex justify-between font-mono text-gray-500 mb-1">

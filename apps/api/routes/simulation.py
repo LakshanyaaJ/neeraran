@@ -7,7 +7,8 @@ from pydantic import BaseModel
 from sqlmodel import Session, select
 
 from ..sim.engine import sim_engine
-from ..db.database import engine, Reading, GroundTruth, SystemEvent
+from ..db.database import engine, Reading, GroundTruth, SystemEvent, AuditLog, ApprovalItem
+from ..agents.orchestrator import orchestrator
 
 router = APIRouter(tags=["simulation"])
 
@@ -336,10 +337,51 @@ def inject_scenario(
             "why_plan_changed": f"Injected events triggered physical drawdown and demand shift; re-planned LP pump schedules and re-ranked priority queue."
         }
     }
+@router.post("/api/sim/reset")
 def reset_simulation(payload: ResetPayload = Body(...)):
     """Reset the digital twin simulator to tick 0 with seed."""
     state = sim_engine.reset(payload.seed)
     return {"status": "ok", "state": state}
+
+@router.post("/api/demo/reset")
+def reset_demo(x_user_role: Optional[str] = Header(None)):
+    """
+    One-click 'Reset demo' (Admin):
+    - Restores seed to 42
+    - Resets digital twin clock to 08:00 on Day 1
+    - Clears approvals and audit history
+    - Re-runs initial agent orchestrator cycle
+    """
+    if x_user_role != "admin":
+        raise HTTPException(status_code=403, detail="Forbidden: Only Estate Admin can reset demo state.")
+
+    # 1. Reset simulator to seed 42
+    sim_engine.reset(42)
+    # Fast forward to 08:00 on Day 1 (if tick 0 is 07:15, 9 ticks = 45 mins -> 08:00)
+    for _ in range(9):
+        sim_engine.tick(1)
+
+    # 2. Clear approvals and audit tables
+    with Session(engine) as session:
+        approvals = session.exec(select(ApprovalItem)).all()
+        for a in approvals:
+            session.delete(a)
+        audits = session.exec(select(AuditLog)).all()
+        for au in audits:
+            session.delete(au)
+        session.commit()
+
+    # 3. Reset orchestrator and re-run baseline cycle
+    orchestrator.active_cases.clear()
+    orchestrator.traces.clear()
+    initial_state = sim_engine.get_state()
+    orchestrator.run_cycle(initial_state)
+
+    return {
+        "status": "ok",
+        "message": "Demo reset to Day 1 08:00 with clean approvals and audit.",
+        "state": initial_state
+    }
 
 @router.get("/api/complaints")
 def get_complaints():

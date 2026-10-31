@@ -71,7 +71,7 @@ export const HumanInCharge: React.FC = () => {
 
           {/* Evidence List */}
           <div className="space-y-2 pt-1">
-            <span className="text-[11px] font-semibold text-ink-600 uppercase tracking-wider block">
+            <span className="text-[11px] font-semibold text-ink-600 block">
               Grounded Evidence IDs (Audited by Verifier)
             </span>
             <div className="flex flex-wrap gap-2 text-[11px] font-mono">
@@ -161,12 +161,12 @@ export const HumanInCharge: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3 text-left">
             <div className="p-3 bg-white/60 dark:bg-sky-950/30 rounded-btn border border-sky-100 dark:border-white/5 space-y-1">
-              <span className="text-[10px] text-ink-600 uppercase font-mono">Rollback Latency</span>
+              <span className="text-[10px] text-ink-600 font-mono">Rollback latency</span>
               <div className="text-sm font-bold text-ink-900 font-mono">&lt; 8 seconds</div>
               <span className="text-[10px] text-leaf">Autonomous trigger</span>
             </div>
             <div className="p-3 bg-white/60 dark:bg-sky-950/30 rounded-btn border border-sky-100 dark:border-white/5 space-y-1">
-              <span className="text-[10px] text-ink-600 uppercase font-mono">Equity Audit</span>
+              <span className="text-[10px] text-ink-600 font-mono">Equity audit</span>
               <div className="text-sm font-bold text-ink-900 font-mono">100% Pass</div>
               <span className="text-[10px] text-leaf">Zero violations logged</span>
             </div>

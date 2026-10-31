@@ -61,17 +61,19 @@ export const MapPage: React.FC = () => {
   };
 
   // Find active leak case and localized segment for pulsing ring
-  const activeLeakCase = cases.find((c: any) => c.type === 'leak');
+  const safeCases = Array.isArray(cases) ? cases : [];
+  const activeLeakCase = safeCases.find((c: any) => c.type === 'leak');
   const localizedSegmentId = activeLeakCase?.top_candidate_segments?.[0]?.segment_id || 'PIPE-H-01';
 
   // Fallback Vector Campus Drawing coordinates for robust rendering (NEVER GREY OUT!)
-  const campusBlocks = campusGeo?.features?.filter((f: any) => f.geometry.type === 'Polygon') || [];
-  const campusPipes = campusGeo?.features?.filter((f: any) => f.geometry.type === 'LineString') || [];
-  const campusPoints = campusGeo?.features?.filter((f: any) => f.geometry.type === 'Point') || [];
+  const safeFeatures = Array.isArray(campusGeo?.features) ? campusGeo.features : [];
+  const campusBlocks = safeFeatures.filter((f: any) => f.geometry?.type === 'Polygon');
+  const campusPipes = safeFeatures.filter((f: any) => f.geometry?.type === 'LineString');
+  const campusPoints = safeFeatures.filter((f: any) => f.geometry?.type === 'Point');
 
   // Handle entity click on map
   const handleFeatureClick = (featureProps: any) => {
-    const matchedCase = cases.find((c: any) => c.location === featureProps.id || c.location === featureProps.code);
+    const matchedCase = safeCases.find((c: any) => c.location === featureProps.id || c.location === featureProps.code);
     if (matchedCase) {
       setSelectedEntity(matchedCase);
     } else {
@@ -364,7 +366,7 @@ export const MapPage: React.FC = () => {
 
       {/* 3. BOTTOM-LEFT FLOATING LEGEND PANEL */}
       <div className="absolute bottom-6 left-6 z-20 p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-white/90 shadow-md text-xs space-y-2.5 max-w-xs pointer-events-auto">
-        <h4 className="font-sans font-semibold text-[#0F2236] text-[11px] uppercase tracking-wider">
+        <h4 className="font-sans font-semibold text-[#0F2236] text-[11px]">
           Hydraulic Network Legend
         </h4>
         <div className="space-y-1.5 text-[11px] font-mono">

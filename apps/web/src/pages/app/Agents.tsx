@@ -22,10 +22,13 @@ export const AgentsPage: React.FC = () => {
     refetchInterval: 4000,
   });
 
+  // Defensive Safe Arrays for Network Resilience
+  const safeCases = Array.isArray(cases) ? cases : [];
+
   // Set initial selected case
   const activeCase = selectedCaseId
-    ? cases.find((c: any) => c.id === selectedCaseId) || cases[0]
-    : cases[0];
+    ? safeCases.find((c: any) => c.id === selectedCaseId) || safeCases[0]
+    : safeCases[0];
 
   // 2. Fetch Detailed Traces for the active case or latest cycle
   const { data: traces = [], refetch: refetchTraces } = useQuery({
@@ -33,6 +36,8 @@ export const AgentsPage: React.FC = () => {
     queryFn: () => api.getTraces(),
     refetchInterval: 3000,
   });
+
+  const safeTraces = Array.isArray(traces) ? traces : [];
 
   // 3. Trigger Manual Autonomous Cycle
   const handleRunCycle = async () => {
@@ -141,7 +146,7 @@ export const AgentsPage: React.FC = () => {
       <div className="space-y-2">
         <span className="text-xs font-mono text-[#4A5F75]">Select Active Case to Inspect Pipeline Execution:</span>
         <div className="flex flex-wrap gap-2">
-          {cases.map((c: any) => {
+          {safeCases.map((c: any) => {
             const isSelected = (activeCase?.id === c.id);
             const isLeak = (c.type === 'leak');
             return (
@@ -205,7 +210,7 @@ export const AgentsPage: React.FC = () => {
 
         <div className="space-y-3">
           {agentStages.map((stage, idx) => {
-            const matchingTrace = traces.find((t: any) => t.agent?.toLowerCase().includes(stage.id.toLowerCase()));
+            const matchingTrace = safeTraces.find((t: any) => t.agent?.toLowerCase().includes(stage.id.toLowerCase()));
             const isExpanded = expandedTraceIdx === idx;
             const latencyMs = matchingTrace?.ms || (12.4 + idx * 3.2).toFixed(1);
 

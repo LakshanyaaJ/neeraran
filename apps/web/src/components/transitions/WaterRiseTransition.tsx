@@ -101,11 +101,11 @@ export const WaterRiseTransition: React.FC<WaterRiseProps> = ({ children }) => {
               }}
               className="text-white text-center select-none"
             >
-              <span className="font-tamil font-bold text-6xl tracking-wider block">
+              <span className="font-tamil font-bold text-6xl block">
                 நீர்
               </span>
-              <span className="font-sans font-light text-xs text-sky-100 tracking-widest mt-1 block">
-                WATER FORTRESS
+              <span className="font-sans font-light text-xs text-sky-100 mt-1 block">
+                Water Fortress
               </span>
             </motion.div>
           </motion.div>

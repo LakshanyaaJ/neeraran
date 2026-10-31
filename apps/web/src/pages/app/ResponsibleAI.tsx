@@ -49,7 +49,7 @@ export const ResponsibleAIPage: React.FC = () => {
       id: 'human-control',
       title: 'Human-in-the-Loop Control',
       icon: UserCheck,
-      color: 'text-azure-600 bg-azure-500/10 border-azure-500/20',
+      iconColor: 'text-azure-600',
       promise: 'The agent plans and simulates, but never executes irreversible or high-risk physical valve throttles without explicit human authorization.',
       mechanism: 'Strict dual-role approval gate with 1-click rollback commands embedded in every plan dispatch.',
       linkText: 'Inspect Pending Approvals Queue',
@@ -60,7 +60,7 @@ export const ResponsibleAIPage: React.FC = () => {
       id: 'vulnerable-users',
       title: 'Vulnerable User Protection',
       icon: HeartHandshake,
-      color: 'text-emerald-600 bg-emerald-500/10 border-emerald-500/20',
+      iconColor: 'text-emerald-600',
       promise: 'No residential student hostel, campus health clinic, or daycare crèche can ever have its water throttled or cut by automated policies.',
       mechanism: 'Hardcoded constraint solver filter that flags any pressure reduction on vulnerable nodes as high-risk, demanding mandatory sign-off.',
       linkText: 'Inspect Digital Twin Block Guardrails',
@@ -71,7 +71,7 @@ export const ResponsibleAIPage: React.FC = () => {
       id: 'hallucination-control',
       title: 'Verifiable Evidence Grounding (Zero Hallucination)',
       icon: FileCheck2,
-      color: 'text-azure-600 bg-azure-500/10 border-azure-500/20',
+      iconColor: 'text-azure-600',
       promise: 'Every single claim, anomaly diagnosis, or plan step must link directly to an immutable Evidence ID (EVID-...) or the Verifier Agent rejects it.',
       mechanism: 'Secondary verification auditor strips ungrounded statements from natural language explanations before user presentation.',
       linkText: 'Inspect Verifier Traces',
@@ -82,7 +82,7 @@ export const ResponsibleAIPage: React.FC = () => {
       id: 'privacy',
       title: 'Telemetry Privacy by Design',
       icon: Lock,
-      color: 'text-ink-600 bg-ink-500/10 border-ink-500/20',
+      iconColor: 'text-ink-600',
       promise: 'NEERARAN ingests only aggregate bulk water flow rates and hydraulic node pressures. It never tracks individual occupants or fixtures.',
       mechanism: 'Spatial aggregation at block boundary meters; zero personal device telemetry, surveillance cameras, or biometric tracking.',
       linkText: 'View Ingested Node Signals',
@@ -93,7 +93,7 @@ export const ResponsibleAIPage: React.FC = () => {
       id: 'security',
       title: 'Role-Based Access Control & Tamper-Proof Audit',
       icon: ShieldCheck,
-      color: 'text-indigo-600 bg-indigo-500/10 border-indigo-500/20',
+      iconColor: 'text-sky-700',
       promise: 'Estate Admins hold exclusive execution rights; Viewers have read-only visibility. Every command, approval, or override is cryptographically logged.',
       mechanism: 'HTTP header role verification on all mutating endpoints; append-only SQLite AuditLog table exportable to CSV.',
       linkText: 'Inspect System Access Role',
@@ -104,7 +104,7 @@ export const ResponsibleAIPage: React.FC = () => {
       id: 'failure-handling',
       title: 'Deterministic Fallback & Fail-Safe Architecture',
       icon: LifeBuoy,
-      color: 'text-amber-600 bg-amber-500/10 border-amber-500/20',
+      iconColor: 'text-amber-600',
       promise: 'If the network breaks or an LLM call fails, the physical campus defaults to safe baseline heuristics and bundled offline snapshots.',
       mechanism: '4-second timeout with automatic snapshot fallback in frontend; regex-based rule parser fallback for natural language commands.',
       linkText: 'View System Connection Status',
@@ -115,7 +115,7 @@ export const ResponsibleAIPage: React.FC = () => {
       id: 'fairness',
       title: 'Distributional Equity Across Campus Zones',
       icon: Scale,
-      color: 'text-teal-600 bg-teal-500/10 border-teal-500/20',
+      iconColor: 'text-teal-600',
       promise: 'The Optimizer Agent guarantees equalized minimum per-capita baseline water supply across all hostels, departments, and dining halls.',
       mechanism: 'Objective function in linear program penalizes variance in block satisfaction ratios, preventing rationing concentrated on specific hostels.',
       linkText: 'Inspect Live Equity Index',
@@ -126,7 +126,7 @@ export const ResponsibleAIPage: React.FC = () => {
       id: 'limits',
       title: 'Model Limitations & Operating Boundaries',
       icon: AlertTriangle,
-      color: 'text-rose-600 bg-rose-500/10 border-rose-500/20',
+      iconColor: 'text-rose-600',
       promise: 'Transparent operational boundary: the system explicitly documents conditions outside its simulated or validated domain.',
       mechanism: 'Pinhole leaks below 5 L/min or fast transient water-hammer shocks (< 2s) fall outside 5-minute sampling intervals and require acoustic sensors.',
       linkText: 'Read Architectural Evaluation Docs',
@@ -213,10 +213,8 @@ export const ResponsibleAIPage: React.FC = () => {
             >
               <div>
                 <div className="flex items-start justify-between gap-3 mb-2">
-                  <div className="flex items-center gap-2.5">
-                    <div className={`w-8 h-8 rounded-lg border flex items-center justify-center ${item.color}`}>
-                      <IconComponent className="w-4 h-4" />
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <IconComponent className={`w-4 h-4 stroke-[1.5] ${item.iconColor}`} />
                     <h2 className="text-sm font-bold text-ink-900">{item.title}</h2>
                   </div>
                   <span className="px-2 py-0.5 text-[10px] font-mono font-semibold rounded bg-ink-100 text-ink-700 border border-ink-200">

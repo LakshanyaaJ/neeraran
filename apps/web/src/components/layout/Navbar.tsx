@@ -6,13 +6,17 @@ import {
   Moon, 
   Sun, 
   LogOut, 
-  ChevronDown
+  ChevronDown,
+  RotateCcw,
+  ShieldCheck
 } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 import { Logo } from '../common/Logo';
 import { SystemStatusPill } from '../common/SystemStatusPill';
 import { CompactSimControl } from './CompactSimControl';
 import { useAuthStore } from '../../store/auth';
 import { useThemeStore } from '../../store/theme';
+import { api, useSystemStatusStore } from '../../api/client';
 
 interface NavItem {
   id: string;
@@ -40,6 +44,33 @@ export const Navbar: React.FC = () => {
   const handleLogout = () => {
     logout();
     navigate('/login');
+  };
+
+  const handleResetDemo = async () => {
+    if (role !== 'admin') {
+      toast.error('Only Estate Admin can reset the demo state.');
+      return;
+    }
+    toast.promise(api.resetDemo(), {
+      loading: 'Resetting demo to Day 1 08:00...',
+      success: () => {
+        setIsMenuOpen(false);
+        window.location.reload();
+        return 'Demo restored to Day 1 08:00 (clean approvals & audit)';
+      },
+      error: 'Failed to reset demo state',
+    });
+  };
+
+  const handleToggleDemoSafe = () => {
+    const isNowSafe = useSystemStatusStore.getState().toggleDemoSafeMode();
+    setIsMenuOpen(false);
+    toast.success(
+      isNowSafe
+        ? 'Demo Safe Mode enabled (Shift+D to toggle). Operating entirely offline.'
+        : 'Demo Safe Mode disabled. Reconnected to live stream.',
+      { icon: isNowSafe ? '🛡️' : '🌐' }
+    );
   };
 
   const roleLabel = role === 'admin' ? 'Estate Admin' : 'Viewer';
@@ -138,6 +169,27 @@ export const Navbar: React.FC = () => {
                   <span>Signed in as</span>
                   <div className="font-semibold text-ink-900">{roleLabel}</div>
                 </div>
+
+                {role === 'admin' && (
+                  <button
+                    onClick={handleResetDemo}
+                    className="w-full text-left px-3 py-2 text-xs text-ink-900 hover:bg-sky-50 dark:hover:bg-sky-900/30 flex items-center gap-2 transition-colors border-b border-ink-600/10"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 text-azure-600 stroke-[1.5]" />
+                    <span>Reset Demo (Day 1)</span>
+                  </button>
+                )}
+
+                <button
+                  onClick={handleToggleDemoSafe}
+                  className="w-full text-left px-3 py-2 text-xs text-ink-900 hover:bg-sky-50 dark:hover:bg-sky-900/30 flex items-center justify-between transition-colors border-b border-ink-600/10"
+                >
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 stroke-[1.5]" />
+                    <span>Demo Safe Mode</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-ink-400">Shift+D</span>
+                </button>
 
                 <button
                   onClick={() => {

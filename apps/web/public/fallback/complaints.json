@@ -1,0 +1,22 @@
+[
+  {
+    "id": "CMP-001",
+    "block_id": "BLK-01",
+    "block_name": "Cauvery Hostel",
+    "category": "low_pressure",
+    "detail": "Low water pressure on 2nd and 3rd floor showers since 06:30.",
+    "reported_at": "2026-10-31T07:15:00",
+    "urgency": "high",
+    "status": "open"
+  },
+  {
+    "id": "CMP-002",
+    "block_id": "BLK-04",
+    "block_name": "Central Library",
+    "category": "weepage",
+    "detail": "Audible water hissing sound near ground floor utility shaft.",
+    "reported_at": "2026-10-31T07:45:00",
+    "urgency": "medium",
+    "status": "investigating"
+  }
+]

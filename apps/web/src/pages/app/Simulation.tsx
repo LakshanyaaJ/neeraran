@@ -497,7 +497,7 @@ export const SimulationPage: React.FC = () => {
 
             {/* Why the plan changed */}
             <div className="p-4 rounded-2xl bg-white border border-gray-100 shadow-sm text-xs space-y-1">
-              <span className="font-mono font-semibold text-[#3A8FDA] uppercase text-[10px] tracking-wider">
+              <span className="font-mono font-semibold text-[#3A8FDA] text-[10px]">
                 Why The Plan Changed (Verified Reasoning)
               </span>
               <p className="text-[#0F2236] leading-relaxed">

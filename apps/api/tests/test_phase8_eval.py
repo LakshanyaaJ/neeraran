@@ -124,3 +124,23 @@ def test_audit_csv_export():
     expected_cols = ["ID", "Timestamp (UTC)", "Actor", "Role", "Action Type", "Target Resource", "Evidence IDs", "Details", "Status"]
     for col in expected_cols:
         assert col in header, f"Missing header column {col} in CSV export"
+
+
+def test_demo_reset_admin_and_viewer_rbac():
+    """
+    Acceptance: One-click Reset Demo resets to Day 1 08:00, clears approvals/audit,
+    and enforces Admin RBAC (Viewer gets HTTP 403).
+    """
+    from apps.api.routes.simulation import reset_demo
+
+    # Viewer rejected
+    with pytest.raises(HTTPException) as exc:
+        reset_demo(x_user_role="viewer")
+    assert exc.value.status_code == 403
+
+    # Admin succeeds
+    res = reset_demo(x_user_role="admin")
+    assert res["status"] == "ok"
+    assert "Demo reset" in res["message"]
+    assert res["state"]["seed"] == 42
+

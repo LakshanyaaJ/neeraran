@@ -104,9 +104,11 @@ export const ApprovalsPage: React.FC = () => {
     }
   };
 
-  // Filter pending approval items
-  const pendingCases = cases.filter((c: any) => c.plan && (c.plan.needs_approval || c.status === 'actionable'));
-  const approvedAudits = auditLogs.filter((a: any) => a.action_type?.includes('APPROVAL') || a.action_type?.includes('IMPACT'));
+  // Filter pending approval items defensively
+  const safeCases = Array.isArray(cases) ? cases : [];
+  const safeAuditLogs = Array.isArray(auditLogs) ? auditLogs : [];
+  const pendingCases = safeCases.filter((c: any) => c.plan && (c.plan.needs_approval || c.status === 'actionable'));
+  const approvedAudits = safeAuditLogs.filter((a: any) => a.action_type?.includes('APPROVAL') || a.action_type?.includes('IMPACT'));
 
   return (
     <div className="p-6 md:p-8 space-y-8 max-w-7xl mx-auto">
@@ -229,7 +231,7 @@ export const ApprovalsPage: React.FC = () => {
 
                 {/* Ordered Plan Steps */}
                 <div className="space-y-2">
-                  <h4 className="text-xs font-semibold text-[#0F2236] uppercase tracking-wider">Ordered Plan Steps</h4>
+                  <h4 className="text-xs font-semibold text-[#0F2236]">Ordered Plan Steps</h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     {c.plan?.steps?.map((step: any) => (
                       <div key={step.order} className="p-3.5 rounded-xl bg-white border border-gray-100 shadow-sm space-y-1.5 text-xs">
@@ -289,7 +291,8 @@ export const ApprovalsPage: React.FC = () => {
                                 setActiveActionId(c.id);
                                 setIsRejecting(true);
                               }}
-                              className="py-2 px-4 rounded-xl text-xs font-medium text-[#E5594F] bg-[#FFF2F0] hover:bg-[#ffe5e3] transition-colors"
+                              aria-label={`Reject intervention plan for ${c.location}`}
+                              className="py-2 px-4 rounded-xl text-xs font-medium text-[#E5594F] bg-[#FFF2F0] hover:bg-[#ffe5e3] focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-1 transition-colors"
                             >
                               Reject Plan
                             </button>
@@ -298,7 +301,8 @@ export const ApprovalsPage: React.FC = () => {
                                 setActiveActionId(c.id);
                                 setIsRejecting(false);
                               }}
-                              className="py-2 px-5 rounded-xl text-xs font-medium text-white bg-[#3A8FDA] hover:bg-[#1E5FA8] transition-colors shadow-sm"
+                              aria-label={`Authorize and dispatch intervention plan for ${c.location}`}
+                              className="py-2 px-5 rounded-xl text-xs font-medium text-white bg-[#3A8FDA] hover:bg-[#1E5FA8] focus:outline-none focus:ring-2 focus:ring-azure-500 focus:ring-offset-1 transition-colors shadow-sm"
                             >
                               Authorize & Dispatch
                             </button>
