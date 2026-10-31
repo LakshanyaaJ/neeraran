@@ -3,6 +3,7 @@ Simulated Enterprise Tools — Phase 4
 Implements CMMS, SCADA (valves/pumps), Public Advisory, and Notification integrations.
 Every action writes to the SQLite AuditLog and returns a rollback specification.
 """
+import uuid
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional
 from sqlmodel import Session
@@ -17,7 +18,7 @@ def create_cmms_ticket(block: str, segment: str, priority: str, summary: str, ac
     Simulates integration with Computerized Maintenance Management System (CMMS).
     Creates an actionable work order for field plumbing crews.
     """
-    ticket_id = f"TICK-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{abs(hash(summary)) % 10000:04d}"
+    ticket_id = f"TICK-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
     with Session(engine) as session:
         ticket = CMMSTicket(
             id=ticket_id,
@@ -66,7 +67,7 @@ def set_valve(valve_id: str, state: str, reason: str = "", actor: str = "Interve
 
     # If requires approval, register in ApprovalItem queue
     if needs_approval and actor != "admin":
-        req_id = f"REQ-VALVE-{abs(hash(valve_id + state)) % 10000:04d}"
+        req_id = f"REQ-VALVE-{uuid.uuid4().hex[:6].upper()}"
         with Session(engine) as session:
             item = ApprovalItem(
                 id=req_id,

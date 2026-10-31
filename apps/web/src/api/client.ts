@@ -204,6 +204,18 @@ export const api = {
       body: JSON.stringify({ seed }),
     }),
 
+  parseScenario: (prompt: string) =>
+    apiFetch<any>('/api/sim/parse-scenario', {
+      method: 'POST',
+      body: JSON.stringify({ prompt }),
+    }),
+
+  injectScenario: (events: any[]) =>
+    apiFetch<any>('/api/sim/inject-scenario', {
+      method: 'POST',
+      body: JSON.stringify({ events }),
+    }),
+
   updatePrioritizerWeights: (weights: Record<string, number>) =>
     apiFetch<any>('/api/prioritizer/weights', {
       method: 'POST',

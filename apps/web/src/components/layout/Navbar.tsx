@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Logo } from '../common/Logo';
 import { SystemStatusPill } from '../common/SystemStatusPill';
+import { CompactSimControl } from './CompactSimControl';
 import { useAuthStore } from '../../store/auth';
 import { useThemeStore } from '../../store/theme';
 
@@ -108,6 +109,9 @@ export const Navbar: React.FC = () => {
               <Moon className="w-3.5 h-3.5 text-sky-700 stroke-[1.5]" />
             )}
           </button>
+
+          {/* Compact Simulation Control Bar (Phase 7) */}
+          <CompactSimControl />
 
           {/* System Status Pill */}
           <div className="hidden sm:block">
