@@ -1,4 +1,4 @@
-# AQUAGUARD AI — COMPLETE MACHINE LEARNING EXPERIMENTATION, COMPARATIVE EVALUATION, AND BUSINESS KPI REPORT
+# NEERARAN — COMPLETE MACHINE LEARNING EXPERIMENTATION, COMPARATIVE EVALUATION, AND BUSINESS KPI REPORT
 
 **Project:** AquaGuard AI — AI-Powered Campus Water SCADA Monitoring and Hydraulic Leak Identification  
 **Author:** Senior Data Scientist, ML Systems Engineer & Water Management AI Researcher  
