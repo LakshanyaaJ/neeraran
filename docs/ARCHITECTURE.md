@@ -133,3 +133,4 @@ To meet the strict hackathon uptime and demonstration standard:
 3. **Seeded Determinism**:
    - Simulator PRNG is initialized with seed `42`.
    - All random walk consumption perturbations and anomaly injections produce identical, reproducible states across judge walkthroughs.
+

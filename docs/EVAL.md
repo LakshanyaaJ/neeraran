@@ -40,3 +40,4 @@ $$\text{Violations} = \sum_{t} \mathbb{I}(\text{Supply}_{\text{vulnerable}}(t) <
 ### Metric 5: Plan Verification Fidelity
 $$\text{Fidelity} = \frac{\text{Propositions Accepted with Valid } EVID}{\text{Total Propositions Generated}}$$
 *Target*: $100\%$; all hallucinated or unsubstantiated claims are rejected by the Verifier Agent.
+

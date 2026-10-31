@@ -418,3 +418,4 @@ class CampusSimulator:
 
 # Global singleton instance
 simulator_instance = CampusSimulator(seed=42)
+

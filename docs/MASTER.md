@@ -118,3 +118,4 @@ The platform models an educational campus (e.g. 10,000 residents, staff, and day
 - **Typography hierarchy**: Onest for Latin headings and body, Anek Tamil for Tamil typography (`நீர்`), JetBrains Mono strictly for telemetry readouts.
 - **Asymmetric Bento layout**: Varied card dimensions and visual weighting rather than monotonous identical cards.
 - **Physical craft details**: Real campus engineering vocabulary (e.g., *Headloss at Junction J-04*, *Sump raw inflow 4.2 L/s*), hand-drawn subtle accent marks, and an authentic simulated data indicator.
+

@@ -370,3 +370,4 @@ PIPE_SEGMENTS_DATA: List[Dict[str, Any]] = [
     {"id": "PIPE-A-07", "from_node": "OHT-ADMIN", "to_node": "BLK-20", "diameter_mm": 75, "length_m": 410.0,
      "coordinates": [[80.2225, 12.9858], [80.2250, 12.9830]]},
 ]
+

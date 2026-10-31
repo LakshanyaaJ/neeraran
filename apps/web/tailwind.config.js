@@ -6,49 +6,58 @@ export default {
   ],
   darkMode: 'class',
   theme: {
-    extend: {
-      colors: {
-        sky: {
-          50: '#EAF3FD',
-          100: '#D9E9FB',
-          300: '#8FC0EE',
-          500: '#3A8FDA',
-          700: '#1E5FA8',
-        },
-        ink: {
-          900: '#0F2236',
-          600: '#4A5F75',
-          300: '#94A7B8',
-        },
-        mist: '#F2F6FA',
-        aqua: '#2FB8AA',
-        leaf: '#4CBF86',
-        amber: '#F2A33A',
-        coral: '#E5594F',
-        night: {
-          bg: '#0B1622',
-          card: 'rgba(20, 36, 54, 0.65)',
-          border: 'rgba(255, 255, 255, 0.08)',
-        }
+    // Replaces the entire default Tailwind color palette to prevent non-token colors
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      white: 'var(--color-white)',
+      black: 'var(--color-black)',
+      sky: {
+        50: 'var(--color-sky-50)',
+        100: 'var(--color-sky-100)',
+        300: 'var(--color-sky-300)',
+        500: 'var(--color-sky-500)',
+        700: 'var(--color-sky-700)',
       },
-      fontFamily: {
-        sans: ['Onest', 'sans-serif'],
-        tamil: ['"Anek Tamil"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+      ink: {
+        900: 'var(--color-ink-900)',
+        600: 'var(--color-ink-600)',
       },
-      borderRadius: {
-        card: '22px',
-        btn: '12px',
-        pill: '999px',
-      },
-      backdropBlur: {
-        glass: '18px',
-      },
-      boxShadow: {
-        glass: '0 8px 32px 0 rgba(30, 95, 168, 0.07)',
-        'glass-hover': '0 12px 40px 0 rgba(30, 95, 168, 0.12)',
-        'hero-card': '0 24px 64px -12px rgba(15, 34, 54, 0.12)',
-      }
+      mist: 'var(--color-mist)',
+      aqua: 'var(--color-aqua)',
+      leaf: 'var(--color-leaf)',
+      amber: 'var(--color-amber)',
+      coral: 'var(--color-coral)',
+    },
+    borderRadius: {
+      none: '0px',
+      sm: '4px',
+      DEFAULT: '8px',
+      md: '12px',
+      lg: '16px',
+      btn: 'var(--radius-btn)',
+      card: 'var(--radius-card)',
+      pill: 'var(--radius-pill)',
+      full: '9999px',
+    },
+    fontFamily: {
+      sans: ['var(--font-sans)', 'sans-serif'],
+      tamil: ['var(--font-tamil)', 'sans-serif'],
+      mono: ['var(--font-mono)', 'monospace'],
+    },
+    boxShadow: {
+      none: 'none',
+      sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+      DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+      md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+      glass: 'var(--shadow-glass)',
+      'glass-hover': 'var(--shadow-glass-hover)',
+      'hero-card': 'var(--shadow-hero-card)',
+    },
+    backdropBlur: {
+      none: '0',
+      sm: '4px',
+      glass: 'var(--blur-glass)',
     },
   },
   plugins: [],

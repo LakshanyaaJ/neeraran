@@ -136,3 +136,4 @@ def get_campus_topology() -> Dict[str, Any]:
             "pipe_segments_count": len(PIPE_SEGMENTS_DATA)
         }
     }
+

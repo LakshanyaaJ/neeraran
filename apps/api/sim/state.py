@@ -97,3 +97,4 @@ class SimulationState(BaseModel):
     storage_reserve_hours: float
     active_leaks_count: int
     active_alerts: List[Dict[str, Any]] = Field(default_factory=list)
+

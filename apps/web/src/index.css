@@ -1,49 +1,40 @@
+@import './tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-sky-50: #EAF3FD;
-  --color-sky-100: #D9E9FB;
-  --color-sky-300: #8FC0EE;
-  --color-sky-500: #3A8FDA;
-  --color-sky-700: #1E5FA8;
-  --color-ink-900: #0F2236;
-  --color-ink-600: #4A5F75;
-  --color-mist: #F2F6FA;
-  --color-aqua: #2FB8AA;
-  --color-leaf: #4CBF86;
-  --color-amber: #F2A33A;
-  --color-coral: #E5594F;
-
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.75);
-  --glass-shadow: 0 8px 30px rgba(30, 95, 168, 0.06);
+@layer base {
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 }
 
-.dark {
-  --glass-bg: rgba(18, 32, 48, 0.70);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-}
-
-/* Glass panel components */
+/* Glass panel utility using tokens */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 22px;
+  box-shadow: var(--shadow-glass);
+  border-radius: var(--radius-card);
 }
 
+.glass-panel-hover:hover {
+  box-shadow: var(--shadow-glass-hover);
+}
+
+/* Pill utility */
 .glass-pill {
   background: var(--glass-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 2px 10px rgba(15, 34, 54, 0.04);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
 }
 
 /* Tabular figures for sensor readouts */
@@ -51,17 +42,58 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Hand-crafted wavy underline touch */
-.wavy-underline {
-  text-decoration: underline wavy #3A8FDA;
-  text-underline-offset: 4px;
+/* Slow drifting cloud layer on sky-to-mist background */
+.drifting-cloud-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: var(--bg-canvas-gradient);
+  overflow: hidden;
 }
 
-/* Simulated data tilted badge note */
-.sim-sticky-note {
+.cloud-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250%;
+  height: 100%;
+  opacity: 0.35;
+  background-image: 
+    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.8) 0%, transparent 40%),
+    radial-gradient(circle at 45% 15%, rgba(217, 233, 251, 0.6) 0%, transparent 45%),
+    radial-gradient(circle at 75% 30%, rgba(255, 255, 255, 0.7) 0%, transparent 35%);
+  animation: driftClouds 120s linear infinite;
+}
+
+.dark .cloud-layer {
+  opacity: 0.12;
+  background-image: 
+    radial-gradient(circle at 15% 25%, rgba(58, 143, 218, 0.25) 0%, transparent 40%),
+    radial-gradient(circle at 45% 15%, rgba(30, 95, 168, 0.2) 0%, transparent 45%),
+    radial-gradient(circle at 75% 30%, rgba(58, 143, 218, 0.2) 0%, transparent 35%);
+}
+
+@keyframes driftClouds {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Tilted simulated data badge */
+.sim-badge-sticky {
   transform: rotate(-1.5deg);
   background: #FFFDF0;
   border: 1px solid #E8E2BE;
   color: #7A6F3E;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.dark .sim-badge-sticky {
+  background: #192535;
+  border: 1px solid #2A3E56;
+  color: #8FC0EE;
 }
