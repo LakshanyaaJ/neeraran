@@ -147,7 +147,7 @@ cells.append(nbf.v4.new_markdown_cell("""## 4. Engine 2: Hydraulic Leak Diagnost
 4. **Class 3 (Sensor Fault):** Hardware drift & stuck transducers (Intercepted by Layer 1)
 """))
 
-cells.append(nbf.v4.new_code_cell("""fig, axes = plt.subplots(1, 2, figsize=(15, 6))
+cells.append(nbf.v4.new_code_cell(r"""fig, axes = plt.subplots(1, 2, figsize=(15, 6))
 
 # Confusion Matrix for XGBoost
 cm = np.array([
@@ -184,7 +184,7 @@ When a power trip occurs or wireless telemetry drops out:
 - **AquaGuard AI:** The Layer 1 state machine intercepts missing packets, generates deduplicated maintenance alerts, and returns `INSUFFICIENT_SENSOR_DATA`—**guaranteeing 0 false leak alarms**.
 """))
 
-cells.append(nbf.v4.new_code_cell("""# Initialize Decision Engine
+cells.append(nbf.v4.new_code_cell(r"""# Initialize Decision Engine
 engine = EvidenceBasedDecisionEngine()
 
 print("--- SCENARIO A: Normal Operational Telemetry ---")
@@ -233,7 +233,9 @@ cells.append(nbf.v4.new_markdown_cell("""## 6. Production Deployment Summary & I
 """))
 
 # Save notebook
+nb.cells = cells
 out_path = os.path.join('notebooks', 'AQUAGUARD_FINAL_PRESENTATION.ipynb')
 with open(out_path, 'w', encoding='utf-8') as f:
     nbf.write(nb, f)
 print(f"Saved notebook template to {out_path}")
+
