@@ -1,0 +1,95 @@
+{
+  "evaluation_timestamp": "2026-10-31T06:20:15.485551+00:00",
+  "project_name": "NEERARAN",
+  "system": "AquaMind AI - Water Demand Forecasting",
+  "model_name": "CatBoost",
+  "model_version": "v1.0.0",
+  "is_synthetic": true,
+  "dataset_metadata": {
+    "test_split_ratio": 0.15,
+    "test_observations": 3295,
+    "campus_buildings": [
+      "hostel_01",
+      "academic_block_01",
+      "library_01",
+      "canteen_01",
+      "research_lab_01"
+    ]
+  },
+  "primary_hackathon_metrics": {
+    "1_accuracy": {
+      "metric_description": "Hourly forecast error on held-out test split (actuals < 0.1 L/h masked for MAPE)",
+      "target_sla": "MAPE < 6.5%",
+      "target_met": true,
+      "overall": {
+        "mae": 34.05,
+        "rmse": 48.07,
+        "r2": 0.9899,
+        "wape_pct": 4.08,
+        "mape_pct": 4.16
+      },
+      "horizons": {
+        "24h": {
+          "mae": 32.67,
+          "rmse": 46.02,
+          "r2": 0.9911,
+          "wape_pct": 3.89,
+          "mape_pct": 4.03
+        },
+        "48h": {
+          "mae": 34.51,
+          "rmse": 49.07,
+          "r2": 0.9895,
+          "wape_pct": 4.14,
+          "mape_pct": 4.21
+        },
+        "72h": {
+          "mae": 34.05,
+          "rmse": 48.07,
+          "r2": 0.9899,
+          "wape_pct": 4.08,
+          "mape_pct": 4.16
+        }
+      }
+    },
+    "2_groundedness": {
+      "metric_description": "Physical bounds adherence [0, 3x peak design capacity]",
+      "target_sla": "100.0% adherence",
+      "target_met": true,
+      "compliance_pct": 100.0,
+      "non_negative_pct": 100.0,
+      "capacity_bounded_pct": 100.0
+    },
+    "3_latency": {
+      "metric_description": "Execution latency for 72h recursive multi-step forecast rollout",
+      "target_sla": "< 2.0s (2000 ms)",
+      "target_met": true,
+      "mean_latency_ms": 573.82,
+      "median_latency_ms": 568.77,
+      "p95_latency_ms": 606.74
+    },
+    "4_cost": {
+      "metric_description": "Economic utility ($/m3 water saved) and compute overhead",
+      "water_saved_per_m3_usd": 0.15,
+      "compute_cost_per_forecast_usd": 6e-06,
+      "model_storage_kb": 339.0,
+      "ram_overhead_mb": 42.5,
+      "gpu_tokens_required": 0,
+      "target_met": true
+    },
+    "5_false_positive_rate": {
+      "metric_description": "Surge / leak anomaly false alarm rate on nominal telemetry (> 3 sigma residual)",
+      "target_sla": "< 5.0%",
+      "target_met": true,
+      "false_positive_rate_pct": 1.06
+    },
+    "6_task_success_rate": {
+      "metric_description": "Completed forecasts adhering to schema without errors",
+      "target_sla": "> 95.0%",
+      "target_met": true,
+      "task_success_rate_pct": 100.0,
+      "total_forecast_requests": 25,
+      "successful_requests": 25
+    }
+  }
+}

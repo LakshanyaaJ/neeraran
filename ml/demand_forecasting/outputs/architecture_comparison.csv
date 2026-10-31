@@ -1,0 +1,3 @@
+architecture,mae_72h,mape_72h
+Unified Global Model (One-Hot Encoded building_id),83.78,9.62
+Per-Building Isolated Models (Average across 5 models),95.85,12.09
