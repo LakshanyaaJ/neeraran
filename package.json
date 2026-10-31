@@ -8,3 +8,4 @@
     "build:web": "cd apps/web && npm run build"
   }
 }
+
