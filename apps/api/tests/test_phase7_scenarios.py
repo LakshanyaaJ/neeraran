@@ -89,3 +89,4 @@ def test_viewer_rbac_rejects_scenario_injection():
     with pytest.raises(HTTPException) as exc_info:
         inject_scenario(InjectScenarioPayload(events=events, role="viewer"), x_user_role="viewer")
     assert exc_info.value.status_code == 403
+

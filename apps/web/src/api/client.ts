@@ -221,4 +221,16 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(weights),
     }),
+
+  getEvalMetrics: () =>
+    apiFetch<any>('/api/eval/metrics', { method: 'GET' }),
+
+  runBenchmark: () =>
+    apiFetch<any>('/api/eval/benchmark', { method: 'POST' }),
+
+  updateEvalThreshold: (z_score: number) =>
+    apiFetch<any>('/api/eval/threshold', {
+      method: 'POST',
+      body: JSON.stringify({ z_score }),
+    }),
 };
