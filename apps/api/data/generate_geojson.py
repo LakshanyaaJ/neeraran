@@ -313,3 +313,4 @@ with open("apps/api/data/campus.geojson", "w") as f:
     json.dump(geojson_data, f, indent=2)
 
 print("Created /apps/api/data/campus.geojson successfully!")
+

@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime, timezone
 
 from .db.database import init_db
-from .routes import campus, simulation, stream
+from .routes import campus, simulation, stream, agents
 from .sim.seed_history import seed_90_days
 
 @asynccontextmanager
@@ -38,6 +38,7 @@ app.add_middleware(
 app.include_router(campus.router)
 app.include_router(simulation.router)
 app.include_router(stream.router)
+app.include_router(agents.router)
 
 @app.get("/")
 @app.get("/health")
