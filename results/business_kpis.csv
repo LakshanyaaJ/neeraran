@@ -1,0 +1,4 @@
+Model,Detected Leak Vol (m³),Missed Leak Vol (m³),Leak Volume Detection (%),Simulated Water Saved (m³),Financial Savings ($),False Alarms / Day,Unnecessary Inspections
+XGBoost,0.11,0.0,100.0,0.06,0.14,0.15,0
+Random Forest,0.11,0.0,100.0,0.06,0.14,0.22,0
+Extra Trees,0.11,0.0,100.0,0.06,0.14,0.15,0

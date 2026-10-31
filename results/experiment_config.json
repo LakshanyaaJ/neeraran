@@ -1,0 +1,37 @@
+{
+  "simulation_parameters": {
+    "total_meters": 12,
+    "campus_zones": 6,
+    "simulation_duration_days": 90,
+    "sampling_interval_minutes": 5,
+    "total_rows_per_dataset": 311040,
+    "date_range": [
+      "2026-07-01 00:00:00",
+      "2026-09-28 23:55:00"
+    ],
+    "shared_events": 77
+  },
+  "splitting_strategy": {
+    "method": "chronological_with_event_level_isolation",
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "zero_event_leakage": true
+  },
+  "operational_simulation_policy": {
+    "alert_queue_latency_mins": 2.0,
+    "recommendation_latency_mins": 3.0,
+    "operator_approval_delay_mins": 15.0,
+    "repair_duration_mins": 60.0,
+    "hydraulic_stabilization_mins": 10.0,
+    "water_tariff_usd_per_m3": 2.5
+  },
+  "models_trained": [
+    "Isolation Forest",
+    "Local Outlier Factor (novelty=True)",
+    "One-Class SVM",
+    "XGBoost Classifier",
+    "Random Forest Classifier",
+    "Extra Trees Classifier"
+  ]
+}

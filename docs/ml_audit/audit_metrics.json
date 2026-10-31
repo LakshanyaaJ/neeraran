@@ -1,0 +1,657 @@
+{
+  "untouched_test_evaluation": {
+    "isolation_forest": {
+      "calibrated_threshold": 0.010808238099270673,
+      "precision": 0.15286624203821655,
+      "recall": 0.2376237623762376,
+      "f1_score": 0.18604651162790697,
+      "accuracy": 0.9954989711934157,
+      "roc_auc": 0.8969014611696375,
+      "pr_auc": 0.2225360810751131,
+      "fpr": 0.0028568360004295992,
+      "fnr": 0.7623762376237624,
+      "confusion_matrix": [
+        [
+          46422,
+          133
+        ],
+        [
+          77,
+          24
+        ]
+      ],
+      "default_threshold_metrics": {
+        "precision": 0.14383561643835616,
+        "recall": 0.4158415841584158,
+        "f1_score": 0.21374045801526717,
+        "confusion_matrix": [
+          [
+            46305,
+            250
+          ],
+          [
+            59,
+            42
+          ]
+        ]
+      }
+    },
+    "xgboost": {
+      "accuracy": 0.9979423868312757,
+      "macro_f1": 0.6254436005501015,
+      "weighted_f1": 0.9978122228875185,
+      "roc_auc_ovr": 0.798939244246311,
+      "log_loss": 0.014543414314211713,
+      "per_class": {
+        "class_0_normal": {
+          "precision": 0.9990968518837089,
+          "recall": 0.9988605826077609,
+          "f1": 0.9989787032756748,
+          "support": 46515
+        },
+        "class_1_leak": {
+          "precision": 0.9736842105263158,
+          "recall": 1.0,
+          "f1": 0.9866666666666667,
+          "support": 74
+        },
+        "class_2_demand": {
+          "precision": 0.3582089552238806,
+          "recall": 0.9230769230769231,
+          "f1": 0.5161290322580645,
+          "support": 26
+        },
+        "class_3_sensor": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 41
+        }
+      },
+      "confusion_matrix": [
+        [
+          46462,
+          1,
+          43,
+          9
+        ],
+        [
+          0,
+          74,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          24,
+          0
+        ],
+        [
+          40,
+          1,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "per_zone_performance": [
+    {
+      "zone": "Academic blocks",
+      "iso_precision": 0.0,
+      "iso_recall": 0.0,
+      "iso_f1": 0.0,
+      "iso_anomalies_count": 0,
+      "xgb_macro_f1": 0.49987136609210187,
+      "xgb_leak_recall": 0.0,
+      "xgb_leak_precision": 0.0,
+      "xgb_leaks_count": 0
+    },
+    {
+      "zone": "Administration building",
+      "iso_precision": 0.0,
+      "iso_recall": 0.0,
+      "iso_f1": 0.0,
+      "iso_anomalies_count": 0,
+      "xgb_macro_f1": 1.0,
+      "xgb_leak_recall": 0.0,
+      "xgb_leak_precision": 0.0,
+      "xgb_leaks_count": 0
+    },
+    {
+      "zone": "Canteen",
+      "iso_precision": 0.125,
+      "iso_recall": 0.5,
+      "iso_f1": 0.2,
+      "iso_anomalies_count": 2,
+      "xgb_macro_f1": 0.46007400253023356,
+      "xgb_leak_recall": 0.0,
+      "xgb_leak_precision": 0.0,
+      "xgb_leaks_count": 0
+    },
+    {
+      "zone": "Hostel",
+      "iso_precision": 0.0,
+      "iso_recall": 0.0,
+      "iso_f1": 0.0,
+      "iso_anomalies_count": 0,
+      "xgb_macro_f1": 0.33266756867040354,
+      "xgb_leak_recall": 0.0,
+      "xgb_leak_precision": 0.0,
+      "xgb_leaks_count": 0
+    },
+    {
+      "zone": "Laboratories",
+      "iso_precision": 1.0,
+      "iso_recall": 0.4,
+      "iso_f1": 0.5714285714285714,
+      "iso_anomalies_count": 25,
+      "xgb_macro_f1": 0.6665806340603089,
+      "xgb_leak_recall": 1.0,
+      "xgb_leak_precision": 1.0,
+      "xgb_leaks_count": 25
+    },
+    {
+      "zone": "Library",
+      "iso_precision": 0.8125,
+      "iso_recall": 0.17567567567567569,
+      "iso_f1": 0.28888888888888886,
+      "iso_anomalies_count": 74,
+      "xgb_macro_f1": 0.4970209093004736,
+      "xgb_leak_recall": 1.0,
+      "xgb_leak_precision": 0.98,
+      "xgb_leaks_count": 49
+    }
+  ],
+  "class_performance": [
+    {
+      "class_id": 0,
+      "class_name": "0 - Normal",
+      "precision": 0.9990968518837089,
+      "recall": 0.9988605826077609,
+      "f1_score": 0.9989787032756748,
+      "support": 46515
+    },
+    {
+      "class_id": 1,
+      "class_name": "1 - True Leak",
+      "precision": 0.9736842105263158,
+      "recall": 1.0,
+      "f1_score": 0.9866666666666667,
+      "support": 74
+    },
+    {
+      "class_id": 2,
+      "class_name": "2 - Demand Peak",
+      "precision": 0.3582089552238806,
+      "recall": 0.9230769230769231,
+      "f1_score": 0.5161290322580645,
+      "support": 26
+    },
+    {
+      "class_id": 3,
+      "class_name": "3 - Sensor Fault",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0.0,
+      "support": 41
+    }
+  ],
+  "robustness_experiments": {
+    "missing_value_sensitivity": [
+      {
+        "missing_rate": 0.0,
+        "macro_f1": 0.6254436005501015,
+        "leak_recall": 1.0,
+        "leak_precision": 0.9736842105263158
+      },
+      {
+        "missing_rate": 0.05,
+        "macro_f1": 0.613585174434231,
+        "leak_recall": 0.918918918918919,
+        "leak_precision": 0.9714285714285714
+      },
+      {
+        "missing_rate": 0.1,
+        "macro_f1": 0.6063531198050827,
+        "leak_recall": 0.9324324324324325,
+        "leak_precision": 0.971830985915493
+      },
+      {
+        "missing_rate": 0.2,
+        "macro_f1": 0.570556513605625,
+        "leak_recall": 0.6621621621621622,
+        "leak_precision": 0.9607843137254902
+      },
+      {
+        "missing_rate": 0.3,
+        "macro_f1": 0.5853958866500277,
+        "leak_recall": 0.7297297297297297,
+        "leak_precision": 0.9642857142857143
+      }
+    ],
+    "sensor_noise_sensitivity": [
+      {
+        "noise_rel_std": 0.0,
+        "macro_f1": 0.6254436005501015,
+        "leak_recall": 1.0,
+        "leak_precision": 0.9736842105263158
+      },
+      {
+        "noise_rel_std": 0.02,
+        "macro_f1": 0.6271039269339458,
+        "leak_recall": 1.0,
+        "leak_precision": 0.9736842105263158
+      },
+      {
+        "noise_rel_std": 0.05,
+        "macro_f1": 0.6353056066203917,
+        "leak_recall": 1.0,
+        "leak_precision": 0.9736842105263158
+      },
+      {
+        "noise_rel_std": 0.1,
+        "macro_f1": 0.630140348877209,
+        "leak_recall": 1.0,
+        "leak_precision": 0.9736842105263158
+      },
+      {
+        "noise_rel_std": 0.2,
+        "macro_f1": 0.6146720901757219,
+        "leak_recall": 1.0,
+        "leak_precision": 0.9736842105263158
+      }
+    ]
+  },
+  "unseen_incident_detection": {
+    "total_test_events": 10,
+    "event_detection_rate": 0.5,
+    "avg_detection_delay_minutes": 21.5,
+    "events": [
+      {
+        "event_id": "EVT_0072",
+        "event_type": "sensor_stuck",
+        "event_label": 3,
+        "meter_id": "M02",
+        "zone": "Hostel",
+        "duration_minutes": 65,
+        "detected": false,
+        "detection_delay_minutes": 65
+      },
+      {
+        "event_id": "EVT_0049",
+        "event_type": "unexpected_spike",
+        "event_label": 0,
+        "meter_id": "M05",
+        "zone": "Canteen",
+        "duration_minutes": 10,
+        "detected": false,
+        "detection_delay_minutes": 10
+      },
+      {
+        "event_id": "EVT_0029",
+        "event_type": "demand_canteen",
+        "event_label": 2,
+        "meter_id": "M05",
+        "zone": "Canteen",
+        "duration_minutes": 65,
+        "detected": true,
+        "detection_delay_minutes": 0
+      },
+      {
+        "event_id": "EVT_0032",
+        "event_type": "demand_canteen",
+        "event_label": 2,
+        "meter_id": "M06",
+        "zone": "Canteen",
+        "duration_minutes": 65,
+        "detected": true,
+        "detection_delay_minutes": 0
+      },
+      {
+        "event_id": "EVT_0074",
+        "event_type": "sensor_stuck",
+        "event_label": 3,
+        "meter_id": "M06",
+        "zone": "Canteen",
+        "duration_minutes": 65,
+        "detected": false,
+        "detection_delay_minutes": 65
+      },
+      {
+        "event_id": "EVT_0008",
+        "event_type": "leak_small",
+        "event_label": 1,
+        "meter_id": "M08",
+        "zone": "Laboratories",
+        "duration_minutes": 125,
+        "detected": true,
+        "detection_delay_minutes": 0
+      },
+      {
+        "event_id": "EVT_0071",
+        "event_type": "sensor_stuck",
+        "event_label": 3,
+        "meter_id": "M09",
+        "zone": "Library",
+        "duration_minutes": 65,
+        "detected": false,
+        "detection_delay_minutes": 65
+      },
+      {
+        "event_id": "EVT_0064",
+        "event_type": "sensor_spike",
+        "event_label": 3,
+        "meter_id": "M09",
+        "zone": "Library",
+        "duration_minutes": 10,
+        "detected": false,
+        "detection_delay_minutes": 10
+      },
+      {
+        "event_id": "EVT_0013",
+        "event_type": "leak_moderate",
+        "event_label": 1,
+        "meter_id": "M10",
+        "zone": "Library",
+        "duration_minutes": 245,
+        "detected": true,
+        "detection_delay_minutes": 0
+      },
+      {
+        "event_id": "EVT_0058",
+        "event_type": "night_use",
+        "event_label": 0,
+        "meter_id": "M10",
+        "zone": "Library",
+        "duration_minutes": 125,
+        "detected": true,
+        "detection_delay_minutes": 0
+      }
+    ]
+  },
+  "data_leakage_audit": {
+    "random_split_event_overlap_count": 66,
+    "random_split_event_overlap_pct": 97.05882352941177,
+    "event_aware_split_overlap_count": 0,
+    "event_aware_split_overlap_pct": 0.0
+  },
+  "feature_importance": {
+    "xgb_top_features": [
+      {
+        "feature": "inlet_flow_lpm",
+        "importance": 0.1601760983467102
+      },
+      {
+        "feature": "zone_type_Canteen",
+        "importance": 0.1432621031999588
+      },
+      {
+        "feature": "zone_type_Academic blocks",
+        "importance": 0.1257024109363556
+      },
+      {
+        "feature": "previous_1h_avg_pressure_bar",
+        "importance": 0.08111169934272766
+      },
+      {
+        "feature": "flow_change_lpm",
+        "importance": 0.07884525507688522
+      },
+      {
+        "feature": "previous_1h_avg_flow_lpm",
+        "importance": 0.06052829325199127
+      },
+      {
+        "feature": "zone_type_Hostel",
+        "importance": 0.05859595537185669
+      },
+      {
+        "feature": "hour",
+        "importance": 0.05118609964847565
+      },
+      {
+        "feature": "pressure_bar",
+        "importance": 0.044481128454208374
+      },
+      {
+        "feature": "occupancy",
+        "importance": 0.03830470144748688
+      },
+      {
+        "feature": "zone_type_Administration building",
+        "importance": 0.03351543843746185
+      },
+      {
+        "feature": "scheduled_activity",
+        "importance": 0.03230266273021698
+      },
+      {
+        "feature": "pressure_change_bar",
+        "importance": 0.0279491376131773
+      },
+      {
+        "feature": "zone_type_Library",
+        "importance": 0.026306267827749252
+      },
+      {
+        "feature": "zone_type_Laboratories",
+        "importance": 0.021300900727510452
+      },
+      {
+        "feature": "tank_level_pct",
+        "importance": 0.01643184944987297
+      }
+    ]
+  },
+  "isolation_forest_threshold_sensitivity": {
+    "calibrated_threshold": 0.010808238099270673,
+    "calibrated_f1": 0.18604651162790697,
+    "default_f1": 0.21374045801526717,
+    "sensitivity_curve": [
+      {
+        "threshold": -0.02,
+        "precision": 0.10692771084337349,
+        "recall": 0.7029702970297029,
+        "f1_score": 0.18562091503267975
+      },
+      {
+        "threshold": -0.017586206896551725,
+        "precision": 0.11544715447154472,
+        "recall": 0.7029702970297029,
+        "f1_score": 0.19832402234636873
+      },
+      {
+        "threshold": -0.015172413793103448,
+        "precision": 0.12792792792792793,
+        "recall": 0.7029702970297029,
+        "f1_score": 0.21646341463414634
+      },
+      {
+        "threshold": -0.012758620689655172,
+        "precision": 0.1348747591522158,
+        "recall": 0.693069306930693,
+        "f1_score": 0.22580645161290322
+      },
+      {
+        "threshold": -0.010344827586206896,
+        "precision": 0.13763440860215054,
+        "recall": 0.6336633663366337,
+        "f1_score": 0.22614840989399293
+      },
+      {
+        "threshold": -0.007931034482758621,
+        "precision": 0.14388489208633093,
+        "recall": 0.594059405940594,
+        "f1_score": 0.23166023166023167
+      },
+      {
+        "threshold": -0.005517241379310344,
+        "precision": 0.14659685863874344,
+        "recall": 0.5544554455445545,
+        "f1_score": 0.2318840579710145
+      },
+      {
+        "threshold": -0.0031034482758620675,
+        "precision": 0.14411764705882352,
+        "recall": 0.48514851485148514,
+        "f1_score": 0.2222222222222222
+      },
+      {
+        "threshold": -0.0006896551724137924,
+        "precision": 0.14705882352941177,
+        "recall": 0.44554455445544555,
+        "f1_score": 0.22113022113022113
+      },
+      {
+        "threshold": 0.0017241379310344827,
+        "precision": 0.15151515151515152,
+        "recall": 0.39603960396039606,
+        "f1_score": 0.2191780821917808
+      },
+      {
+        "threshold": 0.004137931034482758,
+        "precision": 0.14414414414414414,
+        "recall": 0.31683168316831684,
+        "f1_score": 0.19814241486068113
+      },
+      {
+        "threshold": 0.0065517241379310365,
+        "precision": 0.1377551020408163,
+        "recall": 0.26732673267326734,
+        "f1_score": 0.18181818181818182
+      },
+      {
+        "threshold": 0.008965517241379312,
+        "precision": 0.14857142857142858,
+        "recall": 0.25742574257425743,
+        "f1_score": 0.18840579710144928
+      },
+      {
+        "threshold": 0.01137931034482759,
+        "precision": 0.16,
+        "recall": 0.2376237623762376,
+        "f1_score": 0.19123505976095617
+      },
+      {
+        "threshold": 0.013793103448275865,
+        "precision": 0.16806722689075632,
+        "recall": 0.19801980198019803,
+        "f1_score": 0.18181818181818182
+      },
+      {
+        "threshold": 0.01620689655172414,
+        "precision": 0.2,
+        "recall": 0.18811881188118812,
+        "f1_score": 0.19387755102040816
+      },
+      {
+        "threshold": 0.018620689655172416,
+        "precision": 0.2638888888888889,
+        "recall": 0.18811881188118812,
+        "f1_score": 0.21965317919075145
+      },
+      {
+        "threshold": 0.02103448275862069,
+        "precision": 0.35185185185185186,
+        "recall": 0.18811881188118812,
+        "f1_score": 0.24516129032258063
+      },
+      {
+        "threshold": 0.023448275862068966,
+        "precision": 0.4666666666666667,
+        "recall": 0.13861386138613863,
+        "f1_score": 0.21374045801526717
+      },
+      {
+        "threshold": 0.02586206896551724,
+        "precision": 0.75,
+        "recall": 0.1188118811881188,
+        "f1_score": 0.20512820512820512
+      },
+      {
+        "threshold": 0.028275862068965516,
+        "precision": 0.9090909090909091,
+        "recall": 0.09900990099009901,
+        "f1_score": 0.17857142857142858
+      },
+      {
+        "threshold": 0.030689655172413798,
+        "precision": 1.0,
+        "recall": 0.06930693069306931,
+        "f1_score": 0.12962962962962962
+      },
+      {
+        "threshold": 0.03310344827586208,
+        "precision": 1.0,
+        "recall": 0.04950495049504951,
+        "f1_score": 0.09433962264150944
+      },
+      {
+        "threshold": 0.03551724137931035,
+        "precision": 1.0,
+        "recall": 0.009900990099009901,
+        "f1_score": 0.0196078431372549
+      },
+      {
+        "threshold": 0.03793103448275863,
+        "precision": 1.0,
+        "recall": 0.009900990099009901,
+        "f1_score": 0.0196078431372549
+      },
+      {
+        "threshold": 0.0403448275862069,
+        "precision": 1.0,
+        "recall": 0.009900990099009901,
+        "f1_score": 0.0196078431372549
+      },
+      {
+        "threshold": 0.04275862068965518,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      },
+      {
+        "threshold": 0.04517241379310345,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      },
+      {
+        "threshold": 0.04758620689655173,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      },
+      {
+        "threshold": 0.05,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      }
+    ]
+  },
+  "probability_calibration": {
+    "brier_scores": {
+      "class_0": 0.0019300016574561596,
+      "class_1": 4.300166983739473e-05,
+      "class_2": 0.0007508197450079024,
+      "class_3": 0.001132132951170206
+    }
+  },
+  "inference_latency": {
+    "isolation_forest_ms": {
+      "mean": 22.86680140037788,
+      "median": 22.65610000176821,
+      "p95": 23.73743000425747,
+      "p99": 27.834679006191433
+    },
+    "xgboost_ms": {
+      "mean": 1.1432145996950567,
+      "median": 1.0988499998347834,
+      "p95": 1.3413250118901487,
+      "p99": 1.570910998561885
+    }
+  }
+}

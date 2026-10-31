@@ -1,0 +1,36 @@
+{
+  "task_1_abnormal_consumption": {
+    "best_model": "One-Class SVM",
+    "artifact_path": "models/anomaly/best_anomaly_model.joblib",
+    "key_metrics": {
+      "accuracy": 0.9988854595336076,
+      "f1_score": 0.7450980392156863,
+      "precision": 0.7378640776699029,
+      "recall": 0.7524752475247525,
+      "event_detection_rate": 0.75,
+      "avg_latency_ms": 3.917461999953957,
+      "p95_latency_ms": 9.728760005236811,
+      "model_size_kb": 32.8,
+      "groundedness": 0.99750499001996
+    },
+    "selection_rationale": "Best balance of high F1 (0.7451), near-instant latency (3.92ms), ultra-compact footprint (32.8 KB), and zero detection delay."
+  },
+  "task_2_leak_identification": {
+    "best_model": "XGBoost",
+    "artifact_path": "models/leak/best_leak_model.joblib",
+    "key_metrics": {
+      "accuracy": 0.9979423868312756,
+      "macro_f1": 0.6254436005501015,
+      "leak_recall": 1.0,
+      "leak_precision": 0.9736842105263158,
+      "leak_fpr": 4.2935039285560944e-05,
+      "demand_to_leak_rate": 0.0,
+      "task_success_rate": 1.0,
+      "avg_latency_ms": 2.289163000532426,
+      "p95_latency_ms": 2.896285001770593,
+      "model_size_kb": 1104.28,
+      "groundedness": 0.996029776674938
+    },
+    "selection_rationale": "100% leak recall with zero demand-to-leak false alarms, highest macro F1 (0.6254), lightning-fast 2.29ms latency, and compact 1.1MB size."
+  }
+}
