@@ -272,3 +272,4 @@ class DetectorAgent:
             "evidence": evidence_store,
             "trace": trace
         }
+

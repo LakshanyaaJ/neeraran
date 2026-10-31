@@ -97,3 +97,4 @@ class WhyGenerator:
     def apply_to_cases(self, cases: List[Case]):
         for case in cases:
             case.why_text = self.generate_why(case)
+

@@ -99,3 +99,4 @@ class PrioritizerWeights(BaseModel):
     w_vuln: float = 0.25
     w_time: float = 0.15
     w_cost: float = 0.10
+

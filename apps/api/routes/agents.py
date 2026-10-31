@@ -138,3 +138,4 @@ def update_prioritizer_weights(
         "weights": weights.model_dump(),
         "ranked_queue": orchestrator.get_ranked_queue()
     }
+

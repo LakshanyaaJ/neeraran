@@ -230,3 +230,4 @@ class OptimizerAgent:
             "conservation_actions": conservation_actions,
             "trace": trace
         }
+

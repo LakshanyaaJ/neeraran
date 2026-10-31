@@ -162,3 +162,4 @@ class ForecasterAgent:
             "forecast": forecast_result,
             "trace": trace
         }
+

@@ -156,3 +156,4 @@ class InterventorMeasurerAgent:
             "error_pct": error_pct,
             "rupees_saved_per_day": rupees_saved
         }
+

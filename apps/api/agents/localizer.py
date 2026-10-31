@@ -140,3 +140,4 @@ class LocalizerAgent:
             "evidence": new_evidence,
             "trace": trace
         }
+

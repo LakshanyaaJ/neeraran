@@ -88,3 +88,4 @@ class Verifier:
             "audit_results": audit_results,
             "trace": trace
         }
+
