@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "timestamp": "2026-10-31T07:20:00",
+    "actor": "agent:Interventor",
+    "role": "agent",
+    "action_type": "draft_plan",
+    "target_resource": "CASE-LK-001",
+    "evidence_ids": "EVID-001,EVID-002",
+    "details": "Drafted multi-step valve throttle with CMMS work order.",
+    "status": "success"
+  },
+  {
+    "id": 2,
+    "timestamp": "2026-10-31T07:22:00",
+    "actor": "Estate Admin",
+    "role": "admin",
+    "action_type": "approve_action",
+    "target_resource": "PLAN-LK-001",
+    "evidence_ids": "EVID-001",
+    "details": "Authorized valve modulation and tanker dispatch.",
+    "status": "success"
+  }
+]

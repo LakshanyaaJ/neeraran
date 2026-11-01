@@ -1,0 +1,212 @@
+[
+  {
+    "agent": "MonitorAgent",
+    "started": "2026-10-31T07:43:17.421018+00:00",
+    "ended": "2026-10-31T07:43:17.421036+00:00",
+    "ms": 0.02,
+    "inputs": [
+      {
+        "tick": 0,
+        "blocks_checked": 20
+      }
+    ],
+    "outputs": [
+      {
+        "suspect_sensors_count": 0,
+        "suspect_sensors": {},
+        "evidence_count": 0
+      }
+    ],
+    "notes": []
+  },
+  {
+    "agent": "DetectorAgent",
+    "started": "2026-10-31T07:43:17.421069+00:00",
+    "ended": "2026-10-31T07:43:17.473344+00:00",
+    "ms": 52.27,
+    "inputs": [
+      {
+        "blocks_evaluated": 20,
+        "tick": 0
+      }
+    ],
+    "outputs": [
+      {
+        "cases_opened": 5,
+        "leak_cases": 0,
+        "sensor_cases": 0,
+        "watch_cases": 5,
+        "total_evidence": 5
+      }
+    ],
+    "notes": [
+      "Single signal watch case for BLK-01 (ml_outlier)",
+      "Single signal watch case for BLK-02 (ml_outlier)",
+      "Single signal watch case for BLK-03 (ml_outlier)",
+      "Single signal watch case for BLK-06 (ml_outlier)",
+      "Single signal watch case for BLK-08 (ml_outlier)"
+    ]
+  },
+  {
+    "agent": "LocalizerAgent",
+    "started": "2026-10-31T07:43:17.473386+00:00",
+    "ended": "2026-10-31T07:43:17.473397+00:00",
+    "ms": 0.01,
+    "inputs": [
+      {
+        "cases_to_localize": 5
+      }
+    ],
+    "outputs": [
+      {
+        "localized_cases_count": 0
+      }
+    ],
+    "notes": []
+  },
+  {
+    "agent": "ForecasterAgent",
+    "started": "2026-10-31T07:43:17.473407+00:00",
+    "ended": "2026-10-31T07:43:17.482425+00:00",
+    "ms": 9.01,
+    "inputs": [
+      {
+        "current_storage_kl": 652.4,
+        "blocks_count": 20
+      }
+    ],
+    "outputs": [
+      {
+        "days_of_reserve": 1.62,
+        "model_mae": 4.2,
+        "naive_mae": 12.8
+      }
+    ],
+    "notes": [
+      "Campus storage holds 1.6 days of reserve [80% CI: 1.6 to 1.7 days]. Holt-Winters model achieves MAE 4.2 L/min (67.2% error reduction vs naive baseline)."
+    ]
+  },
+  {
+    "agent": "PrioritizerAgent",
+    "started": "2026-10-31T07:43:17.482541+00:00",
+    "ended": "2026-10-31T07:43:17.482648+00:00",
+    "ms": 0.1,
+    "inputs": [
+      {
+        "cases_ranked": 5,
+        "weights": {
+          "w_loss": 0.3,
+          "w_pop": 0.2,
+          "w_vuln": 0.25,
+          "w_time": 0.15,
+          "w_cost": 0.1
+        }
+      }
+    ],
+    "outputs": [
+      {
+        "top_ranked_case": "CASE-0-BLK-03-WATCH",
+        "top_score": 58.46
+      }
+    ],
+    "notes": [
+      "Scored CASE-0-BLK-01-WATCH [BLK-01]: 57.46 points",
+      "Scored CASE-0-BLK-02-WATCH [BLK-02]: 55.46 points",
+      "Scored CASE-0-BLK-03-WATCH [BLK-03]: 58.46 points",
+      "Scored CASE-0-BLK-06-WATCH [BLK-06]: 39.21 points",
+      "Scored CASE-0-BLK-08-WATCH [BLK-08]: 39.21 points"
+    ]
+  },
+  {
+    "agent": "OptimizerAgent",
+    "started": "2026-10-31T07:43:17.482661+00:00",
+    "ended": "2026-10-31T07:43:17.485532+00:00",
+    "ms": 2.87,
+    "inputs": [
+      {
+        "tanks_count": 4,
+        "cases_handled": 5
+      }
+    ],
+    "outputs": [
+      {
+        "lp_status": "optimal",
+        "energy_cost_inr": 494.1,
+        "daily_energy_savings_inr": 439.19999999999993,
+        "plan_created": "CASE-0-BLK-03-WATCH"
+      }
+    ],
+    "notes": [
+      "LP optimization converged. Daily pumping energy: \u20b9494.1"
+    ]
+  },
+  {
+    "agent": "Verifier",
+    "started": "2026-10-31T07:43:17.485578+00:00",
+    "ended": "2026-10-31T07:43:17.485943+00:00",
+    "ms": 0.36,
+    "inputs": [
+      {
+        "cases_verified": 5
+      }
+    ],
+    "outputs": [
+      {
+        "audit_results": [
+          {
+            "case_id": "CASE-0-BLK-03-WATCH",
+            "groundedness": 0.85,
+            "citations_verified": 1,
+            "sources_count": 1,
+            "notes": [
+              "Single signal flagged; withholding leak classification pending second confirmatory source"
+            ]
+          },
+          {
+            "case_id": "CASE-0-BLK-01-WATCH",
+            "groundedness": 0.85,
+            "citations_verified": 1,
+            "sources_count": 1,
+            "notes": [
+              "Single signal flagged; withholding leak classification pending second confirmatory source"
+            ]
+          },
+          {
+            "case_id": "CASE-0-BLK-02-WATCH",
+            "groundedness": 0.85,
+            "citations_verified": 1,
+            "sources_count": 1,
+            "notes": [
+              "Single signal flagged; withholding leak classification pending second confirmatory source"
+            ]
+          },
+          {
+            "case_id": "CASE-0-BLK-06-WATCH",
+            "groundedness": 0.85,
+            "citations_verified": 1,
+            "sources_count": 1,
+            "notes": [
+              "Single signal flagged; withholding leak classification pending second confirmatory source"
+            ]
+          },
+          {
+            "case_id": "CASE-0-BLK-08-WATCH",
+            "groundedness": 0.85,
+            "citations_verified": 1,
+            "sources_count": 1,
+            "notes": [
+              "Single signal flagged; withholding leak classification pending second confirmatory source"
+            ]
+          }
+        ]
+      }
+    ],
+    "notes": [
+      "Verified CASE-0-BLK-03-WATCH: Groundedness=0.85, Sources=1",
+      "Verified CASE-0-BLK-01-WATCH: Groundedness=0.85, Sources=1",
+      "Verified CASE-0-BLK-02-WATCH: Groundedness=0.85, Sources=1",
+      "Verified CASE-0-BLK-06-WATCH: Groundedness=0.85, Sources=1",
+      "Verified CASE-0-BLK-08-WATCH: Groundedness=0.85, Sources=1"
+    ]
+  }
+]

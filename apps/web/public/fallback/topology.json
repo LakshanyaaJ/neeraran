@@ -1,0 +1,1221 @@
+{
+  "campus_center": [
+    80.222,
+    12.987
+  ],
+  "geojson": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2185,
+            12.9892
+          ]
+        },
+        "properties": {
+          "id": "BLK-01",
+          "name": "Cauvery Boys Hostel",
+          "code": "CBH",
+          "asset_type": "block",
+          "category": "residential",
+          "population": 850,
+          "is_vulnerable": true,
+          "fed_by": "OHT-HOSTEL",
+          "baseline_demand_lpm": 95.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2198,
+            12.9901
+          ]
+        },
+        "properties": {
+          "id": "BLK-02",
+          "name": "Krishna Boys Hostel",
+          "code": "KBH",
+          "asset_type": "block",
+          "category": "residential",
+          "population": 750,
+          "is_vulnerable": true,
+          "fed_by": "OHT-HOSTEL",
+          "baseline_demand_lpm": 84.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2172,
+            12.988
+          ]
+        },
+        "properties": {
+          "id": "BLK-03",
+          "name": "Vaigai Girls Hostel",
+          "code": "VGH",
+          "asset_type": "block",
+          "category": "residential",
+          "population": 900,
+          "is_vulnerable": true,
+          "fed_by": "OHT-HOSTEL",
+          "baseline_demand_lpm": 100.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2235,
+            12.9875
+          ]
+        },
+        "properties": {
+          "id": "BLK-04",
+          "name": "Campus Health Centre",
+          "code": "HLC",
+          "asset_type": "block",
+          "category": "health",
+          "population": 35,
+          "is_vulnerable": true,
+          "fed_by": "OHT-ADMIN",
+          "baseline_demand_lpm": 22.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2241,
+            12.9868
+          ]
+        },
+        "properties": {
+          "id": "BLK-05",
+          "name": "Campus Daycare & Cr\u00e8che",
+          "code": "CRC",
+          "asset_type": "block",
+          "category": "health",
+          "population": 45,
+          "is_vulnerable": true,
+          "fed_by": "OHT-ADMIN",
+          "baseline_demand_lpm": 16.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2205,
+            12.9885
+          ]
+        },
+        "properties": {
+          "id": "BLK-06",
+          "name": "Central Mess & Dining Complex",
+          "code": "MES",
+          "asset_type": "block",
+          "category": "utility",
+          "population": 2500,
+          "is_vulnerable": false,
+          "fed_by": "OHT-HOSTEL",
+          "baseline_demand_lpm": 120.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2225,
+            12.9915
+          ]
+        },
+        "properties": {
+          "id": "BLK-07",
+          "name": "Ramanujan Hall (Academic Block A)",
+          "code": "ACA",
+          "asset_type": "block",
+          "category": "academic",
+          "population": 1800,
+          "is_vulnerable": false,
+          "fed_by": "OHT-NORTH",
+          "baseline_demand_lpm": 65.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.224,
+            12.9922
+          ]
+        },
+        "properties": {
+          "id": "BLK-08",
+          "name": "Sir C.V. Raman Science Block (Academic Block B)",
+          "code": "ACB",
+          "asset_type": "block",
+          "category": "academic",
+          "population": 1400,
+          "is_vulnerable": false,
+          "fed_by": "OHT-NORTH",
+          "baseline_demand_lpm": 72.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2255,
+            12.991
+          ]
+        },
+        "properties": {
+          "id": "BLK-09",
+          "name": "Alan Turing Computing Complex (Academic Block C)",
+          "code": "ACC",
+          "asset_type": "block",
+          "category": "academic",
+          "population": 1600,
+          "is_vulnerable": false,
+          "fed_by": "OHT-NORTH",
+          "baseline_demand_lpm": 55.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2215,
+            12.987
+          ]
+        },
+        "properties": {
+          "id": "BLK-10",
+          "name": "Central Library & Knowledge Resource Centre",
+          "code": "LIB",
+          "asset_type": "block",
+          "category": "academic",
+          "population": 600,
+          "is_vulnerable": false,
+          "fed_by": "OHT-ADMIN",
+          "baseline_demand_lpm": 28.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.226,
+            12.988
+          ]
+        },
+        "properties": {
+          "id": "BLK-11",
+          "name": "Nanotech & Biotech Research Facility",
+          "code": "LAB",
+          "asset_type": "block",
+          "category": "academic",
+          "population": 250,
+          "is_vulnerable": false,
+          "fed_by": "OHT-SOUTH",
+          "baseline_demand_lpm": 50.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2272,
+            12.9845
+          ]
+        },
+        "properties": {
+          "id": "BLK-12",
+          "name": "Aquatics & Sports Complex",
+          "code": "SPT",
+          "asset_type": "block",
+          "category": "sports",
+          "population": 400,
+          "is_vulnerable": false,
+          "fed_by": "OHT-SOUTH",
+          "baseline_demand_lpm": 60.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.221,
+            12.9855
+          ]
+        },
+        "properties": {
+          "id": "BLK-13",
+          "name": "Administrative Bhavan",
+          "code": "ADM",
+          "asset_type": "block",
+          "category": "admin",
+          "population": 300,
+          "is_vulnerable": false,
+          "fed_by": "OHT-ADMIN",
+          "baseline_demand_lpm": 25.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.223,
+            12.9842
+          ]
+        },
+        "properties": {
+          "id": "BLK-14",
+          "name": "Executive Campus Guest House",
+          "code": "GHS",
+          "asset_type": "block",
+          "category": "residential",
+          "population": 60,
+          "is_vulnerable": false,
+          "fed_by": "OHT-ADMIN",
+          "baseline_demand_lpm": 20.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.225,
+            12.9852
+          ]
+        },
+        "properties": {
+          "id": "BLK-15",
+          "name": "Student Activity Centre (SAC)",
+          "code": "SAC",
+          "asset_type": "block",
+          "category": "sports",
+          "population": 500,
+          "is_vulnerable": false,
+          "fed_by": "OHT-SOUTH",
+          "baseline_demand_lpm": 35.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.227,
+            12.9902
+          ]
+        },
+        "properties": {
+          "id": "BLK-16",
+          "name": "Workshop & Fabrication Hub",
+          "code": "WKS",
+          "asset_type": "block",
+          "category": "academic",
+          "population": 220,
+          "is_vulnerable": false,
+          "fed_by": "OHT-NORTH",
+          "baseline_demand_lpm": 28.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.228,
+            12.9868
+          ]
+        },
+        "properties": {
+          "id": "BLK-17",
+          "name": "Electrical Substation & Utility Annex",
+          "code": "UTL",
+          "asset_type": "block",
+          "category": "utility",
+          "population": 50,
+          "is_vulnerable": false,
+          "fed_by": "OHT-SOUTH",
+          "baseline_demand_lpm": 12.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2165,
+            12.984
+          ]
+        },
+        "properties": {
+          "id": "BLK-18",
+          "name": "Main Gatehouse & Security Hub",
+          "code": "SEC",
+          "asset_type": "block",
+          "category": "admin",
+          "population": 30,
+          "is_vulnerable": false,
+          "fed_by": "OHT-ADMIN",
+          "baseline_demand_lpm": 8.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.219,
+            12.9865
+          ]
+        },
+        "properties": {
+          "id": "BLK-19",
+          "name": "Campus Cafeteria & Kiosk Plaza",
+          "code": "CAF",
+          "asset_type": "block",
+          "category": "utility",
+          "population": 350,
+          "is_vulnerable": false,
+          "fed_by": "OHT-HOSTEL",
+          "baseline_demand_lpm": 30.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.225,
+            12.983
+          ]
+        },
+        "properties": {
+          "id": "BLK-20",
+          "name": "Faculty Housing Enclave",
+          "code": "FAC",
+          "asset_type": "block",
+          "category": "residential",
+          "population": 400,
+          "is_vulnerable": false,
+          "fed_by": "OHT-ADMIN",
+          "baseline_demand_lpm": 48.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2195,
+            12.9888
+          ]
+        },
+        "properties": {
+          "id": "OHT-HOSTEL",
+          "name": "Overhead Tank Hostels & Dining",
+          "asset_type": "tank",
+          "capacity_kl": 100.0,
+          "serves_blocks": [
+            "BLK-01",
+            "BLK-02",
+            "BLK-03",
+            "BLK-06",
+            "BLK-19"
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2238,
+            12.9918
+          ]
+        },
+        "properties": {
+          "id": "OHT-NORTH",
+          "name": "Overhead Tank North Academic",
+          "asset_type": "tank",
+          "capacity_kl": 80.0,
+          "serves_blocks": [
+            "BLK-07",
+            "BLK-08",
+            "BLK-09",
+            "BLK-16"
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2265,
+            12.9865
+          ]
+        },
+        "properties": {
+          "id": "OHT-SOUTH",
+          "name": "Overhead Tank South Labs & Sports",
+          "asset_type": "tank",
+          "capacity_kl": 80.0,
+          "serves_blocks": [
+            "BLK-11",
+            "BLK-12",
+            "BLK-15",
+            "BLK-17"
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2225,
+            12.9858
+          ]
+        },
+        "properties": {
+          "id": "OHT-ADMIN",
+          "name": "Overhead Tank Admin & Health Enclave",
+          "asset_type": "tank",
+          "capacity_kl": 60.0,
+          "serves_blocks": [
+            "BLK-04",
+            "BLK-05",
+            "BLK-10",
+            "BLK-13",
+            "BLK-14",
+            "BLK-18",
+            "BLK-20"
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.22,
+            12.993
+          ]
+        },
+        "properties": {
+          "id": "BW-01",
+          "name": "Deep Borewell 1 (North Aquifer)",
+          "asset_type": "borewell",
+          "depth_m": 180.0,
+          "max_yield_lpm": 250.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2285,
+            12.9835
+          ]
+        },
+        "properties": {
+          "id": "BW-02",
+          "name": "Deep Borewell 2 (South Aquifer)",
+          "asset_type": "borewell",
+          "depth_m": 210.0,
+          "max_yield_lpm": 200.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.2215,
+            12.988
+          ]
+        },
+        "properties": {
+          "id": "SUMP-MAIN",
+          "name": "Central Campus Raw Water Sump",
+          "asset_type": "sump",
+          "capacity_kl": 500.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            80.229,
+            12.989
+          ]
+        },
+        "properties": {
+          "id": "STP-MAIN",
+          "name": "Sewage Treatment & Greywater Reclamation Facility",
+          "asset_type": "stp",
+          "capacity_kld": 150.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.22,
+              12.993
+            ],
+            [
+              80.2215,
+              12.988
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-BW1",
+          "from_node": "BW-01",
+          "to_node": "SUMP-MAIN",
+          "asset_type": "pipe",
+          "diameter_mm": 150,
+          "length_m": 580.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2285,
+              12.9835
+            ],
+            [
+              80.2215,
+              12.988
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-BW2",
+          "from_node": "BW-02",
+          "to_node": "SUMP-MAIN",
+          "asset_type": "pipe",
+          "diameter_mm": 150,
+          "length_m": 920.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2215,
+              12.988
+            ],
+            [
+              80.2195,
+              12.9888
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-P1-OHTH",
+          "from_node": "SUMP-MAIN",
+          "to_node": "OHT-HOSTEL",
+          "asset_type": "pipe",
+          "diameter_mm": 200,
+          "length_m": 240.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2215,
+              12.988
+            ],
+            [
+              80.2238,
+              12.9918
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-P2-OHTN",
+          "from_node": "SUMP-MAIN",
+          "to_node": "OHT-NORTH",
+          "asset_type": "pipe",
+          "diameter_mm": 150,
+          "length_m": 480.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2215,
+              12.988
+            ],
+            [
+              80.2265,
+              12.9865
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-P3-OHTS",
+          "from_node": "SUMP-MAIN",
+          "to_node": "OHT-SOUTH",
+          "asset_type": "pipe",
+          "diameter_mm": 150,
+          "length_m": 570.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2215,
+              12.988
+            ],
+            [
+              80.2225,
+              12.9858
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-P4-OHTA",
+          "from_node": "SUMP-MAIN",
+          "to_node": "OHT-ADMIN",
+          "asset_type": "pipe",
+          "diameter_mm": 125,
+          "length_m": 260.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2195,
+              12.9888
+            ],
+            [
+              80.2185,
+              12.9892
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-H-01",
+          "from_node": "OHT-HOSTEL",
+          "to_node": "BLK-01",
+          "asset_type": "pipe",
+          "diameter_mm": 100,
+          "length_m": 120.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2195,
+              12.9888
+            ],
+            [
+              80.2198,
+              12.9901
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-H-02",
+          "from_node": "OHT-HOSTEL",
+          "to_node": "BLK-02",
+          "asset_type": "pipe",
+          "diameter_mm": 100,
+          "length_m": 150.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2195,
+              12.9888
+            ],
+            [
+              80.2172,
+              12.988
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-H-03",
+          "from_node": "OHT-HOSTEL",
+          "to_node": "BLK-03",
+          "asset_type": "pipe",
+          "diameter_mm": 100,
+          "length_m": 270.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2195,
+              12.9888
+            ],
+            [
+              80.2205,
+              12.9885
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-H-04",
+          "from_node": "OHT-HOSTEL",
+          "to_node": "BLK-06",
+          "asset_type": "pipe",
+          "diameter_mm": 125,
+          "length_m": 115.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2195,
+              12.9888
+            ],
+            [
+              80.219,
+              12.9865
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-H-05",
+          "from_node": "OHT-HOSTEL",
+          "to_node": "BLK-19",
+          "asset_type": "pipe",
+          "diameter_mm": 75,
+          "length_m": 260.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2238,
+              12.9918
+            ],
+            [
+              80.2225,
+              12.9915
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-N-01",
+          "from_node": "OHT-NORTH",
+          "to_node": "BLK-07",
+          "asset_type": "pipe",
+          "diameter_mm": 100,
+          "length_m": 150.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2238,
+              12.9918
+            ],
+            [
+              80.224,
+              12.9922
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-N-02",
+          "from_node": "OHT-NORTH",
+          "to_node": "BLK-08",
+          "asset_type": "pipe",
+          "diameter_mm": 100,
+          "length_m": 60.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2238,
+              12.9918
+            ],
+            [
+              80.2255,
+              12.991
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-N-03",
+          "from_node": "OHT-NORTH",
+          "to_node": "BLK-09",
+          "asset_type": "pipe",
+          "diameter_mm": 100,
+          "length_m": 210.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2238,
+              12.9918
+            ],
+            [
+              80.227,
+              12.9902
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-N-04",
+          "from_node": "OHT-NORTH",
+          "to_node": "BLK-16",
+          "asset_type": "pipe",
+          "diameter_mm": 75,
+          "length_m": 380.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2265,
+              12.9865
+            ],
+            [
+              80.226,
+              12.988
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-S-01",
+          "from_node": "OHT-SOUTH",
+          "to_node": "BLK-11",
+          "asset_type": "pipe",
+          "diameter_mm": 100,
+          "length_m": 175.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2265,
+              12.9865
+            ],
+            [
+              80.2272,
+              12.9845
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-S-02",
+          "from_node": "OHT-SOUTH",
+          "to_node": "BLK-12",
+          "asset_type": "pipe",
+          "diameter_mm": 100,
+          "length_m": 235.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2265,
+              12.9865
+            ],
+            [
+              80.225,
+              12.9852
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-S-03",
+          "from_node": "OHT-SOUTH",
+          "to_node": "BLK-15",
+          "asset_type": "pipe",
+          "diameter_mm": 75,
+          "length_m": 210.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2265,
+              12.9865
+            ],
+            [
+              80.228,
+              12.9868
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-S-04",
+          "from_node": "OHT-SOUTH",
+          "to_node": "BLK-17",
+          "asset_type": "pipe",
+          "diameter_mm": 50,
+          "length_m": 165.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2225,
+              12.9858
+            ],
+            [
+              80.2235,
+              12.9875
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-A-01",
+          "from_node": "OHT-ADMIN",
+          "to_node": "BLK-04",
+          "asset_type": "pipe",
+          "diameter_mm": 75,
+          "length_m": 210.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2225,
+              12.9858
+            ],
+            [
+              80.2241,
+              12.9868
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-A-02",
+          "from_node": "OHT-ADMIN",
+          "to_node": "BLK-05",
+          "asset_type": "pipe",
+          "diameter_mm": 75,
+          "length_m": 205.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2225,
+              12.9858
+            ],
+            [
+              80.2215,
+              12.987
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-A-03",
+          "from_node": "OHT-ADMIN",
+          "to_node": "BLK-10",
+          "asset_type": "pipe",
+          "diameter_mm": 75,
+          "length_m": 170.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2225,
+              12.9858
+            ],
+            [
+              80.221,
+              12.9855
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-A-04",
+          "from_node": "OHT-ADMIN",
+          "to_node": "BLK-13",
+          "asset_type": "pipe",
+          "diameter_mm": 75,
+          "length_m": 170.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2225,
+              12.9858
+            ],
+            [
+              80.223,
+              12.9842
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-A-05",
+          "from_node": "OHT-ADMIN",
+          "to_node": "BLK-14",
+          "asset_type": "pipe",
+          "diameter_mm": 50,
+          "length_m": 185.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2225,
+              12.9858
+            ],
+            [
+              80.2165,
+              12.984
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-A-06",
+          "from_node": "OHT-ADMIN",
+          "to_node": "BLK-18",
+          "asset_type": "pipe",
+          "diameter_mm": 50,
+          "length_m": 690.0
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              80.2225,
+              12.9858
+            ],
+            [
+              80.225,
+              12.983
+            ]
+          ]
+        },
+        "properties": {
+          "id": "PIPE-A-07",
+          "from_node": "OHT-ADMIN",
+          "to_node": "BLK-20",
+          "asset_type": "pipe",
+          "diameter_mm": 75,
+          "length_m": 410.0
+        }
+      }
+    ]
+  },
+  "summary": {
+    "blocks_count": 20,
+    "tanks_count": 4,
+    "borewells_count": 2,
+    "sump_capacity_kl": 500.0,
+    "stp_capacity_kld": 150.0,
+    "pipe_segments_count": 26
+  }
+}

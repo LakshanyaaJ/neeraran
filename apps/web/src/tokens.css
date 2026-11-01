@@ -1,0 +1,75 @@
+/* NEERARAN (நீர்Aran) Design System Tokens
+   Strict Anti-AI Rules: No purple/violet, bare 1.5px stroke icons, sentence case.
+   Night Ops theme operates entirely by swapping token values.
+*/
+
+:root {
+  /* Brand color tokens */
+  --color-sky-50: #EAF3FD;
+  --color-sky-100: #D9E9FB;
+  --color-sky-300: #8FC0EE;
+  --color-sky-500: #3A8FDA;
+  --color-sky-700: #1E5FA8;
+  --color-ink-900: #0F2236;
+  --color-ink-600: #4A5F75;
+  --color-mist: #F2F6FA;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* Semantic status tokens */
+  --color-aqua: #2FB8AA;
+  /* Normal baseline */
+  --color-leaf: #4CBF86;
+  /* Good resilience */
+  --color-amber: #F2A33A;
+  /* Watch / Advisory */
+  --color-coral: #E5594F;
+  /* Leak / Critical anomaly */
+
+  /* Structural UI tokens: Light Theme */
+  --bg-canvas: #F2F6FA;
+  --bg-canvas-gradient: linear-gradient(180deg, #EAF3FD 0%, #F2F6FA 45%, #EAF3FD 100%);
+  --glass-bg: rgba(255, 255, 255, 0.60);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-shadow: 0 8px 30px rgba(30, 95, 168, 0.06);
+  --card-bg: rgba(255, 255, 255, 0.70);
+  --text-primary: #0F2236;
+  --text-secondary: #4A5F75;
+  --nav-bg: rgba(255, 255, 255, 0.65);
+  --nav-active-pill: #FFFFFF;
+  --nav-active-text: #0F2236;
+
+  /* Radius tokens */
+  --radius-card: 22px;
+  --radius-btn: 12px;
+  --radius-pill: 999px;
+
+  /* Elevation & Blur */
+  --blur-glass: 18px;
+  --shadow-glass: 0 8px 32px 0 rgba(30, 95, 168, 0.07);
+  --shadow-glass-hover: 0 12px 40px 0 rgba(30, 95, 168, 0.12);
+  --shadow-hero-card: 0 24px 64px -12px rgba(15, 34, 54, 0.12);
+
+  /* Typography tokens */
+  --font-sans: 'Onest', sans-serif;
+  --font-tamil: 'Anek Tamil', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Night Ops Dark Theme - tokens swapped strictly without adding random palettes */
+.dark {
+  --color-ink-900: #F2F6FA;
+  --color-ink-600: #8FC0EE;
+
+  --bg-canvas: #0B1622;
+  --bg-canvas-gradient: linear-gradient(180deg, #071019 0%, #0B1622 50%, #0D1A27 100%);
+  --glass-bg: rgba(20, 36, 54, 0.60);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --card-bg: rgba(20, 36, 54, 0.65);
+  --text-primary: #F2F6FA;
+  --text-secondary: #8FC0EE;
+  --nav-bg: rgba(20, 36, 54, 0.70);
+  --nav-active-pill: rgba(58, 143, 218, 0.35);
+  --nav-active-text: #FFFFFF;
+}

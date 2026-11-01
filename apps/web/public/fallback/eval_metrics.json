@@ -1,0 +1,99 @@
+{
+  "computed_at": "2026-10-31T07:43:17.495465+00:00",
+  "calculation_time_ms": 5.17,
+  "threshold_z": 2.5,
+  "detection": {
+    "precision": 93.8,
+    "recall": 100.0,
+    "f1_score": 96.8,
+    "fpr_per_100_days": 1.11,
+    "mttd_minutes": 17.0,
+    "baseline_threshold_mttd": 65.0,
+    "confusion_matrix": {
+      "tp": 15,
+      "fp": 1,
+      "fn": 0,
+      "tn": 164
+    }
+  },
+  "localization": {
+    "top1_accuracy_pct": 85.0,
+    "top3_accuracy_pct": 98.0
+  },
+  "forecast_smape": {
+    "demand_24h": {
+      "model": 4.8,
+      "naive": 14.5
+    },
+    "demand_72h": {
+      "model": 6.2,
+      "naive": 18.2
+    },
+    "tank_24h": {
+      "model": 3.5,
+      "naive": 11.2
+    },
+    "tank_72h": {
+      "model": 5.1,
+      "naive": 15.8
+    }
+  },
+  "optimization": {
+    "energy_cost_before_inr": 3850.0,
+    "energy_cost_after_inr": 2720.0,
+    "energy_savings_pct": 29.3,
+    "shortage_hours_before": 4.2,
+    "shortage_hours_after": 0.0,
+    "vulnerable_minimum_compliance_pct": 100.0,
+    "vulnerable_violations_count": 0
+  },
+  "conservation": {
+    "kl_saved_per_day": 103.0,
+    "rupees_saved_per_day": 12360.0,
+    "reserve_hours_gained": 8.5,
+    "estimate_vs_measured_error_pct": 6.8
+  },
+  "groundedness": {
+    "groundedness_pct": 100.0,
+    "rejected_claims_count": 0,
+    "template_fallbacks_count": 2
+  },
+  "fairness": {
+    "supply_equity_index": 0.92,
+    "vulnerable_blocks_protected_count": 5,
+    "vulnerable_unauthorized_restrictions": 0
+  },
+  "system": {
+    "latency_p50_ms": 14.2,
+    "latency_p95_ms": 38.5,
+    "api_error_rate_pct": 0.0,
+    "fallback_snapshot_uses": 0,
+    "cost_per_1000_decisions_inr": 0.42
+  },
+  "adaptability": [
+    {
+      "scenario": "Hostel Nocturnal Rupture",
+      "events_count": 1,
+      "recovery_time_s": 0.065,
+      "status": "verified"
+    },
+    {
+      "scenario": "5-Day Heatwave + Borewell Decline",
+      "events_count": 2,
+      "recovery_time_s": 0.082,
+      "status": "verified"
+    },
+    {
+      "scenario": "Campus Cultural Fest Surge",
+      "events_count": 1,
+      "recovery_time_s": 0.054,
+      "status": "verified"
+    },
+    {
+      "scenario": "Water Quality Alert (Chemical)",
+      "events_count": 1,
+      "recovery_time_s": 0.071,
+      "status": "verified"
+    }
+  ]
+}
